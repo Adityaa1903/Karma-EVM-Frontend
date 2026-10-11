@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { RefreshCw, Wrench, TrendingUp, TrendingDown } from 'lucide-react';
+import { RefreshCw, Wrench, TrendingUp, TrendingDown, Activity, ArrowUpRight } from 'lucide-react';
 import {
   useAccount,
   useWalletClient,
@@ -1783,6 +1783,19 @@ export default function InteractionClient() {
                   </Tooltip>
                 </TooltipProvider>
               </div>
+
+              {poolData.oracle_address && (
+                <div className="mt-2.5">
+                  <Link
+                    href={`/submitPrice?id=${poolData.oracle_address}`}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-violet-100 hover:bg-violet-200 dark:bg-violet-950/60 dark:hover:bg-violet-900/60 text-violet-700 dark:text-violet-300 rounded-full text-xs font-medium transition-colors border border-violet-200 dark:border-violet-800/80"
+                  >
+                    <Activity size={12} className="text-violet-600 dark:text-violet-400" />
+                    <span>Karma Oracle</span>
+                    <ArrowUpRight size={12} />
+                  </Link>
+                </div>
+              )}
             </div>
             <div className="lg:min-w-[300px] mt-1 mr-1">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">

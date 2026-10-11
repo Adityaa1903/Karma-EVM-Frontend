@@ -14,19 +14,19 @@ const Hero = () => {
 
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [poolAddress, setPoolAddress] = useState("");
+  const [oracleAddress, setOracleAddress] = useState("");
   const [mounted, setMounted] = useState(false);
 
-  const isPoolAddressValid = isAddress(poolAddress.trim());
+  const isOracleAddressValid = isAddress(oracleAddress.trim());
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setPoolAddress("");
+    setOracleAddress("");
   };
 
   const handleContinue = () => {
-    if (!isPoolAddressValid) return;
-    router.push(`/pool?id=${poolAddress.trim()}`);
+    if (!isOracleAddressValid) return;
+    router.push(`/submitPrice?id=${oracleAddress.trim()}`);
     closeModal();
   };
 
@@ -132,11 +132,11 @@ const Hero = () => {
           cursor: none !important;
         }
       `}</style>
-      <PoolAddressModal
+      <OracleAddressModal
         open={isModalOpen}
-        value={poolAddress}
-        isValid={isPoolAddressValid}
-        onValueChange={setPoolAddress}
+        value={oracleAddress}
+        isValid={isOracleAddressValid}
+        onValueChange={setOracleAddress}
         onClose={closeModal}
         onSubmit={handleContinue}
       />
@@ -144,7 +144,7 @@ const Hero = () => {
   );
 };
 
-type PoolAddressModalProps = {
+type OracleAddressModalProps = {
   open: boolean;
   value: string;
   isValid: boolean;
@@ -153,14 +153,14 @@ type PoolAddressModalProps = {
   onSubmit: () => void;
 };
 
-const PoolAddressModal = ({
+const OracleAddressModal = ({
   open,
   value,
   isValid,
   onValueChange,
   onClose,
   onSubmit,
-}: PoolAddressModalProps) => {
+}: OracleAddressModalProps) => {
   const panelRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
@@ -220,15 +220,15 @@ const PoolAddressModal = ({
         ref={panelRef}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="pool-address-modal-title"
+        aria-labelledby="oracle-address-modal-title"
         onClick={(e) => e.stopPropagation()}
         className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-xl w-full max-w-sm"
       >
         <h2
-          id="pool-address-modal-title"
+          id="oracle-address-modal-title"
           className="text-xl font-semibold mb-4 text-black dark:text-white"
         >
-          Enter Pool Address
+          Enter Karma Oracle Address
         </h2>
 
         <input
@@ -241,7 +241,7 @@ const PoolAddressModal = ({
           }}
           className="w-full p-2 border rounded-full mb-4 dark:bg-gray-700 dark:text-white outline-none focus:outline-none focus:ring-0"
           placeholder="0x123...abc"
-          aria-label="Pool address"
+          aria-label="Karma oracle address"
         />
 
         <div className="flex justify-end gap-2">
@@ -288,7 +288,7 @@ const HeroContent = ({
         onMouseEnter={() => onHoverChange(true)}
         onMouseLeave={() => onHoverChange(false)}
       >
-        Fate Protocol
+        Karma Protocol
       </Heading>
 
       <p
@@ -296,7 +296,7 @@ const HeroContent = ({
         onMouseEnter={() => onHoverChange(true)}
         onMouseLeave={() => onHoverChange(false)}
       >
-        Decentralized perpetual prediction pools.
+        Permissionless on-chain oracle for prediction pools.
       </p>
 
       <ButtonGroup setIsModalOpen={setIsModalOpen} decorative={decorative} />
@@ -323,14 +323,6 @@ const ButtonGroup = ({ setIsModalOpen, decorative = false }: ButtonGroupProps) =
       }`}
     >
       <Link
-        href="/createPool"
-        className={buttonClass}
-        tabIndex={decorativeTabIndex}
-      >
-        Create Pool
-      </Link>
-
-      <Link
         href="/explorePools"
         className={buttonClass}
         tabIndex={decorativeTabIndex}
@@ -338,12 +330,20 @@ const ButtonGroup = ({ setIsModalOpen, decorative = false }: ButtonGroupProps) =
         Explore Pools
       </Link>
 
+      <Link
+        href="/submitPrice"
+        className={buttonClass}
+        tabIndex={decorativeTabIndex}
+      >
+        Submit Price
+      </Link>
+
       <button
         onClick={() => setIsModalOpen(true)}
         className={buttonClass}
         tabIndex={decorativeTabIndex}
       >
-        Use Pool
+        Use Oracle
       </button>
     </div>
   );

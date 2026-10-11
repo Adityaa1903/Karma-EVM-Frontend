@@ -5,7 +5,7 @@ export const dynamic = 'force-static'
 export const revalidate = false
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://evm.fate.stability.nexus'
+  const baseUrl = 'https://evm.karma.stability.nexus'
   const currentDate = new Date().toISOString().split('T')[0] // YYYY-MM-DD format
   
   return [
@@ -26,6 +26,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/submitPrice`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/portfolio`,

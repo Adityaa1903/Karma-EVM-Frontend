@@ -7,13 +7,14 @@ import {
   Search,
   Plus,
   Wallet,
-  Play,
+  Send,
   User,
   X,
   ChevronDown,
   AlertTriangle,
   Copy,
   LogOut,
+  Activity,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -39,8 +40,8 @@ const ICON_STROKE = 1.75;
 const BottomNavigation: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const [isUsePoolOpen, setIsUsePoolOpen] = useState(false);
-  const [poolAddress, setPoolAddress] = useState("");
+  const [isUseOracleOpen, setIsUseOracleOpen] = useState(false);
+  const [oracleAddress, setOracleAddress] = useState("");
 
   // Wallet state (headless WalletLink hook + wagmi chain switching).
   const { address, isConnected, chain, disconnect } = useWalletLink();
@@ -50,27 +51,28 @@ const BottomNavigation: React.FC = () => {
   const wrongNetwork = isConnected && !chain;
   const shortAddress = address ? `${address.slice(0, 6)}…${address.slice(-4)}` : "";
 
-  const handleUsePoolClick = () => setIsUsePoolOpen(true);
+  const handleUseOracleClick = () => setIsUseOracleOpen(true);
 
-  const handlePoolSubmit = () => {
-    if (!poolAddress.trim()) {
-      toast.error("Please enter a pool address.");
+  const handleOracleSubmit = () => {
+    if (!oracleAddress.trim()) {
+      toast.error("Please enter an oracle address.");
       return;
     }
 
-    if (!isAddress(poolAddress)) {
-      toast.error("Invalid pool address format.");
+    if (!isAddress(oracleAddress)) {
+      toast.error("Invalid oracle address format.");
       return;
     }
 
-    router.push(`/pool?id=${poolAddress}`);
-    setIsUsePoolOpen(false);
-    setPoolAddress("");
+    router.push(`/submitPrice?id=${oracleAddress.trim()}`);
+    setIsUseOracleOpen(false);
+    setOracleAddress("");
   };
 
   const navItems = [
     { href: "/explorePools", icon: Search, label: "Explore", isActive: pathname.startsWith("/explorePools") },
     { href: "/createPool", icon: Plus, label: "Create", isActive: pathname.startsWith("/createPool") },
+    { href: "/submitPrice", icon: Send, label: "Submit", isActive: pathname.startsWith("/submitPrice") },
     { href: "/portfolio", icon: User, label: "Portfolio", isActive: pathname.startsWith("/portfolio") },
   ];
 
@@ -88,15 +90,15 @@ const BottomNavigation: React.FC = () => {
     </Link>
   );
 
-  // "Use" Button
-  const UseButton = () => (
+  // "Oracle" Button
+  const OracleButton = () => (
     <button
-      onClick={handleUsePoolClick}
+      onClick={handleUseOracleClick}
       className="relative flex flex-col items-center justify-center py-3.5 flex-1 transition-colors"
     >
-      <Play size={ICON_SIZE} strokeWidth={ICON_STROKE} className={cn("transition-colors", INACTIVE_ICON)} />
+      <Activity size={ICON_SIZE} strokeWidth={ICON_STROKE} className={cn("transition-colors", INACTIVE_ICON)} />
       <span className={cn("text-[11px] mt-1 transition-colors", INACTIVE_LABEL)}>
-        Use
+        Oracle
       </span>
     </button>
   );
@@ -211,11 +213,11 @@ const BottomNavigation: React.FC = () => {
             </div>
           </div>
 
-          {/* Portfolio · Use */}
+          {/* Submit · Portfolio · Oracle */}
           {navItems.slice(2).map((item) => (
             <NavTile key={item.href} {...item} />
           ))}
-          <UseButton />
+          <OracleButton />
 
         </div>
       </div>
@@ -223,14 +225,14 @@ const BottomNavigation: React.FC = () => {
       {/* Wallet picker */}
       <WalletLinkModal open={walletModalOpen} onOpenChange={setWalletModalOpen} />
 
-      {/* Use Pool modal */}
-      {isUsePoolOpen && (
+      {/* Use Oracle modal */}
+      {isUseOracleOpen && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-zinc-900 rounded-2xl p-6 w-full max-w-md shadow-2xl">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-white">Use Pool</h3>
+              <h3 className="text-lg font-semibold text-white">Use Oracle</h3>
               <button
-                onClick={() => setIsUsePoolOpen(false)}
+                onClick={() => setIsUseOracleOpen(false)}
                 className="p-2 hover:bg-zinc-800 rounded-full transition-colors"
               >
                 <X size={18} className="text-white" />
@@ -240,29 +242,29 @@ const BottomNavigation: React.FC = () => {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Pool Address
+                  Karma Oracle Address
                 </label>
                 <input
                   type="text"
-                  value={poolAddress}
-                  onChange={(e) => setPoolAddress(e.target.value)}
+                  value={oracleAddress}
+                  onChange={(e) => setOracleAddress(e.target.value)}
                   placeholder="0x..."
-                  className="w-full px-4 py-3 border border-zinc-700 rounded-xl bg-zinc-800 text-white placeholder-gray-500 focus:ring-2 focus:ring-yellow-500 focus:border-transparent outline-none transition-colors"
+                  className="w-full px-4 py-3 border border-zinc-700 rounded-xl bg-zinc-800 text-white placeholder-gray-500 focus:ring-2 focus:ring-violet-500 focus:border-transparent outline-none transition-colors"
                 />
               </div>
 
               <div className="flex gap-3">
                 <button
-                  onClick={() => setIsUsePoolOpen(false)}
+                  onClick={() => setIsUseOracleOpen(false)}
                   className="flex-1 px-4 py-3 text-gray-300 bg-zinc-800 rounded-xl hover:bg-zinc-700 transition-colors text-sm font-medium"
                 >
                   Cancel
                 </button>
                 <button
-                  onClick={handlePoolSubmit}
-                  className="flex-1 px-4 py-3 bg-yellow-500 hover:bg-yellow-400 text-black rounded-xl transition-colors text-sm font-semibold"
+                  onClick={handleOracleSubmit}
+                  className="flex-1 px-4 py-3 bg-violet-600 hover:bg-violet-500 text-white rounded-xl transition-colors text-sm font-semibold"
                 >
-                  Go to Pool
+                  Go to Oracle
                 </button>
               </div>
             </div>

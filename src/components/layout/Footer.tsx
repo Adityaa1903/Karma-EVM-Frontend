@@ -117,7 +117,7 @@ export default function Footer({ className = "", onTermsClick }: FooterProps) {
             >
               <Image
                 src="/logo-animated.gif"
-                alt="Fate Protocol"
+                alt="Karma Protocol"
                 width={80}
                 height={80}
                 className="p-2"

@@ -32,6 +32,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
   const navItems = [
     { name: "Explore", href: "/explorePools" },
     { name: "Create", href: "/createPool" },
+    { name: "Submit Price", href: "/submitPrice" },
     { name: "Portfolio", href: "/portfolio" },
   ];
 
@@ -45,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
               <div className="text-center">
                 <Image
                   src={logo}
-                  alt="Fate Protocol"
+                  alt="Karma Protocol"
                   width={80}
                   height={83}
                   className="p-2"

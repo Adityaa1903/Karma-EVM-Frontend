@@ -1,8 +1,8 @@
 "use client";
 import { CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import {
-  CircleDollarSign,
-  Infinity as InfinityIcon,
+  Compass,
+  ShieldCheck,
   Scale,
 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -15,22 +15,22 @@ export default function AboutSection() {
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 2 }}
         >
-          <CircleDollarSign className="h-12 w-12 text-black dark:text-white" />
+          <Compass className="h-12 w-12 text-black dark:text-white" />
         </motion.div>
       ),
-      title: "Pool Approach",
+      title: "Community Consensus",
       description:
-        "Hedge against risks with perpetual prediction pools — efficient, scalable, and seamless.",
+        "Price discovery powered by community wisdom. Submit observations and let neutrality-weighted consensus determine the oracle price.",
     },
     {
       icon: (
         <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 4 }}>
-          <InfinityIcon className="h-12 w-12 text-black dark:text-white" />
+          <ShieldCheck className="h-12 w-12 text-black dark:text-white" />
         </motion.div>
       ),
-      title: "Continuous Operation",
+      title: "Sybil Resistant",
       description:
-        "The future doesn’t pause. Our markets operate endlessly, adapting to every pulse of change.",
+        "Your influence scales with your economic neutrality — balanced bull/bear holdings give maximum weight. No one can dominate the oracle.",
     },
     {
       icon: (
@@ -38,9 +38,9 @@ export default function AboutSection() {
           <Scale className="h-12 w-12 text-black dark:text-white" />
         </motion.div>
       ),
-      title: "Fairness & Transparency",
+      title: "Fully On-Chain",
       description:
-        "Immutable smart contracts ensure trust, fairness, and secure outcomes — powered by code, not bias.",
+        "Permissionless and immutable. Every submission, weight calculation, and price average is verifiable on-chain — no off-chain dependencies.",
     },
   ];
 
@@ -54,7 +54,7 @@ export default function AboutSection() {
 
       <div className="container mx-auto px-10">
         <h2 className="text-2xl md:text-4xl font-bold text-center mb-12 text-black dark:text-white tracking-widest">
-          Redefining Prediction Markets
+          Redefining Oracle Consensus
         </h2>
 
         <div className="grid grid-cols-1 text-center md:text-left md:grid-cols-3 gap-8">
@@ -80,8 +80,8 @@ export default function AboutSection() {
         {/* Meaningful Outro Statement */}
         <div className="mt-20 text-center text-black dark:text-white text-md md:text-lg">
           <p>
-            *In a world of uncertainty, we provide clarity — empowering you to
-            predict, protect, and prosper.*
+            *In a world of manipulation, Karma brings truth — empowering communities to
+            discover fair prices through collective neutrality.*
           </p>
         </div>
 
@@ -92,18 +92,18 @@ export default function AboutSection() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
-              name: "Fate Protocol",
+              name: "Karma Protocol",
               applicationCategory: "FinanceApplication",
               description:
-                "Fate Protocol is a decentralized finance (DeFi) platform that enables users to trade prediction markets through perpetual prediction pools. Users can buy bullCoins to bet on price increases or bearCoins to bet on price decreases, creating a dynamic hedging mechanism against price volatility risks.",
+                "Karma Protocol is a permissionless on-chain oracle for Fate prediction pools. Participants submit price observations weighted by the economic neutrality of their bull/bear holdings. Equal economic exposure gives maximum weight; one-sided holdings give zero weight. Older submissions decay exponentially so the oracle tracks fresh consensus.",
               featureList: [
-                "Decentralized prediction markets on multiple blockchain networks",
-                "Perpetual prediction pools with continuous operation",
-                "Bull and Bear coin trading for price movement prediction",
-                "Real-time price feeds powered by Chainlink oracles",
-                "Automated market making for efficient trading",
-                "Transparent smart contracts ensuring fairness and security",
-                "DeFi trading platform for cryptocurrency price prediction",
+                "Permissionless on-chain price oracle",
+                "Neutrality-weighted price submissions",
+                "Time-decayed exponential averaging",
+                "Chainlink-compatible price feed interface",
+                "Integration with Fate prediction pools",
+                "Sybil-resistant by economic design",
+                "Community-driven decentralized price discovery",
               ],
               operatingSystem: "Web Browser",
               offers: {
@@ -111,7 +111,7 @@ export default function AboutSection() {
                 price: "0",
                 priceCurrency: "USD",
               },
-              url: "https://evm.fate.stability.nexus",
+              url: "https://evm.karma.stability.nexus",
             }),
           }}
         />
