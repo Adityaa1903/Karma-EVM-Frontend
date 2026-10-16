@@ -59,8 +59,8 @@ export artifacts.
   component libraries.
 - Log through `src/lib/logger.ts` and handle errors through
   `src/lib/errorHandler.ts`. Do not use raw `console.*`.
-- Access IndexedDB through the `useIndexedDB` hook. `src/lib/fatePoolHook.ts` is
-  a legacy compatibility wrapper; do not build on it. Schema changes require
+- Access IndexedDB through the `useIndexedDB` hook. `src/lib/karmaPoolHook.ts` is
+  the storage hook for pool state. Schema changes require
   bumping `DATABASE_CONFIG.version` in `src/lib/indexeddb/config.ts`.
 
 ## Boundaries

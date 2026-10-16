@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ClientProviders } from "@/components/layout/Layout";
 import Navbar from "@/components/layout/Navbar";
@@ -7,13 +7,13 @@ import FooterWrapper from "@/components/layout/FooterWrapper";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | Karma Protocol",
   },
   description:
-    "Karma Protocol — a permissionless on-chain oracle for Fate prediction pools. Submit price observations weighted by your bull/bear neutrality. Decentralized consensus pricing powered by community wisdom.",
+    "Karma Protocol — a permissionless on-chain oracle for prediction pools. Submit price observations weighted by your bull/bear neutrality. Decentralized consensus pricing powered by community wisdom.",
   keywords: [
     "DeFi",
     "prediction markets", 
@@ -36,7 +36,6 @@ export const metadata: Metadata = {
     "cryptocurrency trading",
     "perpetual pools",
     "community oracle",
-    "Fate Protocol",
     "Ethereum",
     "Polygon",
     "BSC",
@@ -53,7 +52,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://evm.karma.stability.nexus"),
   openGraph: {
     title: "Karma Protocol | Decentralized Oracle for Prediction Markets",
-    description: "Submit price observations to Karma — the permissionless on-chain oracle for Fate prediction pools. Your influence is weighted by your bull/bear neutrality.",
+    description: "Submit price observations to Karma — the permissionless on-chain oracle for prediction pools. Your influence is weighted by your bull/bear neutrality.",
     url: "https://evm.karma.stability.nexus",
     siteName: "Karma Protocol",
     images: [
@@ -70,7 +69,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Karma Protocol | Decentralized Oracle for Prediction Markets",
-    description: "Submit price observations to Karma — the permissionless on-chain oracle for Fate prediction pools.",
+    description: "Submit price observations to Karma — the permissionless on-chain oracle for prediction pools.",
     images: ["https://evm.karma.stability.nexus/og-image.png"],
     creator: "@StabilityNexus",
   },
@@ -121,7 +120,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebApplication",
               "name": "Karma Protocol",
-              "description": "Permissionless on-chain oracle for Fate prediction pools. Submit price observations weighted by bull/bear neutrality for decentralized consensus pricing.",
+              "description": "Permissionless on-chain oracle for prediction pools. Submit price observations weighted by bull/bear neutrality for decentralized consensus pricing.",
               "url": "https://evm.karma.stability.nexus",
               "applicationCategory": "FinanceApplication",
               "operatingSystem": "Web Browser",
@@ -140,7 +139,7 @@ export default function RootLayout({
                 "Price observation submission",
                 "Neutrality-weighted consensus",
                 "Chainlink-compatible price feed",
-                "Integration with Fate prediction pools",
+                "Integration with prediction pools",
                 "Time-decayed price averaging",
                 "Community-driven price discovery"
               ],
@@ -154,14 +153,14 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#000000" />
+        <meta name="theme-color" content="#d97706" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${plusJakartaSans.variable} ${jetbrainsMono.variable} antialiased`}>
         <ErrorBoundary>
           <ClientProviders>
           {/* Absolute positioned navbar to avoid affecting hero positioning */}
-          <Navbar className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md" />
+          <Navbar className="fixed top-0 left-0 right-0 z-50 bg-[#fcfaf6]/80 dark:bg-[#090c14]/80 backdrop-blur-md border-b border-stone-200/40 dark:border-amber-900/20" />
           
           <main>
             <ErrorBoundary>

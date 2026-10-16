@@ -31,7 +31,7 @@ const StepIndicator = ({
               {index > 0 && (
                 <div
                   className={`h-1 mb-8 md:mb-10 flex-1 mx-2 md:mx-4 transition-all ${
-                    isCompletedStep ? "bg-green-500" : "bg-gray-200 dark:bg-gray-700"
+                    isCompletedStep ? "bg-emerald-600 dark:bg-emerald-500" : "bg-stone-200 dark:bg-stone-800"
                   }`}
                 />
               )}
@@ -40,26 +40,26 @@ const StepIndicator = ({
                 <div
                   className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center border-2 transition-all ${
                     isCompletedStep
-                      ? "bg-green-500 border-green-500 text-white"
+                      ? "bg-emerald-600 border-emerald-600 text-white"
                       : isCurrentStep
-                      ? "bg-black dark:bg-white border-black dark:border-white text-white dark:text-black"
-                      : "bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-500"
+                      ? "bg-amber-600 dark:bg-amber-500 border-amber-600 dark:border-amber-500 text-white dark:text-stone-950 shadow-md shadow-amber-600/20"
+                      : "bg-stone-100 dark:bg-stone-800/80 border-stone-300 dark:border-stone-700 text-stone-400 dark:text-stone-500"
                   }`}
                 >
                   {isCompletedStep ? (
                     <Check className="w-4 h-4 md:w-5 md:h-5" />
                   ) : (
-                    <span className="text-xs md:text-sm font-medium">{step}</span>
+                    <span className="text-xs md:text-sm font-semibold">{step}</span>
                   )}
                 </div>
                 {/* Title */}
                 <div
                   className={`text-xs md:text-sm text-center font-medium mt-2 md:mt-3 whitespace-nowrap transition-all ${
                     isCurrentStep
-                      ? "text-black dark:text-white"
+                      ? "text-amber-700 dark:text-amber-400 font-bold"
                       : isCompletedStep
-                      ? "text-green-600"
-                      : "text-gray-500"
+                      ? "text-emerald-700 dark:text-emerald-400"
+                      : "text-stone-400 dark:text-stone-500"
                   }`}
                 >
                   {title}

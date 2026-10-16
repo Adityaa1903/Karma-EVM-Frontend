@@ -1,6 +1,5 @@
-// src/lib/fatePoolHook.ts
-// Legacy wrapper for backward compatibility with existing components
-
+// src/lib/karmaPoolHook.ts
+// Karma Protocol storage hook
 "use client";
 
 import { useCallback, useMemo } from 'react';
@@ -16,8 +15,7 @@ import type {
 } from '@/lib/indexeddb/config';
 import { SUPPORTED_CHAIN_IDS } from '@/lib/indexeddb/config';
 
-// Legacy interface for backward compatibility
-export interface UseFatePoolsStorageReturn {
+export interface UseKarmaPoolsStorageReturn {
   // Database state
   isInitialized: boolean;
   error: string | null;
@@ -71,11 +69,9 @@ export interface UseFatePoolsStorageReturn {
   }>;
 }
 
-export const useFatePoolsStorage = (): UseFatePoolsStorageReturn => {
-  // Use the new centralized IndexedDB hook
+export const useKarmaPoolsStorage = (): UseKarmaPoolsStorageReturn => {
   const indexedDB = useIndexedDB();
 
-  // Legacy wrapper functions to maintain backward compatibility
   const savePortfolioPosition = useCallback(async (position: Omit<PortfolioPosition, 'id'>) => {
     const positionWithId: Omit<PortfolioPosition, 'lastUpdated'> = {
       ...position,
@@ -110,18 +106,16 @@ export const useFatePoolsStorage = (): UseFatePoolsStorageReturn => {
 
   const clearPortfolioData = useCallback(async (userAddress: string, chainId?: SupportedChainId) => {
     if (chainId) {
-      // Clear specific user's data for specific chain
       await indexedDB.deletePortfolioCache(userAddress, chainId);
       await indexedDB.deletePortfolioPositions(userAddress, chainId);
       await indexedDB.deletePortfolioTransactions(userAddress, chainId);
     } else {
-      // Clear all portfolio data for user across all supported chains
       await Promise.all(
-        SUPPORTED_CHAIN_IDS.map(async (chainId) => {
+        SUPPORTED_CHAIN_IDS.map(async (cId) => {
           await Promise.all([
-            indexedDB.deletePortfolioCache(userAddress, chainId),
-            indexedDB.deletePortfolioPositions(userAddress, chainId),
-            indexedDB.deletePortfolioTransactions(userAddress, chainId)
+            indexedDB.deletePortfolioCache(userAddress, cId),
+            indexedDB.deletePortfolioPositions(userAddress, cId),
+            indexedDB.deletePortfolioTransactions(userAddress, cId)
           ]);
         })
       );
@@ -135,18 +129,16 @@ export const useFatePoolsStorage = (): UseFatePoolsStorageReturn => {
       version: info.version,
       stores: info.objectStoreNames,
       isConnected: await indexedDB.isHealthy(),
-      totalPools: 0, // Will be calculated if needed
-      totalTokens: 0 // Will be calculated if needed
+      totalPools: 0,
+      totalTokens: 0
     };
   }, [indexedDB]);
 
   return useMemo(() => ({
-    // Database state
     isInitialized: indexedDB.isInitialized,
     error: indexedDB.error,
     isOnline: indexedDB.isOnline,
     
-    // Pool operations
     savePoolDetails: indexedDB.savePoolDetails,
     getPoolDetails: indexedDB.getPoolDetails,
     getAllPoolsForChain: indexedDB.getAllPoolsForChain,
@@ -154,27 +146,22 @@ export const useFatePoolsStorage = (): UseFatePoolsStorageReturn => {
     getPoolsByCreator: indexedDB.getPoolsByCreator,
     batchSavePools: indexedDB.batchSavePools,
     
-    // Token operations
     saveTokenDetails: indexedDB.saveTokenDetails,
     getTokenDetails: indexedDB.getTokenDetails,
     getTokensForPool: indexedDB.getTokensForPool,
     batchSaveTokens: indexedDB.batchSaveTokens,
     
-    // Chain status operations
     saveChainStatus: indexedDB.saveChainStatus,
     getChainStatus: indexedDB.getChainStatus,
     getAllChainStatuses: indexedDB.getAllChainStatuses,
     
-    // Cache operations
     saveCache: indexedDB.saveCache,
     getCache: indexedDB.getCache,
     deleteCache: indexedDB.deleteCache,
     
-    // Cleanup operations
     cleanupExpiredCache: indexedDB.cleanupExpiredCache,
     clearAllData: indexedDB.clearAllData,
     
-    // Portfolio operations (with legacy compatibility)
     savePortfolioPosition,
     getPortfolioPositions,
     savePortfolioTransaction,
@@ -183,7 +170,6 @@ export const useFatePoolsStorage = (): UseFatePoolsStorageReturn => {
     getPortfolioCache,
     clearPortfolioData,
     
-    // Database info (with legacy format)
     getDatabaseInfo
   }), [
     indexedDB,
@@ -191,3 +177,8 @@ export const useFatePoolsStorage = (): UseFatePoolsStorageReturn => {
     savePortfolioCache, getPortfolioCache, clearPortfolioData, getDatabaseInfo
   ]);
 };
+
+// Aliases for compatibility
+export type UseFatePoolsStorageReturn = UseKarmaPoolsStorageReturn;
+export const useFatePoolsStorage = useKarmaPoolsStorage;
+export default useKarmaPoolsStorage;

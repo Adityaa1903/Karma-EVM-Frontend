@@ -23,7 +23,7 @@ import { logger } from "@/lib/logger";
 import { useIndexedDB } from "@/hooks/useIndexedDB";
 
 const SECTION_CARD_CLASS =
-  "border-black dark:border-neutral-700/60 dark:bg-gradient-to-br dark:from-neutral-800/50 dark:to-neutral-900/50 backdrop-blur-sm shadow-xl";
+  "border-stone-200/80 dark:border-amber-900/25 bg-white/80 dark:bg-[#151823]/80 backdrop-blur-sm shadow-xl rounded-2xl";
 
 const STORE_LABELS: Record<string, string> = {
   portfolioPositions: "Positions",
@@ -125,24 +125,24 @@ export default function SettingsPage() {
     pending !== null && !!address && !unknownWallet && foreignWallets.length === 0;
 
   return (
-    <div className="pt-28 min-h-screen transition-colors duration-500 bg-gradient-to-b from-gray-100 to-gray-200 dark:from-[#1a1b1f] dark:to-[#1a1b1f]">
+    <div className="pt-28 min-h-screen transition-colors duration-500 bg-transparent">
       <div className="max-w-4xl mx-auto px-4 py-12 space-y-8">
         <div>
-          <h1 className="text-3xl md:text-5xl font-black text-black dark:text-white tracking-tight mb-3">
+          <h1 className="text-3xl md:text-5xl font-black text-stone-900 dark:text-stone-100 tracking-tight mb-3">
             Settings
           </h1>
-          <p className="text-lg md:text-xl font-medium text-gray-500 dark:text-gray-400 max-w-2xl">
-            Fate keeps your portfolio history in this browser, not on a server. It does not follow
+          <p className="text-lg md:text-xl font-medium text-stone-500 dark:text-stone-400 max-w-2xl">
+            Karma keeps your portfolio history in this browser, not on a server. It does not follow
             you to another device, and clearing site data erases it.
           </p>
         </div>
 
         <Card className={SECTION_CARD_CLASS}>
           <CardHeader>
-            <CardTitle className="text-xl text-neutral-900 dark:text-neutral-100">
+            <CardTitle className="text-xl text-stone-900 dark:text-stone-100">
               Backup and restore
             </CardTitle>
-            <CardDescription className="text-neutral-600 dark:text-neutral-400">
+            <CardDescription className="text-stone-600 dark:text-stone-400">
               Export your positions, trade history and portfolio cache to a JSON file you keep.
               Pool and token data is left out, since it is re-read from the chain anyway.
             </CardDescription>
@@ -153,7 +153,7 @@ export default function SettingsPage() {
               <Button
                 onClick={handleExport}
                 disabled={isExporting || isClearing}
-                className="bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black"
+                className="bg-amber-600 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-stone-950 font-semibold shadow-md shadow-amber-600/20"
               >
                 {isExporting ? (
                   <Loader2 className="h-4 w-4 mr-2 motion-safe:animate-spin" />
@@ -255,7 +255,7 @@ export default function SettingsPage() {
                     <Button
                       onClick={handleRestore}
                       disabled={!canRestore || isRestoring || isClearing}
-                      className="bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black"
+                      className="bg-amber-600 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-stone-950 font-semibold shadow-md shadow-amber-600/20"
                     >
                       {isRestoring && <Loader2 className="h-4 w-4 mr-2 motion-safe:animate-spin" />}
                       {isRestoring ? "Restoring..." : "Restore this backup"}
@@ -264,7 +264,7 @@ export default function SettingsPage() {
                       onClick={() => setPending(null)}
                       variant="outline"
                       disabled={isRestoring}
-                      className="border-neutral-300 dark:border-neutral-600"
+                      className="border-stone-300 dark:border-stone-700"
                     >
                       Cancel
                     </Button>
@@ -276,11 +276,11 @@ export default function SettingsPage() {
 
         <Card className={SECTION_CARD_CLASS}>
           <CardHeader>
-            <CardTitle className="text-xl text-neutral-900 dark:text-neutral-100">
+            <CardTitle className="text-xl text-stone-900 dark:text-stone-100">
               Local cache
             </CardTitle>
-            <CardDescription className="text-neutral-600 dark:text-neutral-400">
-              Fate caches pools, tokens and your portfolio history in this browser. Clearing it
+            <CardDescription className="text-stone-600 dark:text-stone-400">
+              Karma caches pools, tokens and your portfolio history in this browser. Clearing it
               rebuilds everything from the chain on your next visit, so export first if you want to
               keep your trade history.
             </CardDescription>
@@ -291,7 +291,7 @@ export default function SettingsPage() {
                 onClick={() => setConfirmClear(true)}
                 variant="outline"
                 disabled={!isCacheReady || isRestoring || isReading || isExporting}
-                className="border-neutral-300 dark:border-neutral-600 hover:bg-red-50 dark:hover:bg-red-950/30"
+                className="border-stone-300 dark:border-stone-700 hover:bg-red-50 dark:hover:bg-red-950/30 text-stone-700 dark:text-stone-300"
               >
                 <Trash2 className="h-4 w-4 mr-2" />
                 Clear local cache
@@ -300,13 +300,13 @@ export default function SettingsPage() {
               <div className="space-y-3">
                 <div className="flex items-start gap-2 text-sm text-amber-700 dark:text-amber-300">
                   <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" />
-                  <p>Clear everything Fate has cached in this browser?</p>
+                  <p>Clear everything Karma has cached in this browser?</p>
                 </div>
                 <div className="flex gap-3">
                   <Button
                     onClick={handleClearCache}
                     disabled={isClearing || isExporting || isReading || isRestoring}
-                    className="bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black"
+                    className="bg-red-600 hover:bg-red-700 text-white font-semibold shadow-md shadow-red-600/20"
                   >
                     {isClearing && <Loader2 className="h-4 w-4 mr-2 motion-safe:animate-spin" />}
                     {isClearing ? "Clearing..." : "Clear"}
@@ -315,7 +315,7 @@ export default function SettingsPage() {
                     onClick={() => setConfirmClear(false)}
                     variant="outline"
                     disabled={isClearing}
-                    className="border-neutral-300 dark:border-neutral-600"
+                    className="border-stone-300 dark:border-stone-700"
                   >
                     Cancel
                   </Button>

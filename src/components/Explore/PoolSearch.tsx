@@ -40,7 +40,7 @@ interface PoolSearchProps {
 
 // Matches the ViewToggle palette (bg-gray-100/dark:bg-gray-800) for a consistent control row.
 const triggerClass =
-  "flex items-center gap-2 px-3 py-3 rounded-2xl text-sm font-medium bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 hover:text-gray-900 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200";
+  "flex items-center gap-2 px-3 py-3 rounded-2xl text-sm font-medium bg-stone-100 text-stone-600 transition-colors hover:bg-stone-200 hover:text-stone-900 dark:bg-stone-800/40 dark:text-stone-400 dark:hover:bg-stone-700/40 dark:hover:text-stone-200";
 
 const PoolSearch: React.FC<PoolSearchProps> = ({
   searchQuery,
@@ -107,7 +107,7 @@ const PoolSearch: React.FC<PoolSearchProps> = ({
           placeholder="Search pools by name, token symbol, price feed, or chain..."
           value={searchQuery}
           onChange={onSearchChange}
-          className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-2xl dark:bg-[#10151c] dark:text-white dark:border-gray-600 transition-colors"
+          className="w-full pl-10 pr-10 py-3 border border-stone-300 rounded-2xl dark:bg-[#141722] dark:text-stone-100 dark:border-stone-700/40 transition-colors focus:ring-1 focus:ring-amber-500/40 focus:border-amber-500/40"
         />
         {searchQuery && (
           <button
@@ -157,7 +157,7 @@ const PoolSearch: React.FC<PoolSearchProps> = ({
             <SlidersHorizontal size={16} />
             <span className="hidden sm:inline">Filter</span>
             {activeFilterCount > 0 && (
-              <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-blue-600 px-1.5 text-xs font-semibold text-white">
+              <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-600 px-1.5 text-xs font-semibold text-white">
                 {activeFilterCount}
               </span>
             )}
@@ -196,7 +196,7 @@ const PoolSearch: React.FC<PoolSearchProps> = ({
               <DropdownMenuItem
                 onSelect={applyFilters}
                 disabled={!stagedDirty}
-                className="flex-1 justify-center gap-1.5 rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-500 focus:bg-blue-500 dark:focus:bg-blue-500"
+                className="flex-1 justify-center gap-1.5 rounded-lg bg-amber-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-amber-500 focus:bg-amber-500 dark:focus:bg-amber-500"
               >
                 <Check size={14} />
                 Apply

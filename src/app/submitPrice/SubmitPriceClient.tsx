@@ -480,39 +480,39 @@ export default function SubmitPriceClient() {
   }, [bullBalance, bearBalance]);
 
   return (
-    <div className="min-h-screen pt-24 pb-32 px-4 sm:px-6 lg:px-8 bg-[#fafafa] dark:bg-[#09090b] transition-colors">
+    <div className="min-h-screen pt-24 pb-32 px-4 sm:px-6 lg:px-8 bg-transparent transition-colors">
       <div className="max-w-4xl mx-auto space-y-8">
 
         {/* ── Page Header ── */}
         <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-violet-100 dark:bg-violet-950/60 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800/80">
-            <Scale size={14} className="text-violet-600 dark:text-violet-400" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 dark:bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/25">
+            <Scale size={14} className="text-amber-600 dark:text-amber-400" />
             <span>Self-Sovereign Decentralized Consensus</span>
           </div>
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 font-sans">
+          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-stone-900 dark:text-stone-100 font-sans">
             Karma Oracle
           </h1>
-          <p className="max-w-2xl mx-auto text-zinc-600 dark:text-zinc-400 text-sm md:text-base leading-relaxed">
+          <p className="max-w-2xl mx-auto text-stone-600 dark:text-stone-400 text-sm md:text-base leading-relaxed">
             Submit price observations to the internal on-chain oracle. Your influence is mathematically weighted by the economic neutrality of your Bull and Bear holdings.
           </p>
         </div>
 
         {/* ── Lookup Mode Selector Card ── */}
-        <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 shadow-sm space-y-5">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-4">
+        <div className="bg-white dark:bg-[#151823] border border-stone-200/80 dark:border-amber-900/25 rounded-2xl p-6 shadow-sm space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-100 dark:border-amber-900/20 pb-4">
             <div className="flex items-center gap-2">
-              <Search size={18} className="text-violet-500" />
-              <span className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">
+              <Search size={18} className="text-amber-600 dark:text-amber-400" />
+              <span className="text-sm font-semibold text-stone-800 dark:text-stone-200">
                 Select Oracle or Prediction Pool
               </span>
             </div>
-            <div className="flex bg-zinc-100 dark:bg-zinc-800 p-1 rounded-xl text-xs font-medium">
+            <div className="flex bg-stone-100 dark:bg-[#1a1d28] p-1 rounded-xl text-xs font-medium">
               <button
                 onClick={() => setLookupMode('oracle')}
                 className={`px-3 py-1.5 rounded-lg transition-all ${
                   lookupMode === 'oracle'
-                    ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-xs font-semibold'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900'
+                    ? 'bg-amber-600 dark:bg-amber-500 text-white dark:text-stone-950 shadow-xs font-bold'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
                 }`}
               >
                 Oracle Address
@@ -521,11 +521,11 @@ export default function SubmitPriceClient() {
                 onClick={() => setLookupMode('pool')}
                 className={`px-3 py-1.5 rounded-lg transition-all ${
                   lookupMode === 'pool'
-                    ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-xs font-semibold'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900'
+                    ? 'bg-amber-600 dark:bg-amber-500 text-white dark:text-stone-950 shadow-xs font-bold'
+                    : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200'
                 }`}
               >
-                Fate Prediction Pool
+                Prediction Pool
               </button>
             </div>
           </div>
@@ -564,7 +564,7 @@ export default function SubmitPriceClient() {
           ) : (
             <div className="space-y-3">
               <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                Fate Prediction Pool Address
+                Prediction Pool Address
               </label>
               <div className="flex gap-2.5">
                 <Input
@@ -574,7 +574,7 @@ export default function SubmitPriceClient() {
                     const val = e.target.value;
                     setPoolAddressInput(val);
                   }}
-                  placeholder="0x... (Fate PredictionPool address)"
+                  placeholder="0x... (Karma PredictionPool address)"
                   className="flex-1 font-mono text-sm rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700 focus-visible:ring-violet-500"
                 />
                 <Button
@@ -633,11 +633,11 @@ export default function SubmitPriceClient() {
 
         {/* ── Deploy Drawer Card (when deploying Karma instance) ── */}
         {showDeployDrawer && (
-          <div className="bg-white dark:bg-zinc-900 border-2 border-violet-300 dark:border-violet-700 rounded-2xl p-6 space-y-5 shadow-md">
+          <div className="bg-white dark:bg-[#151823] border border-amber-300 dark:border-amber-700/60 rounded-2xl p-6 space-y-5 shadow-lg">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Sparkles size={18} className="text-violet-500" />
-                <h3 className="text-base font-bold text-zinc-900 dark:text-white">
+                <Sparkles size={18} className="text-amber-500" />
+                <h3 className="text-base font-bold text-stone-900 dark:text-stone-100">
                   Deploy New Karma Oracle for Pool
                 </h3>
               </div>
@@ -753,29 +753,29 @@ export default function SubmitPriceClient() {
             </div>
 
             {/* Prominent Price Banner */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-linear-to-br from-violet-50/60 to-purple-50/20 dark:from-violet-950/20 dark:to-zinc-900 border border-violet-100 dark:border-violet-900/60 rounded-2xl p-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-gradient-to-br from-amber-50/80 via-orange-50/20 to-amber-100/30 dark:from-amber-950/20 dark:via-[#1a1d28] dark:to-[#151823] border border-amber-200/80 dark:border-amber-900/40 rounded-2xl p-5 shadow-sm">
               <div className="space-y-1 md:col-span-1">
-                <span className="text-xs font-semibold uppercase tracking-wider text-violet-700 dark:text-violet-400 flex items-center gap-1.5">
+                <span className="text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
                   <Activity size={14} />
                   Consensus Value
                 </span>
-                <div className="text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-white font-mono">
+                <div className="text-2xl md:text-3xl font-extrabold text-stone-900 dark:text-stone-100 font-mono">
                   {hasPrice ? `${fmt(currentValue)}` : 'No price yet'}
                 </div>
-                <div className="text-xs text-zinc-500 dark:text-zinc-400">
+                <div className="text-xs text-stone-500 dark:text-stone-400">
                   {hasPrice ? 'Decay-averaged from on-chain submissions' : 'Awaiting initial observations'}
                 </div>
               </div>
 
               <div className="space-y-1">
-                <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
+                <span className="text-xs font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-400 flex items-center gap-1.5">
                   <Clock size={14} />
                   Last Updated
                 </span>
-                <div className="text-base font-semibold text-zinc-800 dark:text-zinc-200">
+                <div className="text-base font-semibold text-stone-800 dark:text-stone-200">
                   {fmtTimestamp(lastUpdatedTs)}
                 </div>
-                <div className="text-xs text-violet-600 dark:text-violet-400 font-medium">
+                <div className="text-xs text-amber-700 dark:text-amber-400 font-medium">
                   {timeAgo(lastUpdatedTs)}
                 </div>
               </div>
@@ -906,14 +906,14 @@ export default function SubmitPriceClient() {
                     </div>
                   </div>
 
-                  <div className="bg-violet-50/70 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800/80 rounded-xl p-4">
-                    <span className="text-[11px] font-semibold text-violet-700 dark:text-violet-300 uppercase tracking-wider flex items-center gap-1">
+                  <div className="bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/80 rounded-xl p-4">
+                    <span className="text-[11px] font-semibold text-amber-800 dark:text-amber-300 uppercase tracking-wider flex items-center gap-1">
                       <Scale size={12} /> Neutrality Weight
                     </span>
-                    <div className="text-lg font-bold text-violet-900 dark:text-violet-100 font-mono mt-1">
+                    <div className="text-lg font-bold text-amber-900 dark:text-amber-100 font-mono mt-1">
                       {hasWeight ? fmt(userWeight) : '0'}
                     </div>
-                    <div className="text-[10px] text-violet-600 dark:text-violet-400">
+                    <div className="text-[10px] text-amber-700 dark:text-amber-400">
                       {hasWeight ? 'Active voting power' : 'Zero influence'}
                     </div>
                   </div>
@@ -985,36 +985,36 @@ export default function SubmitPriceClient() {
 
                 {/* User Previous Submission */}
                 {userSubmittedTime && userSubmittedTime > BigInt(0) && (
-                  <div className="p-4 bg-violet-50/50 dark:bg-violet-950/20 border border-violet-100 dark:border-violet-900/60 rounded-xl space-y-2">
+                  <div className="p-4 bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200/80 dark:border-amber-900/40 rounded-xl space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-violet-800 dark:text-violet-300 uppercase tracking-wider">
+                      <span className="text-xs font-bold text-amber-800 dark:text-amber-300 uppercase tracking-wider">
                         Your Current Recorded Submission
                       </span>
-                      <span className="text-[11px] text-zinc-500">
+                      <span className="text-[11px] text-stone-500">
                         Submitted {timeAgo(userSubmittedTime)}
                       </span>
                     </div>
                     <div className="grid grid-cols-3 gap-3 text-xs">
                       <div>
-                        <span className="text-zinc-500 block">Reported Price</span>
-                        <span className="font-mono font-semibold text-zinc-900 dark:text-white">
+                        <span className="text-stone-500 block">Reported Price</span>
+                        <span className="font-mono font-semibold text-stone-900 dark:text-white">
                           {fmt(userSubmittedPrice)}
                         </span>
                       </div>
                       <div>
-                        <span className="text-zinc-500 block">Applied Weight</span>
-                        <span className="font-mono font-semibold text-zinc-900 dark:text-white">
+                        <span className="text-stone-500 block">Applied Weight</span>
+                        <span className="font-mono font-semibold text-stone-900 dark:text-white">
                           {fmt(userSubmittedWeight)}
                         </span>
                       </div>
                       <div>
-                        <span className="text-zinc-500 block">Timestamp</span>
-                        <span className="text-zinc-700 dark:text-zinc-300">
+                        <span className="text-stone-500 block">Timestamp</span>
+                        <span className="text-stone-700 dark:text-stone-300">
                           {fmtTimestamp(userSubmittedTime)}
                         </span>
                       </div>
                     </div>
-                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 italic">
+                    <p className="text-[11px] text-stone-500 dark:text-stone-400 italic">
                       Submitting a new price replaces your previous entry. Non-accumulating resubmission prevents spam weight amplification.
                     </p>
                   </div>
@@ -1026,11 +1026,11 @@ export default function SubmitPriceClient() {
 
         {/* ── Price Submission Form ── */}
         {activeKarmaAddress && isValidOracle && (
-          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 md:p-8 space-y-6 shadow-sm">
-            <div className="border-b border-zinc-100 dark:border-zinc-800 pb-4 flex items-center justify-between">
+          <div className="bg-white dark:bg-[#151823] border border-stone-200/80 dark:border-amber-900/25 rounded-2xl p-6 md:p-8 space-y-6 shadow-sm">
+            <div className="border-b border-stone-100 dark:border-amber-900/20 pb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Send size={20} className="text-violet-500" />
-                <h2 className="text-lg font-bold text-zinc-900 dark:text-white">
+                <Send size={20} className="text-amber-600 dark:text-amber-400" />
+                <h2 className="text-lg font-bold text-stone-900 dark:text-stone-100">
                   Submit Price Observation
                 </h2>
               </div>
@@ -1038,7 +1038,7 @@ export default function SubmitPriceClient() {
                 <button
                   type="button"
                   onClick={() => setPriceInput(formatUnits(currentValue, 18))}
-                  className="text-xs font-semibold text-violet-600 dark:text-violet-400 hover:underline"
+                  className="text-xs font-bold text-amber-700 dark:text-amber-400 hover:underline"
                 >
                   Use Current Consensus Price
                 </button>
@@ -1047,12 +1047,12 @@ export default function SubmitPriceClient() {
 
             {!isConnected ? (
               <div className="text-center py-6 space-y-4">
-                <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="text-sm text-stone-500 dark:text-stone-400">
                   Please connect your wallet to participate in oracle consensus.
                 </p>
                 <Button
                   onClick={() => setWalletModalOpen(true)}
-                  className="bg-violet-600 hover:bg-violet-500 text-white rounded-xl px-8"
+                  className="bg-amber-600 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-stone-950 font-bold rounded-xl px-8 shadow-md shadow-amber-600/20"
                 >
                   Connect Wallet
                 </Button>
@@ -1061,11 +1061,11 @@ export default function SubmitPriceClient() {
               <div className="space-y-5">
                 <div>
                   <div className="flex justify-between items-center mb-1.5">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300">
                       Price Value (18 Decimals WAD)
                     </label>
                     {priceInput && (
-                      <span className="text-[11px] font-mono text-zinc-400">
+                      <span className="text-[11px] font-mono text-stone-400">
                         {priceInput} = {tryParseWad(priceInput)} WAD
                       </span>
                     )}
@@ -1078,12 +1078,12 @@ export default function SubmitPriceClient() {
                       if (/^[0-9]*\.?[0-9]*$/.test(v)) setPriceInput(v);
                     }}
                     placeholder="e.g. 2500.50"
-                    className="font-mono text-base py-3 rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700 focus-visible:ring-violet-500"
+                    className="font-mono text-base py-3 rounded-xl bg-stone-50 dark:bg-stone-800/60 border-stone-200 dark:border-stone-700 focus-visible:ring-amber-500"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') handleSubmitPrice();
                     }}
                   />
-                  <p className="mt-1.5 text-xs text-zinc-500 dark:text-zinc-400">
+                  <p className="mt-1.5 text-xs text-stone-500 dark:text-stone-400">
                     Enter your honest observation of the fair market price. Your submission will be incorporated into the time-decayed consensus average based on your neutrality weight.
                   </p>
                 </div>
@@ -1097,7 +1097,7 @@ export default function SubmitPriceClient() {
                     meetsMinBalance === false ||
                     !hasWeight
                   }
-                  className="w-full bg-violet-600 hover:bg-violet-500 text-white rounded-xl py-3.5 text-sm font-semibold transition-all shadow-sm"
+                  className="w-full bg-amber-600 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-stone-950 rounded-xl py-3.5 text-sm font-bold transition-all shadow-md shadow-amber-600/20 disabled:opacity-50"
                 >
                   {isTxPending
                     ? 'Confirm in Wallet…'
@@ -1112,12 +1112,12 @@ export default function SubmitPriceClient() {
 
                 {/* Progress Indicators */}
                 {isTxPending && (
-                  <p className="text-center text-xs text-violet-600 dark:text-violet-400 animate-pulse font-medium">
+                  <p className="text-center text-xs text-amber-700 dark:text-amber-400 animate-pulse font-medium">
                     Please approve the price submission in your wallet…
                   </p>
                 )}
                 {isTxConfirming && (
-                  <div className="flex items-center justify-center gap-2 text-xs text-zinc-500 animate-pulse">
+                  <div className="flex items-center justify-center gap-2 text-xs text-stone-500 animate-pulse">
                     <Loading size="sm" />
                     <span>Confirming on-chain transaction…</span>
                   </div>
@@ -1128,7 +1128,7 @@ export default function SubmitPriceClient() {
                       href={getExplorerTxLink(txHash)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-violet-600 hover:underline inline-flex items-center gap-1"
+                      className="text-xs text-amber-700 dark:text-amber-400 hover:underline inline-flex items-center gap-1 font-medium"
                     >
                       View transaction on explorer <ExternalLink size={12} />
                     </a>
@@ -1249,7 +1249,7 @@ export default function SubmitPriceClient() {
                 3. Flash Loan & Sybil Resistance
               </strong>
               <p>
-                Manipulating the oracle requires purchasing both Bull and Bear coins in balanced amounts. Fate collects trading fees (~1.2% round-trip) on every trade, making manipulation economically irrational and unprofitable.
+                Manipulating the oracle requires purchasing both Bull and Bear coins in balanced amounts. Karma pools collect trading fees (~1.2% round-trip) on every trade, making manipulation economically irrational and unprofitable.
               </p>
             </div>
 

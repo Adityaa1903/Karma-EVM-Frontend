@@ -22,7 +22,7 @@ export interface IndexConfig {
 
 // Database configuration
 export const DATABASE_CONFIG: DatabaseConfig = {
-  name: 'FatePoolsDB',
+  name: 'KarmaPoolsDB',
   version: 4,
   stores: [
     {

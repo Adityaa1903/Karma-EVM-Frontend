@@ -16,7 +16,7 @@ import { toast } from "sonner";
 import { logger } from "@/lib/logger";
 import { PredictionPoolFactoryABI } from "@/utils/abi/PredictionPoolFactory";
 import { ChainlinkAdapterFactoryABI } from "@/utils/abi/ChainlinkAdapterFactory";
-import { FatePoolFactories, ChainlinkAdapterFactories } from "@/utils/addresses";
+import { KarmaPoolFactories, ChainlinkAdapterFactories } from "@/utils/addresses";
 import { SUPPORTED_CHAINS, getPriceFeedOptions } from "@/utils/supportedChainFeed";
 import { parseUnits } from "viem";
 
@@ -53,7 +53,7 @@ const ERC20_ABI = [
   }
 ] as const;
 
-export default function CreateFatePool() {
+export default function CreateKarmaPool() {
   const router = useRouter();
   const { isConnected, address } = useAccount();
   const currentChainId = useChainId();
@@ -152,8 +152,16 @@ export default function CreateFatePool() {
         newErrors.initialDeposit = "Initial deposit cannot be negative";
       }
       
-      if (!formData.priceFeedAddress) {
-        newErrors.priceFeedAddress = "Please select a Chainlink price feed";
+      if (formData.oracleType === 'karma') {
+        if (!formData.karmaOracleAddress?.trim()) {
+          newErrors.karmaOracleAddress = "Please enter a Karma Oracle address";
+        } else if (!/^0x[a-fA-F0-9]{40}$/.test(formData.karmaOracleAddress.trim())) {
+          newErrors.karmaOracleAddress = "Invalid Ethereum contract address";
+        }
+      } else {
+        if (!formData.priceFeedAddress) {
+          newErrors.priceFeedAddress = "Please select a Chainlink price feed";
+        }
       }
       
       logger.debug('Step 1 validation errors:', { errors: newErrors });
@@ -209,7 +217,7 @@ export default function CreateFatePool() {
       return;
     }
 
-    const FACTORY_ADDRESS = FatePoolFactories[currentChainId];
+    const FACTORY_ADDRESS = KarmaPoolFactories[currentChainId];
     if (!FACTORY_ADDRESS) {
       toast.error("Factory address not found for this chain");
       return;
@@ -258,7 +266,13 @@ export default function CreateFatePool() {
       }
 
       // Handle oracle creation based on type
-      if (formData.oracleType === "chainlink") {
+      if (formData.oracleType === "karma") {
+        if (!formData.karmaOracleAddress || !/^0x[a-fA-F0-9]{40}$/.test(formData.karmaOracleAddress.trim())) {
+          throw new Error("Valid Karma Oracle contract address is required.");
+        }
+        oracleAddress = formData.karmaOracleAddress.trim() as `0x${string}`;
+        toast.info("Using designated Karma Oracle for pool.");
+      } else if (formData.oracleType === "chainlink") {
         // Get the Chainlink adapter factory address
         const adapterFactoryAddress = ChainlinkAdapterFactories[currentChainId];
         if (!adapterFactoryAddress || adapterFactoryAddress === "0x0000000000000000000000000000000000000000") {
@@ -525,15 +539,18 @@ export default function CreateFatePool() {
   }
 
   return (
-    <div className="pt-28 min-h-screen bg-gray-50 dark:bg-[#1a1b1f] py-12 px-4 sm:px-6 lg:px-8">
+    <div className="pt-28 min-h-screen bg-transparent py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
-        <div className="bg-white dark:bg-black rounded-xl shadow-md overflow-hidden">
+        <div className="bg-white dark:bg-[#151823] rounded-2xl border border-stone-200/80 dark:border-amber-900/25 shadow-xl overflow-hidden">
           <div className="p-6 sm:p-8">
-            <h1 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white text-center mb-2">
-              Create Fate Pool
+            <div className="flex justify-center mb-2">
+              <span className="karma-badge">Karma Oracle Powered</span>
+            </div>
+            <h1 className="text-xl md:text-3xl font-black text-stone-900 dark:text-stone-100 text-center mb-2 tracking-tight">
+              Create Prediction Pool
             </h1>
-            <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 text-center mb-8">
-              Set up your prediction pool in a few simple steps
+            <p className="text-sm md:text-base text-stone-600 dark:text-stone-400 text-center mb-8">
+              Set up your prediction pool with Karma oracle integration in a few simple steps
             </p>
 
             <StepIndicator
@@ -584,8 +601,8 @@ export default function CreateFatePool() {
                       className={`
                         px-4 py-2 md:px-6 md:py-2.5 rounded-xl font-medium text-sm md:text-base
                         transition-all duration-300 ease-in-out
-                        bg-gray-300 text-gray-800 hover:bg-gray-200
-                        dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700
+                        bg-stone-200 text-stone-800 hover:bg-stone-300
+                        dark:bg-stone-800 dark:text-stone-200 dark:hover:bg-stone-700
                         border border-transparent shadow-sm hover:shadow-md
                         disabled:opacity-50 disabled:cursor-not-allowed
                       `}
@@ -596,12 +613,12 @@ export default function CreateFatePool() {
                     <button
                       type="button"
                       onClick={nextStep}
-                      className="px-4 py-2 md:px-6 md:py-2.5 rounded-xl font-semibold text-sm md:text-base
+                      className="px-4 py-2 md:px-6 md:py-2.5 rounded-xl font-bold text-sm md:text-base
                                  transition-all duration-300 ease-in-out 
-                                 bg-neutral-900 text-white hover:bg-neutral-700
-                                 dark:bg-neutral-100 dark:text-black dark:hover:bg-neutral-200 
-                                 shadow-sm hover:shadow-md
-                                 border border-transparent dark:border-neutral-300"
+                                 bg-amber-600 text-white hover:bg-amber-700
+                                 dark:bg-amber-500 dark:text-stone-950 dark:hover:bg-amber-400 
+                                 shadow-md hover:shadow-lg shadow-amber-600/20
+                                 border border-transparent"
                     >
                       Next
                     </button>

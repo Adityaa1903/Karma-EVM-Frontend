@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 
 // Dynamically import the main component with no SSR
-const ExploreFatePools = dynamic(
+const ExploreKarmaPools = dynamic(
   () => import('@/app/explorePools/page'),
   { 
     ssr: false,
@@ -45,7 +45,7 @@ export default function ExplorePoolsWrapper() {
         </div>
       </div>
     }>
-      <ExploreFatePools />
+      <ExploreKarmaPools />
     </Suspense>
   );
 }

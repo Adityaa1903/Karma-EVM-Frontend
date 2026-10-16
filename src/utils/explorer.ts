@@ -1,4 +1,4 @@
-// Explorer utility for Fate-EVM-Frontend platform
+// Explorer utility for Karma-EVM-Frontend platform
 // Supporting only: Sepolia
 
 export const getExplorerUrl = (hash: `0x${string}`, chainId: number): string => {

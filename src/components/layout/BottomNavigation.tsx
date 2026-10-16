@@ -228,7 +228,7 @@ const BottomNavigation: React.FC = () => {
       {/* Use Oracle modal */}
       {isUseOracleOpen && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-zinc-900 rounded-2xl p-6 w-full max-w-md shadow-2xl">
+          <div className="bg-[#1c1917] rounded-2xl p-6 w-full max-w-md shadow-2xl border border-stone-700">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-white">Use Oracle</h3>
               <button
@@ -249,20 +249,20 @@ const BottomNavigation: React.FC = () => {
                   value={oracleAddress}
                   onChange={(e) => setOracleAddress(e.target.value)}
                   placeholder="0x..."
-                  className="w-full px-4 py-3 border border-zinc-700 rounded-xl bg-zinc-800 text-white placeholder-gray-500 focus:ring-2 focus:ring-violet-500 focus:border-transparent outline-none transition-colors"
+                  className="w-full px-4 py-3 border border-stone-600 rounded-xl bg-stone-800 text-stone-100 placeholder-stone-500 focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-colors"
                 />
               </div>
 
               <div className="flex gap-3">
                 <button
                   onClick={() => setIsUseOracleOpen(false)}
-                  className="flex-1 px-4 py-3 text-gray-300 bg-zinc-800 rounded-xl hover:bg-zinc-700 transition-colors text-sm font-medium"
+                  className="flex-1 px-4 py-3 text-stone-300 bg-stone-800 rounded-xl hover:bg-stone-700 transition-colors text-sm font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleOracleSubmit}
-                  className="flex-1 px-4 py-3 bg-violet-600 hover:bg-violet-500 text-white rounded-xl transition-colors text-sm font-semibold"
+                  className="flex-1 px-4 py-3 bg-amber-600 hover:bg-amber-500 text-white rounded-xl transition-colors text-sm font-semibold"
                 >
                   Go to Oracle
                 </button>

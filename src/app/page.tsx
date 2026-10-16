@@ -5,14 +5,14 @@ import Hero from "@/components/Home/Hero";
 export const metadata: Metadata = {
   title: "Decentralized Oracle for Prediction Markets",
   description:
-    "Karma Protocol — a permissionless on-chain oracle for Fate prediction pools. Submit price observations weighted by your bull/bear neutrality for decentralized consensus pricing.",
+    "Karma Protocol — a permissionless on-chain oracle for prediction pools. Submit price observations weighted by your bull/bear neutrality for decentralized consensus pricing.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "Decentralized Oracle for Prediction Markets",
     description:
-      "Karma Protocol — a permissionless on-chain oracle for Fate prediction pools. Submit price observations weighted by your bull/bear neutrality.",
+      "Karma Protocol — a permissionless on-chain oracle for prediction pools. Submit price observations weighted by your bull/bear neutrality.",
     url: "/",
     type: "website",
     images: [
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   twitter: {
     title: "Decentralized Oracle for Prediction Markets",
     description:
-      "Karma Protocol — a permissionless on-chain oracle for Fate prediction pools. Submit price observations weighted by your bull/bear neutrality.",
+      "Karma Protocol — a permissionless on-chain oracle for prediction pools. Submit price observations weighted by your bull/bear neutrality.",
     images: ["https://evm.karma.stability.nexus/og-image.png"],
   },
 };

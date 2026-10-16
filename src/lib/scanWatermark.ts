@@ -3,7 +3,7 @@ import { logger } from "@/lib/logger";
 // Saves how far a scan got, even when it finds nothing. Without this, a user with no trades
 // caches nothing and re-scans every block on every page load.
 
-const PREFIX = "fateScan";
+const PREFIX = "karmaScan";
 
 const isAvailable = (): boolean => {
   try {

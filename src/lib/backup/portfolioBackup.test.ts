@@ -191,7 +191,7 @@ describe("readBackupFile", () => {
 
   it("rejects JSON that is not a backup envelope", async () => {
     await expect(readBackupFile(asFile({ hello: "world" }))).rejects.toThrow(
-      /not a Fate backup/i
+      /not a Karma backup/i
     );
   });
 
@@ -207,7 +207,7 @@ describe("readBackupFile", () => {
 
   it("rejects a newer database version", async () => {
     const backup = makeBackup({ databaseVersion: DATABASE_CONFIG.version + 1 });
-    await expect(readBackupFile(asFile(backup))).rejects.toThrow(/newer version of Fate/i);
+    await expect(readBackupFile(asFile(backup))).rejects.toThrow(/newer version of Karma/i);
   });
 
   it("accepts an older database version", async () => {
@@ -224,7 +224,7 @@ describe("readBackupFile", () => {
 // Malformed envelopes, as opposed to well-formed ones carrying wrong values. Each of these reached past the type guard before it was tightened.
 describe("readBackupFile envelope validation", () => {
   const rejected = (backup: unknown) =>
-    expect(readBackupFile(asFile(backup))).rejects.toThrow(/not a Fate backup/i);
+    expect(readBackupFile(asFile(backup))).rejects.toThrow(/not a Karma backup/i);
 
   it("rejects null stores rather than throwing a raw TypeError", async () => {
     // typeof null === "object", so this used to pass and then die on `name in parsed.stores`.

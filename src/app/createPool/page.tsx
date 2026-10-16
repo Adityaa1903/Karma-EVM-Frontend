@@ -3,10 +3,10 @@
 import { useEffect } from "react";
 import { useAccount } from "wagmi";
 // import { useRouter } from "next/navigation";
-import CreateFatePoolForm from "@/components/Forms/CreateFatePool";
+import CreateKarmaPoolForm from "@/components/Forms/CreateKarmaPool";
 import { logger } from "@/lib/logger";
 
-export default function CreateFatePoolPage() {
+export default function CreateKarmaPoolPage() {
   const { isConnected } = useAccount();
   // const router = useRouter();
 
@@ -24,8 +24,8 @@ export default function CreateFatePoolPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-r from-gray-100 to-gray-300 dark:from-gray-800 dark:to-gray-900 transition-colors duration-300">
-        <CreateFatePoolForm />
+      <div className="min-h-screen bg-transparent transition-colors duration-300">
+        <CreateKarmaPoolForm />
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { PredictionCard } from "@/components/FatePoolCard/FatePoolCard";
+import { PredictionCard } from "@/components/KarmaPoolCard/KarmaPoolCard";
 import PoolTableView from "./PoolTableView";
 import type { Pool, PoolSortState, PoolSortField } from "@/lib/types";
 import { getPriceFeedName as getPriceFeedNameUtil } from "@/utils/supportedChainFeed";
@@ -43,18 +43,18 @@ const PoolList: React.FC<PoolListProps> = ({
   if (loading) {
     if (viewMode === 'table') {
       return (
-        <div className="overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm">
+        <div className="overflow-hidden rounded-2xl border border-stone-200/80 dark:border-amber-900/25 bg-white/80 dark:bg-[#121622]/85 backdrop-blur-md shadow-sm">
           <div className="overflow-x-auto">
             <div className="w-full">
-              <div className="border-b border-gray-200 bg-gray-50/50 dark:border-gray-800 dark:bg-white/5">
+              <div className="border-b border-stone-200 bg-stone-50/50 dark:border-stone-800/40 dark:bg-white/5">
                 {/* 4 columns on mobile, 6 at md+, matching the real table (Fees + Actions are hidden below md). */}
                 <div className="grid grid-cols-4 md:grid-cols-6 gap-4 px-6 py-4">
                   {Array.from({ length: 6 }).map((_, i) => (
-                    <div key={i} className={`h-3 w-2/3 bg-gray-200 dark:bg-gray-700 animate-pulse rounded ${i >= 4 ? "hidden md:block" : ""}`} />
+                    <div key={i} className={`h-3 w-2/3 bg-stone-200 dark:bg-stone-700 animate-pulse rounded ${i >= 4 ? "hidden md:block" : ""}`} />
                   ))}
                 </div>
               </div>
-              <div className="divide-y divide-gray-100 dark:divide-gray-800">
+              <div className="divide-y divide-stone-100 dark:divide-stone-800/40">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <div key={i} className="px-6 py-4">
                     <div className="grid grid-cols-4 md:grid-cols-6 gap-4">
@@ -74,7 +74,7 @@ const PoolList: React.FC<PoolListProps> = ({
     return (
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="h-64 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-lg" />
+          <div key={i} className="h-64 bg-stone-200 dark:bg-stone-700 animate-pulse rounded-lg" />
         ))}
       </div>
     );
@@ -83,7 +83,7 @@ const PoolList: React.FC<PoolListProps> = ({
   if (filteredPools.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">
-        <div className="text-gray-400 dark:text-gray-500 mb-4">
+        <div className="text-stone-400 dark:text-stone-500 mb-4">
           <svg className="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path
               strokeLinecap="round"
@@ -93,7 +93,7 @@ const PoolList: React.FC<PoolListProps> = ({
             />
           </svg>
         </div>
-        <h3 className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <h3 className="text-lg font-medium text-stone-700 dark:text-stone-300 mb-2">
           {searchQuery ? "No pools match your search" : "No pools found"}
         </h3>
         <p className="text-gray-500 dark:text-gray-400 mb-4">
@@ -110,7 +110,7 @@ const PoolList: React.FC<PoolListProps> = ({
         {searchQuery && (
           <button
             onClick={onClearSearch}
-            className="text-blue-600 hover:text-blue-500 font-medium"
+            className="text-amber-600 hover:text-amber-500 font-medium"
             type="button"
           >
             Clear search
@@ -125,7 +125,7 @@ const PoolList: React.FC<PoolListProps> = ({
       <div className="space-y-8">
         {sortedChainIds.map((chainId) => (
           <div key={chainId}>
-            <h2 className="text-2xl font-bold text-black dark:text-white mb-6">
+            <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-100 mb-6">
               Pools on {getChainConfig(chainId)?.name || `Chain ${chainId}`}
             </h2>
             <PoolTableView

@@ -28,13 +28,12 @@ import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useAccount, useReadContracts } from "wagmi";
 import { formatUnits, Address, isAddress, isAddressEqual } from "viem";
 import { useRouter } from "next/navigation";
-import { useFatePoolsStorage } from "@/lib/fatePoolHook";
+import { useKarmaPoolsStorage, UseKarmaPoolsStorageReturn } from "@/lib/karmaPoolHook";
 import { PortfolioPosition, PortfolioTransaction, SupportedChainId, PortfolioCache } from "@/lib/indexeddb/config";
-import { UseFatePoolsStorageReturn } from "@/lib/fatePoolHook";
-import { FatePoolsIndexedDBManager } from "@/lib/indexeddb/manager";
+import { KarmaPoolsIndexedDBManager } from "@/lib/indexeddb/manager";
 import { PredictionPoolABI } from "@/utils/abi/PredictionPool";
 import { CoinABI } from "@/utils/abi/Coin";
-import { FatePoolFactories, FactoryDeploymentBlocks } from "@/utils/addresses";
+import { KarmaPoolFactories, FactoryDeploymentBlocks } from "@/utils/addresses";
 import { getChainConfig } from "@/utils/chainConfig";
 import { getTransport, getScanTransport } from "@/utils/rpcTransport";
 import { scanLogsChunked, getAbiEvent, mapWithConcurrency } from "@/lib/scanLogs";
@@ -63,28 +62,28 @@ const getChainName = (chainId: number): string => {
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000" as const;
 
 const CHART_COLORS = [
-  "#fff44f", // bright lemon yellow
-  "#ffec1a", // vivid sunshine yellow
-  "#ffd60a", // rich golden yellow
-  "#ffca0a", // warm bright gold
-  "#ffb703", // sunflower yellow
-  "#f59e0b", // amber yellow
+  "#f59e0b", // warm radiant amber
+  "#fbbf24", // vivid golden yellow
+  "#d97706", // rich deep gold
+  "#b45309", // burnished bronze
+  "#10b981", // vibrant emerald
+  "#f43f5e", // vibrant rose
 ];
 
 const BEAR_COLORS = [
-  "#e5e7eb", // gray-200
-  "#d1d5db", // gray-300
-  "#9ca3af", // gray-400
-  "#6b7280", // gray-500
+  "#f43f5e", // vibrant rose
+  "#e11d48", // crimson
+  "#fb7185", // coral pink
+  "#be123c", // deep ruby
+  "#fda4af", // soft rose
 ];
 
 const BULL_COLORS = [
-  "#4b5563", // gray-600
-  "#374151", // gray-700
-  "#1f2937", // gray-800
-  "#111827", // gray-900
-  "#0f172a", // slate-950
-  "#000000", // pure black
+  "#10b981", // vibrant emerald
+  "#059669", // jade green
+  "#34d399", // bright mint
+  "#047857", // forest emerald
+  "#0d9488", // teal green
 ];
 
 // Safe number utility
@@ -148,7 +147,7 @@ const calculateTokenMetricsWithEvents = async (
   poolAddress: string,
   type: 'bull' | 'bear',
   baseTokenSymbol: string,
-  storage: UseFatePoolsStorageReturn,
+  storage: UseKarmaPoolsStorageReturn,
   baseTokenDecimals: number,
   head: bigint
 ) => {
@@ -1460,7 +1459,7 @@ const EnhancedPoolDataLoader = ({
   onSettled?: () => void;
 }) => {
   // Initialize storage hook for caching
-  const storage = useFatePoolsStorage();
+  const storage = useKarmaPoolsStorage();
   // onSettled must fire exactly once per loader instance (success OR permanent failure)
   const settledRef = useRef(false);
   // Wave 1: everything readable straight from the pool address (basics + fees).
@@ -1864,17 +1863,17 @@ export default function PortfolioPage() {
     isInitialized: isDBInitialized,
     savePortfolioCache,
     getPortfolioCache
-  } = useFatePoolsStorage();
+  } = useKarmaPoolsStorage();
 
   // Direct IndexedDB manager for pool details (more reliable)
-  const [indexedDB, setIndexedDB] = useState<FatePoolsIndexedDBManager | null>(null);
+  const [indexedDB, setIndexedDB] = useState<KarmaPoolsIndexedDBManager | null>(null);
 
   // Initialize IndexedDB manager
   useEffect(() => {
     const initDB = async () => {
       if (typeof window !== 'undefined') {
         try {
-          const db = new FatePoolsIndexedDBManager();
+          const db = new KarmaPoolsIndexedDBManager();
           await db.init();
           setIndexedDB(db);
         } catch (err) {
@@ -1891,7 +1890,7 @@ export default function PortfolioPage() {
     if (!chainId) return null;
 
     // First try the current chain
-    const currentChainAddress = FatePoolFactories[chainId as keyof typeof FatePoolFactories];
+    const currentChainAddress = KarmaPoolFactories[chainId as keyof typeof KarmaPoolFactories];
     if (currentChainAddress && currentChainAddress !== "0x0000000000000000000000000000000000000000") {
       return currentChainAddress;
     }
@@ -2423,20 +2422,22 @@ export default function PortfolioPage() {
 
   if (!isConnected) {
     return (
-      <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center p-4 pt-28 min-[900px]:pt-32">
-        <Card className="p-8 text-center max-w-md border-black dark:border-neutral-700/60 shadow-xl bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm">
+      <div className="min-h-screen bg-transparent flex items-center justify-center p-4 pt-28 min-[900px]:pt-32">
+        <Card className="p-8 text-center max-w-md border border-stone-200/80 dark:border-amber-900/25 shadow-xl bg-white/90 dark:bg-[#151823]/90 backdrop-blur-sm rounded-2xl">
           <div className="mb-6">
-            <Wallet className="h-12 w-12 mx-auto text-yellow-500 dark:text-yellow-400 mb-4" />
-            <CardTitle className="text-xl mb-2 text-neutral-900 dark:text-neutral-100">
+            <div className="inline-flex p-3 rounded-full bg-amber-500/10 dark:bg-amber-500/15 mb-4">
+              <Wallet className="h-10 w-10 text-amber-600 dark:text-amber-400" />
+            </div>
+            <CardTitle className="text-xl mb-2 text-stone-900 dark:text-stone-100">
               Connect Your Wallet
             </CardTitle>
-            <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+            <p className="text-stone-600 dark:text-stone-400 mb-6">
               Connect your wallet to view your portfolio and manage your
               positions
             </p>
             <Button
               onClick={() => router.push('/')}
-              className="bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black"
+              className="bg-amber-600 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-stone-950 font-bold shadow-md shadow-amber-600/20"
             >
               Go to Home
             </Button>
@@ -2448,7 +2449,7 @@ export default function PortfolioPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black text-neutral-900 dark:text-white p-4 pt-28 min-[900px]:p-6 min-[900px]:pt-32">
+    <div className="min-h-screen bg-transparent text-stone-900 dark:text-stone-100 p-4 pt-28 min-[900px]:p-6 min-[900px]:pt-32">
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Enhanced Pool Data Loaders - Only loads pools where user has positions */}
         {availablePools && availablePools.length > 0 && (
@@ -2642,7 +2643,7 @@ export default function PortfolioPage() {
                 Contracts Not Deployed
               </CardTitle>
               <p className="text-yellow-700 dark:text-yellow-300 mb-4">
-                The Fate Protocol contracts are not yet deployed on {getChainName(chainId || 1)}.
+                The Karma Protocol contracts are not yet deployed on {getChainName(chainId || 1)}.
               </p>
               <p className="text-yellow-600 dark:text-yellow-400 mb-6">
                 You can test the protocol on Sepolia testnet (contracts are deployed there) or wait for mainnet deployment.
@@ -2708,11 +2709,11 @@ export default function PortfolioPage() {
         ) : (
           /* Loading done, no positions found — show empty state */
           <div className="space-y-6">
-            <Card className="border-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 p-8 text-center">
-              <CardTitle className="text-neutral-900 dark:text-neutral-100 mb-2">
+            <Card className="border border-stone-200/80 dark:border-amber-900/25 bg-white/90 dark:bg-[#151823]/90 rounded-2xl p-8 text-center shadow-lg">
+              <CardTitle className="text-stone-900 dark:text-stone-100 mb-2">
                 {availablePools.length === 0 ? 'No Pools Found' : 'No Positions Yet'}
               </CardTitle>
-              <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+              <p className="text-stone-600 dark:text-stone-400 mb-6">
                 {availablePools.length === 0
                   ? (chainId === 11155111
                     ? 'No prediction pools have been created on Sepolia testnet yet. Be the first to create one!'
@@ -2723,7 +2724,7 @@ export default function PortfolioPage() {
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button
                   onClick={() => router.push('/explorePools')}
-                  className="bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black"
+                  className="bg-amber-600 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-stone-950 font-bold shadow-md shadow-amber-600/20"
                 >
                   Explore Pools
                 </Button>
