@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ClientProviders } from "@/components/layout/Layout";
 import Navbar from "@/components/layout/Navbar";
@@ -7,61 +7,60 @@ import FooterWrapper from "@/components/layout/FooterWrapper";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Fate Protocol",
-    template: "%s | Fate Protocol",
+    default: "Karma Protocol",
+    template: "%s | Karma Protocol",
   },
   description:
-    "Trade prediction markets on Fate Protocol - the decentralized platform for perpetual prediction pools. Buy bullCoins and bearCoins to predict price movements across multiple blockchain networks. Advanced DeFi trading with real-time price feeds and automated market making.",
+    "Karma Protocol — a permissionless on-chain oracle for prediction pools. Submit price observations weighted by your bull/bear neutrality. Decentralized consensus pricing powered by community wisdom.",
   keywords: [
     "DeFi",
     "prediction markets", 
-    "Fate Protocol",
-    "blockchain trading",
-    "bullCoins",
-    "bearCoins",
-    "price prediction",
+    "Karma Protocol",
+    "Karma Oracle",
+    "blockchain oracle",
+    "price submission",
+    "decentralized oracle",
     "decentralized finance",
     "cryptocurrency trading",
     "perpetual pools",
-    "automated market making",
-    "Chainlink oracles",
+    "community oracle",
     "Ethereum",
     "Polygon",
     "BSC",
     "Base"
   ],
-  authors: [{ name: "Fate Protocol Team" }],
-  creator: "Fate Protocol",
-  publisher: "Fate Protocol",
+  authors: [{ name: "Karma Protocol Team" }],
+  creator: "Karma Protocol",
+  publisher: "Karma Protocol",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://evm.fate.stability.nexus"),
+  metadataBase: new URL("https://evm.karma.stability.nexus"),
   openGraph: {
-    title: "Fate Protocol | Decentralized Prediction Markets",
-    description: "Trade prediction markets on Fate Protocol - the decentralized platform for perpetual prediction pools. Buy bullCoins and bearCoins to predict price movements.",
-    url: "https://evm.fate.stability.nexus",
-    siteName: "Fate Protocol",
+    title: "Karma Protocol | Decentralized Oracle for Prediction Markets",
+    description: "Submit price observations to Karma — the permissionless on-chain oracle for prediction pools. Your influence is weighted by your bull/bear neutrality.",
+    url: "https://evm.karma.stability.nexus",
+    siteName: "Karma Protocol",
     images: [
       {
-        url: "https://evm.fate.stability.nexus/og-image.png",
+        url: "https://evm.karma.stability.nexus/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Fate Protocol - Decentralized Prediction Markets",
+        alt: "Karma Protocol - Decentralized Oracle for Prediction Markets",
       },
     ],
     locale: "en_US",
@@ -69,10 +68,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fate Protocol | Decentralized Prediction Markets",
-    description: "Trade prediction markets on Fate Protocol - the decentralized platform for perpetual prediction pools.",
-    images: ["https://evm.fate.stability.nexus/og-image.png"],
-    creator: "@FateProtocol",
+    title: "Karma Protocol | Decentralized Oracle for Prediction Markets",
+    description: "Submit price observations to Karma — the permissionless on-chain oracle for prediction pools.",
+    images: ["https://evm.karma.stability.nexus/og-image.png"],
+    creator: "@StabilityNexus",
   },
   robots: {
     index: true,
@@ -120,9 +119,9 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebApplication",
-              "name": "Fate Protocol",
-              "description": "Decentralized perpetual prediction pools for trading price movements across multiple blockchain networks",
-              "url": "https://evm.fate.stability.nexus",
+              "name": "Karma Protocol",
+              "description": "Permissionless on-chain oracle for prediction pools. Submit price observations weighted by bull/bear neutrality for decentralized consensus pricing.",
+              "url": "https://evm.karma.stability.nexus",
               "applicationCategory": "FinanceApplication",
               "operatingSystem": "Web Browser",
               "offers": {
@@ -132,21 +131,21 @@ export default function RootLayout({
               },
               "creator": {
                 "@type": "Organization",
-                "name": "Fate Protocol Team",
-                "url": "https://evm.fate.stability.nexus"
+                "name": "Stability Nexus",
+                "url": "https://stability.nexus"
               },
               "featureList": [
-                "Decentralized prediction markets",
-                "Perpetual prediction pools",
-                "Bull and Bear coin trading",
-                "Multi-chain support",
-                "Real-time price feeds",
-                "Automated market making",
-                "Chainlink oracle integration"
+                "Permissionless on-chain oracle",
+                "Price observation submission",
+                "Neutrality-weighted consensus",
+                "Chainlink-compatible price feed",
+                "Integration with prediction pools",
+                "Time-decayed price averaging",
+                "Community-driven price discovery"
               ],
-              "screenshot": "https://evm.fate.stability.nexus/og-image.png",
+              "screenshot": "https://evm.karma.stability.nexus/og-image.png",
               "softwareVersion": "1.0.0",
-              "datePublished": "2025-06-06",
+              "datePublished": "2026-10-01",
               "dateModified": new Date().toISOString().split('T')[0]
             })
           }}
@@ -154,14 +153,14 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#000000" />
+        <meta name="theme-color" content="#d97706" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${plusJakartaSans.variable} ${jetbrainsMono.variable} antialiased`}>
         <ErrorBoundary>
           <ClientProviders>
           {/* Absolute positioned navbar to avoid affecting hero positioning */}
-          <Navbar className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md" />
+          <Navbar className="fixed top-0 left-0 right-0 z-50 bg-[#fcfaf6]/80 dark:bg-[#090c14]/80 backdrop-blur-md border-b border-stone-200/40 dark:border-amber-900/20" />
           
           <main>
             <ErrorBoundary>

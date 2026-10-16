@@ -38,13 +38,13 @@ const SortableHeader: React.FC<{
     <th
       aria-sort={ariaSort}
       title={title}
-      className={`px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 sm:px-6 sm:py-4 ${className}`}
+      className={`px-4 py-3 text-xs font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-400 sm:px-6 sm:py-4 ${className}`}
     >
       <button
         type="button"
         onClick={() => onSort(field)}
         aria-label={`Sort by ${label}`}
-        className="inline-flex items-center gap-1 uppercase tracking-wider transition-colors hover:text-gray-900 dark:hover:text-white"
+        className="inline-flex items-center gap-1 uppercase tracking-wider transition-colors hover:text-stone-900 dark:hover:text-stone-100"
       >
         {label}
         {active ? (
@@ -65,34 +65,34 @@ const PoolTableView: React.FC<PoolTableViewProps> = ({ pools, onUsePool, isConne
   const formatFee = (value: number) => `${value.toFixed(2)}%`;
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-sm">
+    <div className="overflow-hidden rounded-2xl border border-stone-200/80 dark:border-amber-900/25 bg-white/80 dark:bg-[#121622]/85 backdrop-blur-md shadow-sm">
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-left">
           <thead>
-            <tr className="border-b border-gray-200 bg-gray-50/50 dark:border-gray-800 dark:bg-white/5">
+            <tr className="border-b border-stone-200 bg-stone-50/50 dark:border-stone-800/40 dark:bg-white/5">
               <SortableHeader label="Pool Name" field="name" sortState={sortState} onSort={onSort} />
-              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 sm:px-6 sm:py-4">
+              <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-400 sm:px-6 sm:py-4">
                 Price Feed
               </th>
               <SortableHeader label="TVL" field="tvl" sortState={sortState} onSort={onSort} title="Total value locked, shown in each pool's own base token (not converted to a common unit)." />
               <SortableHeader label="Volume" field="volume" sortState={sortState} onSort={onSort} className="hidden lg:table-cell" title="Traded volume over roughly the last 24h, summed from Buy and Sell events across both coins and shown in the pool's own base token. Not lifetime volume." />
               <SortableHeader label="Bull/Bear Split" field="bullBias" sortState={sortState} onSort={onSort} />
               <SortableHeader label="Fees" field="fees" sortState={sortState} onSort={onSort} className="hidden md:table-cell" />
-              <th className="hidden px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 md:table-cell sm:px-6 sm:py-4">
+              <th className="hidden px-4 py-3 text-xs font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-400 md:table-cell sm:px-6 sm:py-4">
                 Actions
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+          <tbody className="divide-y divide-stone-100 dark:divide-stone-800/40">
             {pools.map((pool) => (
               <tr
                 key={pool.id}
                 onClick={() => onUsePool(pool.id)}
-                className="group cursor-pointer transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-white/5"
+                className="group cursor-pointer transition-colors duration-200 hover:bg-amber-50/50 dark:hover:bg-amber-950/10"
               >
                 <td className="px-4 py-4 sm:px-6">
                   <div>
-                    <div className="font-medium text-gray-900 dark:text-white text-sm md:text-base">
+                    <div className="font-medium text-stone-900 dark:text-stone-100 text-sm md:text-base">
                       {pool.name}
                     </div>
                     <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
@@ -101,7 +101,7 @@ const PoolTableView: React.FC<PoolTableViewProps> = ({ pools, onUsePool, isConne
                   </div>
                 </td>
                 <td className="px-4 py-4 sm:px-6">
-                  <div className="text-sm font-medium text-gray-900 dark:text-white">
+                  <div className="text-sm font-medium text-stone-900 dark:text-stone-100">
                     {getOracleName(pool.priceFeedAddress, pool.chainId)}
                   </div>
                   <div className="hidden text-xs text-gray-500 dark:text-gray-400 md:block mt-0.5">
@@ -109,12 +109,12 @@ const PoolTableView: React.FC<PoolTableViewProps> = ({ pools, onUsePool, isConne
                   </div>
                 </td>
                 <td className="px-4 py-4 sm:px-6">
-                  <div className="text-sm font-medium tabular-nums text-gray-900 dark:text-white">
+                  <div className="text-sm font-medium tabular-nums text-stone-900 dark:text-stone-100">
                     {formatTVL(pool.tvl, pool.baseDecimals, pool.baseSymbol)}
                   </div>
                 </td>
                 <td className="hidden px-4 py-4 lg:table-cell sm:px-6">
-                  <div className="text-sm font-medium tabular-nums text-gray-900 dark:text-white">
+                  <div className="text-sm font-medium tabular-nums text-stone-900 dark:text-stone-100">
                     {pool.volumeRecent === undefined
                       ? <span className="text-gray-400 dark:text-gray-500">—</span>
                       : `${formatNumber(pool.volumeRecent)} ${pool.baseSymbol}`}
@@ -137,28 +137,28 @@ const PoolTableView: React.FC<PoolTableViewProps> = ({ pools, onUsePool, isConne
                   </div>
                 </td>
                 <td className="hidden px-4 py-4 md:table-cell sm:px-6">
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-gray-600 dark:text-gray-400">
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-stone-600 dark:text-stone-400">
                     <div className="flex justify-between gap-2">
                       <span>Mint:</span>
-                      <span className="font-medium text-gray-900 dark:text-gray-200">
+                      <span className="font-medium text-stone-900 dark:text-stone-200">
                         {formatFee(pool.mintFee ?? 0)}
                       </span>
                     </div>
                     <div className="flex justify-between gap-2">
                       <span>Burn:</span>
-                      <span className="font-medium text-gray-900 dark:text-gray-200">
+                      <span className="font-medium text-stone-900 dark:text-stone-200">
                         {formatFee(pool.burnFee ?? 0)}
                       </span>
                     </div>
                     <div className="flex justify-between gap-2">
                       <span>Creator:</span>
-                      <span className="font-medium text-gray-900 dark:text-gray-200">
+                      <span className="font-medium text-stone-900 dark:text-stone-200">
                         {formatFee(pool.vaultCreatorFee)}
                       </span>
                     </div>
                     <div className="flex justify-between gap-2">
                       <span>Treasury:</span>
-                      <span className="font-medium text-gray-900 dark:text-gray-200">
+                      <span className="font-medium text-stone-900 dark:text-stone-200">
                         {formatFee(pool.treasuryFee)}
                       </span>
                     </div>
@@ -171,7 +171,7 @@ const PoolTableView: React.FC<PoolTableViewProps> = ({ pools, onUsePool, isConne
                       onUsePool(pool.id);
                     }}
                     disabled={!isConnected}
-                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-transparent px-4 py-2 text-sm font-medium text-blue-600 transition-all hover:bg-blue-50 hover:text-blue-700 disabled:cursor-not-allowed disabled:text-gray-400 disabled:hover:bg-transparent dark:text-blue-400 dark:hover:bg-blue-900/20 dark:hover:text-blue-300"
+                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-transparent px-4 py-2 text-sm font-medium text-amber-600 transition-all hover:bg-amber-50 hover:text-amber-700 disabled:cursor-not-allowed disabled:text-stone-400 disabled:hover:bg-transparent dark:text-amber-400 dark:hover:bg-amber-900/20 dark:hover:text-amber-300"
                     type="button"
                   >
                     <ExternalLink size={16} />

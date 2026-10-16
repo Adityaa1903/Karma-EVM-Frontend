@@ -26,7 +26,7 @@ export const countBackupRows = (backup: ExportFormat): number =>
   );
 
 const backupFilename = (): string =>
-  `fate-portfolio-backup-${new Date().toISOString().slice(0, 10)}.json`;
+  `karma-portfolio-backup-${new Date().toISOString().slice(0, 10)}.json`;
 
 export interface ExportResult {
   rows: number;
@@ -122,7 +122,7 @@ export const readBackupFile = async (file: File): Promise<BackupSummary> => {
   }
 
   if (!isExportFormat(parsed)) {
-    throw new Error("That file is not a Fate backup.");
+    throw new Error("That file is not a Karma backup.");
   }
 
   if (parsed.databaseName !== DATABASE_CONFIG.name) {
@@ -140,7 +140,7 @@ export const readBackupFile = async (file: File): Promise<BackupSummary> => {
   // Older schemas merge fine. A newer one may carry stores and fields this build cannot interpret.
   if (parsed.databaseVersion > DATABASE_CONFIG.version) {
     throw new Error(
-      `This backup came from a newer version of Fate (database v${parsed.databaseVersion}, this app is v${DATABASE_CONFIG.version}). Update the app before restoring it.`
+      `This backup came from a newer version of Karma (database v${parsed.databaseVersion}, this app is v${DATABASE_CONFIG.version}). Update the app before restoring it.`
     );
   }
 

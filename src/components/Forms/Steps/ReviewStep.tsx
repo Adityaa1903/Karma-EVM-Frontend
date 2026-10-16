@@ -64,7 +64,14 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
                 {formData.oracleType || "Not specified"}
               </span>
             </div>
-            {(
+            {formData.oracleType === 'karma' ? (
+              <div className="flex justify-between">
+                <span className="text-gray-600 dark:text-gray-400">Karma Oracle Address:</span>
+                <span className="font-medium text-black dark:text-white break-all">
+                  {formData.karmaOracleAddress || "Not specified"}
+                </span>
+              </div>
+            ) : (
               <div className="flex justify-between">
                 <span className="text-gray-600 dark:text-gray-400">Chainlink Price Feed:</span>
                 <span className="font-medium text-black dark:text-white break-all">
@@ -196,21 +203,21 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
                 preventDefault: () => {},
               } as React.FormEvent<HTMLFormElement>);
             }}
-            className="px-4 py-2 md:px-6 md:py-2.5 rounded-xl font-semibold text-sm md:text-base
+            className="px-4 py-2 md:px-6 md:py-2.5 rounded-xl font-bold text-sm md:text-base
                       transition-all duration-300 ease-in-out 
-                      bg-neutral-900 text-white hover:bg-neutral-700
-                      dark:bg-neutral-100 dark:text-black dark:hover:bg-neutral-200 
-                      shadow-sm hover:shadow-md
-                      border border-transparent dark:border-neutral-300
+                      bg-amber-600 text-white hover:bg-amber-700
+                      dark:bg-amber-500 dark:text-stone-950 dark:hover:bg-amber-400 
+                      shadow-md hover:shadow-lg shadow-amber-600/20
+                      border border-transparent
                       disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
               <div className="flex items-center justify-center">
-                <div className="w-5 h-5 border-2 border-white dark:border-black border-t-transparent rounded-full animate-spin mr-2"></div>
+                <div className="w-5 h-5 border-2 border-white dark:border-stone-950 border-t-transparent rounded-full animate-spin mr-2"></div>
                 Creating Pool...
               </div>
             ) : (
-              "Create Fate Pool"
+              "Create Prediction Pool"
             )}
           </Button>
         </div>

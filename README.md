@@ -4,7 +4,7 @@
 <!-- Organization Logo -->
 <div align="center" style="display: flex; align-items: center; justify-content: center; gap: 16px;">
   <img alt="Stability Nexus" src="public/Animated/logo-animated.gif" width="175">
-  <img alt="Fate Protocol" src="public/logo.svg" width="150">
+  <img alt="Karma Protocol" src="public/logo.svg" width="150">
 </div>
 
 &nbsp;
@@ -12,7 +12,7 @@
 <!-- Organization Name -->
 <div align="center">
 
-[![Static Badge](https://img.shields.io/badge/Stability_Nexus-FateProtocol-228B22?style=for-the-badge&labelColor=FFC517)](https://evm.fate.stability.nexus/)
+[![Static Badge](https://img.shields.io/badge/Stability_Nexus-KarmaProtocol-d97706?style=for-the-badge&labelColor=1c1917)](https://evm.karma.stability.nexus/)
 
 </div>
 
@@ -43,120 +43,37 @@
   <img src="https://img.shields.io/youtube/channel/subscribers/UCZOG4YhFQdlGaLugr_e5BKw?style=flat&logo=youtube&logoColor=white&logoSize=auto&labelColor=FF0000&color=FF0000" alt="Youtube Badge"></a>
 </p>
 
-<p align="center">
-  <a href="https://scorecard.dev/viewer/?uri=github.com/StabilityNexus/Fate-EVM-Frontend">
-    <img src="https://api.scorecard.dev/projects/github.com/StabilityNexus/Fate-EVM-Frontend/badge" alt="OpenSSF Scorecard"/>
-  </a>
-</p>
-
 ---
 
 <div align="center">
-<h1>Fate Protocol</h1>
+<h1>Karma Protocol</h1>
 </div>
 
-[Fate Protocol](https://evm.fate.stability.nexus/) is a decentralized, perpetual prediction market that operates continuously without expiration. It replaces traditional order books with a dual-vault system—where users buy and sell **bullCoins** and **bearCoins**—enabling speculation on market trends in a fluid, always-on ecosystem.
+[Karma Protocol](https://evm.karma.stability.nexus/) is a permissionless, decentralized on-chain oracle and perpetual prediction market platform. It introduces neutrality-weighted consensus pricing where participants submit price observations and their voting influence scales strictly with the economic neutrality of their bull/bear holdings—preventing whale manipulation and Sybil attacks.
 
-Built with cutting-edge Web3 technologies, Fate Protocol delivers high-performance trading experiences with gas-optimized smart contracts and real-time price feeds from multiple oracle providers.
+Built with cutting-edge Web3 technologies, Karma Protocol delivers high-performance trading experiences with gas-optimized smart contracts and real-time community price discovery.
 
 ## ✨ Key Features
 
--  **Perpetual Market**: No expiration dates; users can enter or exit positions at any time
--  **Dual-Vault System**: Separate vaults for bullCoins and bearCoins, eliminating order book complexity
--  **Dynamic Fee Structure**: Fixed fees on transactions automatically balance vault reserves
--  **DistributeOutcome Function**: Community-driven reserve adjustments ensure fairness and transparency
--  **Self-Balancing**: Automated fund redistribution between vaults based on market movements
--  **Multi-Chain Support**: Deployed across Ethereum, Base, BNB Smart Chain, Ethereum Classic, and Polygon
--  **Real-Time Price Feeds**: Integrated Chainlink and Hebeswap oracles for accurate market data
--  **Gas-Optimized Contracts**: Efficient smart contract design minimizes transaction costs  
+-  **Neutrality-Weighted Consensus**: Voting power is determined on-chain by `min(Bull, Bear)` holdings—one-sided speculators have zero influence
+-  **Exponential Time Decay**: Price observations decay smoothly over time, keeping the oracle responsive to fresh market conditions
+-  **Perpetual Market**: Continuous trading without expiration dates; enter and exit positions at any time
+-  **Sybil & Whale Resistant**: Economically incentivized truth-telling without centralized multi-sigs or off-chain nodes
+-  **Multi-Chain Support**: Deployed across Ethereum, Base, BNB Smart Chain, Polygon, and Sepolia Testnet
+-  **Chainlink-Compatible Interface**: Seamless drop-in replacement for standard `AggregatorV3Interface` consumers
+-  **Client-Side IndexedDB Caching**: Fast and responsive offline-first portfolio and pool browsing
 
 ---
-
-## 🎬 Video Tutorials
-
-**1. Protocol Walkthrough:**
-[Fate Protocol Walkthrough](https://drive.google.com/file/d/1JHGfxee_9Yb33tlT0_rH85BZTfZGjxck/view?usp=sharing)
-
-**2. Interaction Tutorial:**
-[Fate Protocol Interaction Walkthrough](https://drive.google.com/file/d/11tthnlqvWHdJjyYvYsvtZW19fug5N6Pu/view?usp=drive_link)
 
 ## Technical Architecture
 
 ### Frontend
-- **Next.js 15** with React Server Components
-- **TypeScript** for type safety
-- **TailwindCSS** with shadcn/ui components
-- **Framer Motion** for animations
-- **Recharts** for data visualization
 
-### Blockchain
-- **Wagmi v2** for Web3 hooks
-- **Ethers.js v6** for Ethereum interactions
-- **Viem** for lightweight blockchain calls
-- **WalletLink** (`@stability-nexus/walletlink`) for wallet connection via EIP-6963, no relay or projectId
-- **TanStack React Query** for data sync
-
-### Smart Contracts
-- **Multi-Chain**: Ethereum, Base, BNB Smart Chain, Ethereum Classic and Polygon 
-- **Oracles**: Chainlink and Hebeswap price feeds
-- **Gas-Optimized**: Minimal transaction costs
-- **Audited**: Transparent fee structures
-
----
-
-## Performance Features
-
-### Frontend Optimizations
-- **Server Components**: Reduced client-side JavaScript
-- **Code Splitting**: Automatic route-based splitting
-- **Static Generation**: Pre-built pages for faster loads
-- **Streaming**: Progressive page loading
-
-### User Experience
-- **Skeleton Screens**: Immediate loading feedback
-- **Optimistic Updates**: Instant UI updates
-- **IndexedDB**: Local storage for offline capability
-- **Mobile Optimized**: Responsive touch interactions
-
----
-
-## Supported Networks
-
-Fate Protocol is deployed across multiple EVM-compatible networks:
-
-- **Base** - Main deployment with optimized gas costs
-- **BNB Smart Chain** - High-performance trading environment
-- **Ethereum Classic** - Decentralized and secure network
-- **Ethereum Mainnet** - Primary Ethereum network
-- **Polygon** - Polygon mainnet
-- **Sepolia Testnet** - Ethereum testnet for development
-
----
-
-## Deployed Contracts
-
-### Pool Factory Contracts
-
-| Network | Contract Address | BlockScout | Status |
-|---------|------------------|------------|--------|
-| **Ethereum Classic** | `0x6eb2eec7bcc4096e35d7bc467e411a505c7db202` | [View](https://blockscout.com/etc/mainnet/address/0x6eb2eec7bcc4096e35d7bc467e411a505c7db202) | ✅ Deployed |
-| **Sepolia Testnet** | `0x5fae23ab9c0b36f30bb4c6ab1d7b9c8cdbef8d18` | [View](https://sepolia.etherscan.io/address/0x5fae23ab9c0b36f30bb4c6ab1d7b9c8cdbef8d18) | ✅ Deployed |
-| **Base** | `0x0000000000000000000000000000000000000000` | - | ⏳ Pending |
-| **BNB Smart Chain** | `0x0000000000000000000000000000000000000000` | - | ⏳ Pending |
-| **Ethereum Mainnet** | `0x0000000000000000000000000000000000000000` | - | ⏳ Pending |
-| **Polygon** | `0x0000000000000000000000000000000000000000` | - | ⏳ Pending |
-
-### Oracle Adapter Contracts
-
-| Network | Contract Address | BlockScout | Status |
-|---------|------------------|------------|--------|
-| **Ethereum Classic** | `0x017cdc5ed9ba47a6a5c4414e8c66e7d7e967a83a` | [View](https://blockscout.com/etc/mainnet/address/0x017cdc5ed9ba47a6a5c4414e8c66e7d7e967a83a) | ✅ Deployed |
-| **Sepolia Testnet** | `0x2cbd9e1ec213f5ef2c8f0703514254ff7288723e` | [View](https://sepolia.etherscan.io/address/0x2cbd9e1ec213f5ef2c8f0703514254ff7288723e) | ✅ Deployed |
-| **Base** | `0x0000000000000000000000000000000000000000` | - | ⏳ Pending |
-| **BNB Smart Chain** | `0x0000000000000000000000000000000000000000` | - | ⏳ Pending |
-| **Ethereum Mainnet** | `0x0000000000000000000000000000000000000000` | - | ⏳ Pending |
-| **Polygon** | `0x0000000000000000000000000000000000000000` | - | ⏳ Pending |
-
+- **Next.js 15 (App Router)**: Server-side rendering, dynamic routes, and fast static delivery
+- **TypeScript & React 19**: Strictly typed components and state management
+- **Tailwind CSS**: Custom Amber/Gold/Emerald theme with glassmorphic aesthetics
+- **Wagmi & Viem**: EVM interactions, multicalls, event log indexing, and wallet connectivity
+- **IndexedDB**: Persistent local storage for user trade history and cached pool details
 
 ---
 
@@ -165,45 +82,33 @@ Fate Protocol is deployed across multiple EVM-compatible networks:
 ### Prerequisites
 
 - Node.js 18+
-- npm/yarn/pnpm
-- MetaMask or any other web3 wallet browser extension
+- npm / pnpm / yarn
+- Web3 wallet extension (e.g. MetaMask, Coinbase Wallet, Rabby)
 
 ### Installation
 
 #### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/StabilityNexus/Fate-EVM-Frontend.git
-cd Fate-EVM-Frontend
+git clone https://github.com/StabilityNexus/Karma-EVM-Frontend.git
+cd Karma-EVM-Frontend
 ```
 
 #### 2. Install Dependencies
 
-Using your preferred package manager:
-
 ```bash
 npm install
-# or
-yarn install
-# or
-pnpm install
 ```
 
 #### 3. Run the Development Server
 
-Start the app locally:
-
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 #### 4. Open your Browser
 
-Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
+Navigate to [http://localhost:3000](http://localhost:3000) to view the application.
 
 ---
 
@@ -211,44 +116,43 @@ Navigate to [http://localhost:3000](http://localhost:3000) to see the applicatio
 
 ```text
 src/
-│   ├── [pool]/            # Pool interactions
-│   ├── createPool/        # Pool creation
-│   ├── explorePools/      # Pool discovery
-│   └── portfolio/         # User portfolio
-├── components/             # UI components
-│   ├── Explore/          # Pool exploration
-│   ├── FatePoolCard/     # Pool cards
-│   ├── Forms/            # Form components
-│   └── ui/               # Base components
-├── lib/                  # Contract Interaction logic
-└── utils/                # Utilities & configs
-    ├── abi/              # Contract ABIs
-    └── chains/           # Chain configs
+├── app/
+│   ├── [pool]/            # Pool interactions & Karma Consensus Power
+│   ├── createPool/        # Karma pool creation
+│   ├── explorePools/      # Pool discovery & filtering
+│   ├── portfolio/         # User portfolio & trade history
+│   ├── settings/          # Cache management & backup export/import
+│   ├── submitPrice/       # Price observation submissions & consensus
+│   ├── globals.css        # Theme styles & animations (standard smooth cursor)
+│   ├── layout.tsx         # Root layout with Navbar and providers
+│   └── page.tsx           # Home landing page with dynamic Hero & About
+├── components/            # Reusable UI components
+│   ├── Explore/           # Pool exploration & table/grid views
+│   ├── Forms/             # CreateKarmaPool and multi-step configuration
+│   ├── Home/              # Hero, protocol architecture, and feature cards
+│   ├── KarmaPoolCard/     # PredictionCard & RangeSlider
+│   ├── Portfolio/         # TradeHistoryCard & position analytics
+│   ├── layout/            # Navbar, Footer, and Navigation
+│   └── ui/                # Base UI components (buttons, dialogs, inputs)
+├── hooks/                 # React hooks (useIndexedDB)
+├── lib/                   # Utilities (karmaPoolHook, scanLogs, estimateBuy/Sell)
+└── utils/                 # Configuration (addresses, chainConfig, ABIs)
 ```
 
 ---
 
-## Deployment
+## Building and Testing
 
-### GitHub Pages
-1. Push to main branch
-2. GitHub Actions auto-deploys
-3. Available at GitHub Pages URL
-
-### Manual Build
 ```bash
+# Run unit and validation test suites
+npm test
+
+# Build production bundle
 npm run build
-npm run start
 ```
 
 ## Contributing
 
-We welcome contributions of all kinds. See **[CONTRIBUTING.md](CONTRIBUTING.md)**
-for development setup, coding style, and the pull request process.
+We welcome contributions of all kinds. Questions and ideas are welcome in our [Discord channel](https://discord.gg/YzDKeEfWtS).
 
-Questions and ideas are welcome in our
-[Discord channel](https://discord.com/channels/995968619034984528/1324064370883301386).
-If you hit a bug, please open an issue with clear steps to reproduce and any
-relevant logs or screenshots.
-
-© 2025 The Stable Order.
+© 2026 The Stable Order.

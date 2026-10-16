@@ -5,7 +5,7 @@ import InteractionClient from "./InteractionClient";
 export const metadata: Metadata = {
   title: "Pool",
   description:
-    "View pool details, pricing, and trade bull and bear positions on Fate Protocol with real-time oracle updates, liquidity metrics, and transparent on-chain execution.",
+    "View pool details, pricing, and trade bull and bear positions on Karma Protocol with real-time oracle updates, liquidity metrics, and transparent on-chain execution.",
   alternates: {
     // TODO: Replace with a dynamic per-pool canonical URL once generateMetadata() is implemented.
     canonical: "/pool",
@@ -13,24 +13,24 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pool",
     description:
-      "View pool details, pricing, and trade bull and bear positions on Fate Protocol with real-time oracle updates, liquidity metrics, and transparent on-chain execution.",
+      "View pool details, pricing, and trade bull and bear positions on Karma Protocol with real-time oracle updates, liquidity metrics, and transparent on-chain execution.",
     // TODO: Replace with a dynamic per-pool URL once generateMetadata() is implemented.
     url: "/pool",
     type: "website",
     images: [
       {
-        url: "https://evm.fate.stability.nexus/og-image.png",
+        url: "https://evm.karma.stability.nexus/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Fate Protocol - Decentralized Prediction Markets",
+        alt: "Karma Protocol - Decentralized Prediction Markets",
       },
     ],
   },
   twitter: {
     title: "Pool",
     description:
-      "View pool details, pricing, and trade bull and bear positions on Fate Protocol with real-time oracle updates, liquidity metrics, and transparent on-chain execution.",
-    images: ["https://evm.fate.stability.nexus/og-image.png"],
+      "View pool details, pricing, and trade bull and bear positions on Karma Protocol with real-time oracle updates, liquidity metrics, and transparent on-chain execution.",
+    images: ["https://evm.karma.stability.nexus/og-image.png"],
   },
 };
 

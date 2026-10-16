@@ -13,7 +13,7 @@ import {
   TrendingDown,
   TrendingUp,
 } from "lucide-react";
-import { useFatePoolsStorage } from "@/lib/fatePoolHook";
+import { useKarmaPoolsStorage } from "@/lib/karmaPoolHook";
 import { PortfolioTransaction, SupportedChainId } from "@/lib/indexeddb/config";
 import { getExplorerUrl } from "@/utils/explorer";
 import { logger } from "@/lib/logger";
@@ -30,7 +30,7 @@ const PAGE_SIZE = 10;
 
 // Matches the portfolio page's other content cards.
 const CARD_CLASS =
-  "border-black dark:border-neutral-700/60 dark:bg-gradient-to-br dark:from-neutral-800/50 dark:to-neutral-900/50 backdrop-blur-sm shadow-xl";
+  "border-stone-200 dark:border-stone-700/60 dark:bg-gradient-to-br dark:from-[#1a1d28]/50 dark:to-[#141722]/50 backdrop-blur-sm shadow-xl";
 
 const NOTICE_CLASS =
   "flex items-start gap-3 rounded-lg border border-amber-300 dark:border-amber-700/60 bg-amber-50 dark:bg-amber-900/20 p-3";
@@ -86,7 +86,7 @@ export const TradeHistoryCard = ({
   historyTruncated: boolean;
   reloadKey?: string | number;
 }) => {
-  const { getPortfolioTransactions, isInitialized, error: storageError } = useFatePoolsStorage();
+  const { getPortfolioTransactions, isInitialized, error: storageError } = useKarmaPoolsStorage();
   // null = not read yet, so a first paint is a skeleton rather than a false "no trades".
   const [transactions, setTransactions] = useState<PortfolioTransaction[] | null>(null);
   const [page, setPage] = useState(0);

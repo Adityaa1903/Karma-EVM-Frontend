@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { RefreshCw, Wrench, TrendingUp, TrendingDown } from 'lucide-react';
+import { RefreshCw, Wrench, TrendingUp, TrendingDown, ArrowUpRight, Scale, Send } from 'lucide-react';
 import {
   useAccount,
   useWalletClient,
@@ -1569,6 +1569,17 @@ export default function InteractionClient() {
     const userBullReturns = 0;
     const userBearReturns = 0;
 
+    // Karma Protocol economic neutrality calculation:
+    // normalizedBull = B * P_B * q_S
+    // normalizedBear = S * P_S * q_B
+    const qS = totalReserves > 0 ? bearReserveNum / totalReserves : 0.5;
+    const qB = totalReserves > 0 ? bullReserveNum / totalReserves : 0.5;
+    const normalizedBull = userBullTokens * bullPrice * qS;
+    const normalizedBear = userBearTokens * bearPrice * qB;
+    const karmaWeight = Math.min(normalizedBull, normalizedBear);
+    const maxExposure = Math.max(normalizedBull, normalizedBear);
+    const neutralityRatio = maxExposure > 0 ? (karmaWeight / maxExposure) * 100 : 0;
+
     return {
       totalReserves,
       bullPercentage,
@@ -1585,6 +1596,10 @@ export default function InteractionClient() {
       bearReserveNum,
       bullSupplyNum,
       bearSupplyNum,
+      karmaWeight,
+      neutralityRatio,
+      normalizedBull,
+      normalizedBear,
     };
   }, [poolData, userBalances, pool]);
 
@@ -1616,14 +1631,6 @@ export default function InteractionClient() {
   logger.debug('Oracle Address Length:', { length: oracleAddress?.length });
   logger.debug('=== END DEBUG ===');
 
-
-  const previousPoolData = useRef(poolData);
-  const changes = useMemo(() => {
-    return {
-      bull_reserve: poolData.bull_reserve !== previousPoolData.current.bull_reserve,
-      bear_reserve: poolData.bear_reserve !== previousPoolData.current.bear_reserve,
-    };
-  }, [poolData]);
 
   // Handle rebalance transaction confirmation
   useEffect(() => {
@@ -1670,20 +1677,20 @@ export default function InteractionClient() {
 
   if (loading && !pool)
     return (
-      <div className="flex items-center justify-center h-screen bg-white dark:bg-black">
+      <div className="flex items-center justify-center h-screen bg-transparent">
         <Loading size="xl" />
       </div>
     );
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-neutral-900">
+      <div className="min-h-screen flex items-center justify-center bg-transparent">
         <div className="text-center">
-          <h2 className="text-lg md:text-xl font-semibold mb-2 text-neutral-900 dark:text-white">
+          <h2 className="text-lg md:text-xl font-semibold mb-2 text-stone-900 dark:text-stone-100">
             Error Loading Pool
           </h2>
-          <p className="text-neutral-600 dark:text-neutral-400">{error}</p>
-          <Button asChild variant="outline" className="mt-6">
+          <p className="text-stone-600 dark:text-stone-400">{error}</p>
+          <Button asChild variant="outline" className="mt-6 border-stone-300 dark:border-stone-700 hover:border-amber-500">
             <Link href="/explorePools">Browse pools</Link>
           </Button>
         </div>
@@ -1692,7 +1699,7 @@ export default function InteractionClient() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black text-neutral-900 dark:text-white">
+    <div className="min-h-screen bg-transparent text-stone-900 dark:text-stone-100">
       <Navbar />
 
       <div className="container mx-auto px-5 py-4">
@@ -1702,11 +1709,11 @@ export default function InteractionClient() {
           </div>
         )}
 
-        <div className="border rounded-xl border-black dark:border-neutral-600 p-3 bg-white dark:bg-neutral-900 mb-6 shadow-sm">
+        <div className="border rounded-2xl border-stone-200/80 dark:border-amber-900/25 p-4 bg-white/90 dark:bg-[#151823]/90 mb-6 shadow-sm">
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
             <div className="flex-2 p-1">
               <div className="flex items-center space-x-3">
-                <h1 className="text-xl md:text-3xl font-bold text-neutral-900 dark:text-white">
+                <h1 className="text-xl md:text-3xl font-black text-stone-900 dark:text-stone-100 tracking-tight">
                   {poolData.name}
                 </h1>
                 <div className="flex items-center space-x-2">
@@ -1783,38 +1790,82 @@ export default function InteractionClient() {
                   </Tooltip>
                 </TooltipProvider>
               </div>
+
+              {/* Karma Oracle & Economic Neutrality Card */}
+              <div className="mt-4 p-4 rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-emerald-500/10 border border-amber-500/30 dark:border-amber-500/20 backdrop-blur-md">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-amber-500/20 text-amber-600 dark:text-amber-400">
+                      <Scale className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300">
+                          Karma Consensus Power
+                        </span>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-500/20 text-amber-900 dark:text-amber-200 border border-amber-500/30">
+                          {calculations.neutralityRatio > 75 
+                            ? "Optimal Neutrality" 
+                            : calculations.karmaWeight > 0 
+                              ? "Partial Influence" 
+                              : "Hold Both Coins to Participate"}
+                        </span>
+                      </div>
+                      <div className="flex items-baseline gap-2 mt-0.5">
+                        <span className="text-lg md:text-xl font-black text-stone-900 dark:text-stone-100">
+                          {calculations.karmaWeight.toFixed(4)} Weight
+                        </span>
+                        <span className="text-xs text-stone-600 dark:text-stone-400">
+                          ({calculations.neutralityRatio.toFixed(0)}% balanced)
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href={`/submitPrice?id=${poolData.oracle_address || poolId}`}
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs md:text-sm font-bold shadow-md shadow-amber-600/20 transition-all hover:scale-105 active:scale-95"
+                    >
+                      <Send className="w-3.5 h-3.5" />
+                      <span>Submit Price</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="lg:min-w-[300px] mt-1 mr-1">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
-                <div className="bg-neutral-200 dark:bg-neutral-800 rounded-lg p-3 justify-center items-center flex flex-col">
-                  <div className="text-xs font-medium text-neutral-600 dark:text-neutral-400 mb-1">
+
+            <div className="lg:min-w-[320px] mt-1 mr-1">
+              <div className="grid grid-cols-1 gap-3">
+                <div className="bg-stone-100/80 dark:bg-[#121622]/80 border border-stone-200/80 dark:border-amber-900/25 rounded-2xl p-4 justify-center items-center flex flex-col shadow-sm">
+                  <div className="text-xs font-semibold text-stone-500 dark:text-stone-400 mb-1 uppercase tracking-wider">
                     Total Value Locked
                   </div>
-                  <div className="text-sm md:text-lg font-bold transition-all duration-300">
+                  <div className="text-xl md:text-2xl font-black text-stone-900 dark:text-stone-100 transition-all duration-300">
                     {formatValue(calculations.totalReserves, poolData.base_symbol)}
                   </div>
-                  <div className="w-full rounded-full h-2 my-2 flex overflow-hidden bg-neutral-200 dark:bg-neutral-700">
+                  <div className="w-full rounded-full h-2.5 my-3 flex overflow-hidden bg-stone-200 dark:bg-stone-800">
                     <div
-                      className="h-2 transition-all duration-500 ease-in-out"
+                      className="h-2.5 transition-all duration-500 ease-in-out bg-gradient-to-r from-emerald-600 to-emerald-400"
                       style={{
                         width: `${calculations.bullPercentage}%`,
-                        backgroundColor: theme === "dark" ? "#111" : "#333",
                       }}
                     ></div>
                     <div
-                      className="h-2 transition-all duration-500 ease-in-out"
+                      className="h-2.5 transition-all duration-500 ease-in-out bg-gradient-to-r from-rose-500 to-rose-600"
                       style={{
                         width: `${calculations.bearPercentage}%`,
-                        backgroundColor: theme === "dark" ? "gray-500" : "#fff",
-                        borderLeft: theme === "dark" ? "1px solid #888" : "1px solid #ddd",
                       }}
                     ></div>
                   </div>
-                  <div className="flex justify-between w-full text-xs font-medium">
-                    <span className={`text-black transition-colors duration-300 ${changes.bull_reserve ? "font-bold" : ""}`}>
+                  <div className="flex justify-between w-full text-xs font-bold">
+                    <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                      <TrendingUp className="w-3.5 h-3.5" />
                       {calculations.bullPercentage.toFixed(1)}% Bull
                     </span>
-                    <span className={`text-gray-500 dark:text-white transition-colors duration-300 ${changes.bear_reserve ? "font-bold" : ""}`}>
+                    <span className="text-rose-600 dark:text-rose-400 flex items-center gap-1">
+                      <TrendingDown className="w-3.5 h-3.5" />
                       {calculations.bearPercentage.toFixed(1)}% Bear
                     </span>
                   </div>
@@ -1997,27 +2048,27 @@ export default function InteractionClient() {
 
         {/* Creator Tools Section - Full Width at Bottom */}
         {address === pool?.vault_creator && (
-          <div className="w-full mt-8 p-6 border rounded-xl border-black dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800">
-            <h4 className="font-bold mb-4 text-lg md:text-xl text-neutral-900 dark:text-white flex items-center gap-2">
-              <Wrench className="w-6 h-6" />
+          <div className="w-full mt-8 p-6 border rounded-2xl border-stone-200/80 dark:border-amber-900/25 bg-white/90 dark:bg-[#151823]/90 shadow-lg">
+            <h4 className="font-bold mb-4 text-lg md:text-xl text-stone-900 dark:text-stone-100 flex items-center gap-2">
+              <Wrench className="w-6 h-6 text-amber-600 dark:text-amber-400" />
               Creator Tools
             </h4>
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
                   Update Oracle Address
                 </label>
                 <div className="flex gap-2 max-w-md">
                   <Input
                     placeholder="New oracle address"
-                    className="flex-1"
+                    className="flex-1 border-stone-300 dark:border-stone-700/60 focus:border-amber-500"
                     value={newOracleAddress}
                     onChange={(e) => setNewOracleAddress(e.target.value)}
                   />
                   <Button
                     onClick={handleUpdateOracle}
                     disabled={!newOracleAddress || isDistributeLoading}
-                    className="bg-black dark:bg-white text-white dark:text-black"
+                    className="bg-amber-600 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-stone-950 font-bold shadow-md shadow-amber-600/20"
                   >
                     Update
                   </Button>
@@ -2025,28 +2076,28 @@ export default function InteractionClient() {
               </div>
 
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-                <div className="bg-white dark:bg-neutral-900 p-4 rounded-lg border border-black dark:border-neutral-600">
-                  <div className="font-medium text-neutral-600 dark:text-neutral-400 mb-1">Mint Fee</div>
-                  <div className="font-bold text-sm md:text-lg text-neutral-900 dark:text-white">{poolData.mint_fee}%</div>
-                  <div className="text-xs text-neutral-500 dark:text-neutral-400">Charged when buying tokens</div>
+                <div className="bg-stone-50 dark:bg-[#1a1d28] p-4 rounded-xl border border-stone-200/80 dark:border-amber-900/20">
+                  <div className="font-medium text-stone-600 dark:text-stone-400 mb-1">Mint Fee</div>
+                  <div className="font-bold text-sm md:text-lg text-stone-900 dark:text-stone-100">{poolData.mint_fee}%</div>
+                  <div className="text-xs text-stone-500 dark:text-stone-400">Charged when buying tokens</div>
                 </div>
-                <div className="bg-white dark:bg-neutral-900 p-4 rounded-lg border border-black dark:border-neutral-600">
-                  <div className="font-medium text-neutral-600 dark:text-neutral-400 mb-1">Burn Fee</div>
-                  <div className="font-bold text-sm md:text-lg text-neutral-900 dark:text-white">{poolData.burn_fee}%</div>
-                  <div className="text-xs text-neutral-500 dark:text-neutral-400">Charged when selling tokens</div>
+                <div className="bg-stone-50 dark:bg-[#1a1d28] p-4 rounded-xl border border-stone-200/80 dark:border-amber-900/20">
+                  <div className="font-medium text-stone-600 dark:text-stone-400 mb-1">Burn Fee</div>
+                  <div className="font-bold text-sm md:text-lg text-stone-900 dark:text-stone-100">{poolData.burn_fee}%</div>
+                  <div className="text-xs text-stone-500 dark:text-stone-400">Charged when selling tokens</div>
                 </div>
-                <div className="bg-white dark:bg-neutral-900 p-4 rounded-lg border border-black dark:border-neutral-600">
-                  <div className="font-medium text-neutral-600 dark:text-neutral-400 mb-1">Creator Fee</div>
-                  <div className="font-bold text-sm md:text-lg text-neutral-900 dark:text-white">{poolData.creator_fee}%</div>
-                  <div className="text-xs text-neutral-500 dark:text-neutral-400">Paid to pool creator</div>
+                <div className="bg-stone-50 dark:bg-[#1a1d28] p-4 rounded-xl border border-stone-200/80 dark:border-amber-900/20">
+                  <div className="font-medium text-stone-600 dark:text-stone-400 mb-1">Creator Fee</div>
+                  <div className="font-bold text-sm md:text-lg text-stone-900 dark:text-stone-100">{poolData.creator_fee}%</div>
+                  <div className="text-xs text-stone-500 dark:text-stone-400">Paid to pool creator</div>
                 </div>
-                <div className="bg-white dark:bg-neutral-900 p-4 rounded-lg border border-black dark:border-neutral-600">
-                  <div className="font-medium text-neutral-600 dark:text-neutral-400 mb-1">Treasury Fee</div>
-                  <div className="font-bold text-sm md:text-lg text-neutral-900 dark:text-white">{poolData.treasury_fee}%</div>
-                  <div className="text-xs text-neutral-500 dark:text-neutral-400">Paid to treasury</div>
+                <div className="bg-stone-50 dark:bg-[#1a1d28] p-4 rounded-xl border border-stone-200/80 dark:border-amber-900/20">
+                  <div className="font-medium text-stone-600 dark:text-stone-400 mb-1">Treasury Fee</div>
+                  <div className="font-bold text-sm md:text-lg text-stone-900 dark:text-stone-100">{poolData.treasury_fee}%</div>
+                  <div className="text-xs text-stone-500 dark:text-stone-400">Paid to treasury</div>
                 </div>
               </div>
-              <div className="text-sm text-neutral-500 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 p-4 rounded-lg">
+              <div className="text-sm text-stone-500 dark:text-stone-400 bg-stone-100/80 dark:bg-[#1a1d28]/60 p-4 rounded-xl border border-stone-200/50 dark:border-amber-900/15">
                 <strong>Note:</strong> Fees are set during pool creation and cannot be changed. They are immutable for the lifetime of the pool.
               </div>
             </div>

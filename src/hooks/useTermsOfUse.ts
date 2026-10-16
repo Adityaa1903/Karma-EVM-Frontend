@@ -9,7 +9,7 @@ export const TERMS_PAGE_URL = "https://github.com/StabilityNexus/Info/blob/main/
 // once every REACCEPT_DAYS regardless, as a reminder (Bruno, 2026-09-09).
 export const TERMS_REACCEPT_DAYS = 21;
 
-const STORAGE_KEY = "fate-terms-of-use-accepted";
+const STORAGE_KEY = "karma-terms-of-use-accepted";
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 interface StoredAcceptance {

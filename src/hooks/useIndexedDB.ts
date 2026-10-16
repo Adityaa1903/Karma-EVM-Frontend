@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { toast } from 'sonner';
-import { FatePoolsIndexedDBManager } from '@/lib/indexeddb/manager';
+import { KarmaPoolsIndexedDBManager } from '@/lib/indexeddb/manager';
 import { 
   type PoolDetails, 
   type TokenDetails, 
@@ -69,7 +69,7 @@ export const useIndexedDB = (): UseIndexedDBReturn => {
   const [error, setError] = useState<string | null>(null);
   
   // Manager instance
-  const managerRef = useRef<FatePoolsIndexedDBManager | null>(null);
+  const managerRef = useRef<KarmaPoolsIndexedDBManager | null>(null);
   const isClientRef = useRef(false);
 
   // Check if we're on the client side
@@ -109,7 +109,7 @@ export const useIndexedDB = (): UseIndexedDBReturn => {
       
       try {
         if (!managerRef.current) {
-          managerRef.current = new FatePoolsIndexedDBManager();
+          managerRef.current = new KarmaPoolsIndexedDBManager();
         }
         
         await managerRef.current.init();

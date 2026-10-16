@@ -11,7 +11,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
       defaultTheme="light"
       enableSystem
       disableTransitionOnChange
-      storageKey="fate-protocol-theme"
+      storageKey="karma-protocol-theme"
     >
       <WalletProvider>
         <TermsOfUseProvider>

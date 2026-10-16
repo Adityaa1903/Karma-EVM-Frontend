@@ -112,7 +112,7 @@ const PoolConfigurationStep: React.FC<PoolConfigurationStepProps> = ({
                 </TooltipTrigger>
                 <TooltipContent className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400">
                   <p className="w-64 text-sm">
-                    Enter a unique and descriptive name for your Fate Pool
+                    Enter a unique and descriptive name for your Karma Pool
                   </p>
                 </TooltipContent>
               </Tooltip>
@@ -120,7 +120,7 @@ const PoolConfigurationStep: React.FC<PoolConfigurationStepProps> = ({
           </div>
           <Input
             type="text"
-            placeholder="e.g. FateBTC"
+            placeholder="e.g. KarmaBTC"
             value={formData.poolName}
             onChange={(e) => updateFormData({ poolName: e.target.value })}
             className={`transition-all focus:ring-2 focus:ring-black dark:focus:ring-white border-gray-200 dark:border-gray-700 text-black dark:text-white ${
@@ -305,88 +305,160 @@ const PoolConfigurationStep: React.FC<PoolConfigurationStepProps> = ({
           </p>
         </div>
 
-        {/* Oracle Type Display */}
-        <div className="space-y-2">
+        {/* Oracle Type Selection */}
+        <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <Coins className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-            <Label className="text-sm font-medium text-gray-600 dark:text-gray-400">
-              Oracle Type *
+            <Coins className="h-4 w-4 text-stone-600 dark:text-stone-400" />
+            <Label className="text-sm font-semibold text-stone-700 dark:text-stone-300">
+              Oracle Consensus Type *
             </Label>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Info className="h-4 w-4 text-gray-600/70 dark:text-gray-400/70 cursor-help" />
+                  <Info className="h-4 w-4 text-stone-500 cursor-help" />
                 </TooltipTrigger>
-                <TooltipContent className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400">
-                  <p className="w-64 text-sm">
-                    Chainlink price feeds are used on every supported chain.
+                <TooltipContent className="bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900 border border-stone-700">
+                  <p className="w-64 text-xs">
+                    Choose Karma Oracle for self-sovereign, on-chain neutrality consensus, or Chainlink for external price feeds.
                   </p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </div>
-          <div className="p-3 border rounded-lg bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-800">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                Selected Oracle:
-              </span>
-              <span className="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                Chainlink
-              </span>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {/* Karma Oracle Option */}
+            <div
+              onClick={() => updateFormData({ oracleType: 'karma' })}
+              className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                formData.oracleType === 'karma'
+                  ? 'border-amber-500 bg-amber-500/10 shadow-sm shadow-amber-500/10'
+                  : 'border-stone-200 dark:border-stone-800 hover:border-amber-500/50 bg-stone-50/50 dark:bg-stone-900/40'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="font-bold text-sm text-stone-900 dark:text-stone-100">
+                  ✦ Karma Oracle
+                </span>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-800 dark:text-amber-300">
+                  Native
+                </span>
+              </div>
+              <p className="text-xs text-stone-500 dark:text-stone-400 leading-relaxed">
+                Self-sovereign consensus weighted by bull/bear economic neutrality. Zero external reliance.
+              </p>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 hidden md:block">
-              🟢 Chainlink provides reliable price feeds across most networks
-            </p>
+
+            {/* Chainlink Option */}
+            <div
+              onClick={() => updateFormData({ oracleType: 'chainlink' })}
+              className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                formData.oracleType === 'chainlink'
+                  ? 'border-amber-500 bg-amber-500/10 shadow-sm shadow-amber-500/10'
+                  : 'border-stone-200 dark:border-stone-800 hover:border-amber-500/50 bg-stone-50/50 dark:bg-stone-900/40'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="font-bold text-sm text-stone-900 dark:text-stone-100">
+                  Chainlink Feed
+                </span>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400">
+                  External
+                </span>
+              </div>
+              <p className="text-xs text-stone-500 dark:text-stone-400 leading-relaxed">
+                Traditional price feeds provided by Chainlink node operators.
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Oracle Configuration */}
-        <div className="space-y-2">
-          <div className="flex items-center gap-2">
-            <Coins className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-            <Label htmlFor="price-feed-select" className="text-sm font-medium text-gray-600 dark:text-gray-400">
-              Chainlink Price Feed *
-            </Label>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Info className="h-4 w-4 text-gray-600/70 dark:text-gray-400/70 cursor-help" />
-                </TooltipTrigger>
-                <TooltipContent className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400">
-                  <p className="w-80 text-sm">
-                    Smart Oracle Management: The system will automatically create an oracle adapter for this price feed if it doesn&apos;t exist, or use an existing one if available. This ensures efficient gas usage and prevents duplicate oracle deployments.
-                  </p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+        {/* Oracle Configuration based on Type */}
+        {formData.oracleType === 'karma' ? (
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Coins className="h-4 w-4 text-stone-600 dark:text-stone-400" />
+              <Label htmlFor="karma-oracle-address" className="text-sm font-semibold text-stone-700 dark:text-stone-300">
+                Karma Oracle Address *
+              </Label>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="h-4 w-4 text-stone-500 cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900">
+                    <p className="w-72 text-xs">
+                      Provide the contract address of the Karma Oracle instance to use as the price source for this pool.
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+            <Input
+              id="karma-oracle-address"
+              type="text"
+              placeholder="0x... (Deployed Karma Oracle address)"
+              value={formData.karmaOracleAddress || ''}
+              onChange={(e) => updateFormData({ karmaOracleAddress: e.target.value })}
+              className={`font-mono text-sm border-stone-200 dark:border-stone-700 focus:border-amber-500 ${
+                errors.karmaOracleAddress ? "border-red-500" : ""
+              }`}
+            />
+            {errors.karmaOracleAddress && (
+              <p className="text-red-500 text-xs">{errors.karmaOracleAddress}</p>
+            )}
+            <p className="text-xs text-stone-500 dark:text-stone-400">
+              Tip: You can deploy a new Karma Oracle or connect an existing instance from the Submit Price page.
+            </p>
           </div>
-          <select
-            id="price-feed-select"
-            value={formData.priceFeedAddress}
-            onChange={(e) => updateFormData({ priceFeedAddress: e.target.value })}
-            className={`w-full px-3 py-2.5 border rounded-md transition-all duration-200 cursor-pointer text-sm md:text-base ${
-              errors.priceFeedAddress 
-                ? "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500" 
-                : "border-gray-200 dark:border-gray-700 focus:border-black dark:focus:border-white focus:ring-2 focus:ring-black dark:focus:ring-white"
-            } text-black dark:text-white bg-white dark:bg-gray-800 focus:outline-none`}
-          >
-            <option value="" disabled className="text-gray-500">
-              Select a price feed (oracle adapter will be created automatically)...
-            </option>
-            {priceFeedOptions.map((feed) => (
-              <option 
-                key={feed.address} 
-                value={feed.address}
-                className="text-black dark:text-white bg-white dark:bg-gray-800"
-              >
-                {feed.name}
+        ) : (
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Coins className="h-4 w-4 text-stone-600 dark:text-stone-400" />
+              <Label htmlFor="price-feed-select" className="text-sm font-semibold text-stone-700 dark:text-stone-300">
+                Chainlink Price Feed *
+              </Label>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Info className="h-4 w-4 text-stone-500 cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900">
+                    <p className="w-80 text-xs">
+                      The system will automatically create an oracle adapter for this price feed if one doesn&apos;t exist.
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+            <select
+              id="price-feed-select"
+              value={formData.priceFeedAddress}
+              onChange={(e) => updateFormData({ priceFeedAddress: e.target.value })}
+              className={`w-full px-3 py-2.5 border rounded-xl transition-all cursor-pointer text-sm md:text-base ${
+                errors.priceFeedAddress 
+                  ? "border-red-500 focus:border-red-500" 
+                  : "border-stone-200 dark:border-stone-700 focus:border-amber-500"
+              } text-stone-900 dark:text-stone-100 bg-white dark:bg-stone-900 focus:outline-none`}
+            >
+              <option value="" disabled className="text-stone-400">
+                Select a price feed (oracle adapter will be created automatically)...
               </option>
-            ))}
-          </select>
-          {errors.priceFeedAddress && (
-            <p className="text-red-500 text-sm">{errors.priceFeedAddress}</p>
-          )}
-        </div>
+              {priceFeedOptions.map((feed) => (
+                <option 
+                  key={feed.address} 
+                  value={feed.address}
+                  className="text-stone-900 dark:text-stone-100 bg-white dark:bg-stone-900"
+                >
+                  {feed.name}
+                </option>
+              ))}
+            </select>
+            {errors.priceFeedAddress && (
+              <p className="text-red-500 text-xs">{errors.priceFeedAddress}</p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

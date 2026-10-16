@@ -3,32 +3,32 @@ import AboutSection from "@/components/Home/About";
 import Hero from "@/components/Home/Hero";
 
 export const metadata: Metadata = {
-  title: "Decentralized Prediction Markets & DeFi Trading",
+  title: "Decentralized Oracle for Prediction Markets",
   description:
-    "Decentralized perpetual prediction pools for trading price movements across multiple blockchain networks with real-time oracle pricing, automated market making, and transparent on-chain execution.",
+    "Karma Protocol — a permissionless on-chain oracle for prediction pools. Submit price observations weighted by your bull/bear neutrality for decentralized consensus pricing.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Decentralized Prediction Markets & DeFi Trading",
+    title: "Decentralized Oracle for Prediction Markets",
     description:
-      "Decentralized perpetual prediction pools for trading price movements across multiple blockchain networks with real-time oracle pricing, automated market making, and transparent on-chain execution.",
+      "Karma Protocol — a permissionless on-chain oracle for prediction pools. Submit price observations weighted by your bull/bear neutrality.",
     url: "/",
     type: "website",
     images: [
       {
-        url: "https://evm.fate.stability.nexus/og-image.png",
+        url: "https://evm.karma.stability.nexus/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Fate Protocol - Decentralized Prediction Markets",
+        alt: "Karma Protocol - Decentralized Oracle for Prediction Markets",
       },
     ],
   },
   twitter: {
-    title: "Decentralized Prediction Markets & DeFi Trading",
+    title: "Decentralized Oracle for Prediction Markets",
     description:
-      "Decentralized perpetual prediction pools for trading price movements across multiple blockchain networks with real-time oracle pricing, automated market making, and transparent on-chain execution.",
-    images: ["https://evm.fate.stability.nexus/og-image.png"],
+      "Karma Protocol — a permissionless on-chain oracle for prediction pools. Submit price observations weighted by your bull/bear neutrality.",
+    images: ["https://evm.karma.stability.nexus/og-image.png"],
   },
 };
 

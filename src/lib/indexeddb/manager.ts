@@ -16,7 +16,7 @@ import {
   DATABASE_CONFIG
 } from './config';
 
-export class FatePoolsIndexedDBManager {
+export class KarmaPoolsIndexedDBManager {
   private db: IndexedDBDatabase;
 
   constructor() {
@@ -488,3 +488,6 @@ export class FatePoolsIndexedDBManager {
     }
   }
 }
+
+// Backward-compatible alias
+export const FatePoolsIndexedDBManager = KarmaPoolsIndexedDBManager;

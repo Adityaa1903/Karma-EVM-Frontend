@@ -1,5 +1,5 @@
 /**
- * Production-ready logging service for Fate Protocol
+ * Production-ready logging service for Karma Protocol
  * Provides different log levels and can be easily configured for different environments
  */
 

@@ -4,64 +4,69 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --background: 30 20% 98%;
+    --foreground: 220 25% 10%;
+    --card: 30 15% 97%;
+    --card-foreground: 220 25% 10%;
+    --popover: 30 15% 97%;
+    --popover-foreground: 220 25% 10%;
+    --primary: 25 85% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 15% 93%;
+    --secondary-foreground: 220 25% 10%;
+    --muted: 220 15% 93%;
+    --muted-foreground: 220 10% 46%;
+    --accent: 25 85% 55%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 25 85% 55%;
+    --chart-1: 25 85% 55%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --chart-5: 12 76% 61%;
     --radius: 0.5rem;
 
     /* Bottom Navigation tokens */
-    --nav-bg: #1a1b1f;
-    --nav-active: #eab308;
+    --nav-bg: #1c1917;
+    --nav-active: #d97706;
     --nav-inactive: rgba(255, 255, 255, 0.4);
     --nav-icon-size: 22;
     --nav-icon-stroke: 1.75;
+
+    /* Karma accent */
+    --karma-accent: #d97706;
+    --karma-accent-light: #f59e0b;
+    --karma-accent-dark: #b45309;
   }
 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 220 20% 6%;
+    --foreground: 30 15% 95%;
+    --card: 220 20% 8%;
+    --card-foreground: 30 15% 95%;
+    --popover: 220 20% 8%;
+    --popover-foreground: 30 15% 95%;
+    --primary: 35 90% 55%;
+    --primary-foreground: 220 20% 6%;
+    --secondary: 220 15% 14%;
+    --secondary-foreground: 30 15% 95%;
+    --muted: 220 15% 14%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 35 90% 55%;
+    --accent-foreground: 220 20% 6%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
+    --border: 220 15% 16%;
+    --input: 220 15% 16%;
+    --ring: 35 90% 55%;
+    --chart-1: 35 90% 55%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
+    --chart-4: 200 65% 50%;
     --chart-5: 340 75% 55%;
   }
 }
@@ -79,40 +84,56 @@
 html {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
-  transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+  font-family: var(--font-plus-jakarta), var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+  letter-spacing: -0.01em;
 }
 
-/* Additional theme flash prevention */
+/* Additional theme flash prevention and premium backgrounds */
 html.dark {
-  background-color: #0a0a0a;
-  color: #ededed;
+  background-color: #090c14;
+  color: #f5f0e8;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(217, 119, 6, 0.12), transparent),
+    radial-gradient(ellipse 60% 40% at 85% 60%, rgba(16, 185, 129, 0.05), transparent),
+    radial-gradient(ellipse 60% 40% at 15% 80%, rgba(245, 158, 11, 0.06), transparent);
+  background-attachment: fixed;
 }
 
 html:not(.dark) {
-  background-color: #ffffff;
-  color: #171717;
+  background-color: #fcfaf6;
+  color: #1c1917;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(251, 191, 36, 0.1), transparent),
+    radial-gradient(ellipse 60% 40% at 90% 70%, rgba(245, 158, 11, 0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 10% 50%, rgba(16, 185, 129, 0.04), transparent);
+  background-attachment: fixed;
 }
 
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 6px;
 }
 
-/* ::-webkit-scrollbar-track {
-  background: #012d1f;
-} */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
 
 ::-webkit-scrollbar-thumb {
-  background: #6c6c6c;
+  background: #a8a29e;
   border-radius: 10px;
 }
 
+.dark ::-webkit-scrollbar-thumb,
+html.dark ::-webkit-scrollbar-thumb {
+  background: #44403c;
+}
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #6c6c6c;
+  background: #78716c;
 }
 
 /* Add these to your global CSS */
@@ -122,15 +143,15 @@ html:not(.dark) {
 }
 
 .mode-toggle-button-dark {
-  background-color: #000000;
-  border: 2px solid white;
-  color: white;
+  background-color: #1c1917;
+  border: 2px solid #d97706;
+  color: #d97706;
 }
 
 .mode-toggle-button-light {
-  background-color: white;
-  border: 2px solid black;
-  color: black;
+  background-color: #faf8f5;
+  border: 2px solid #92400e;
+  color: #92400e;
 }
 
 .mode-toggle-icon {
@@ -156,17 +177,17 @@ html:not(.dark) {
 
 .hero-button-light:hover {
   background-color: white;
-  color: black;
+  color: #1c1917;
 }
 
 .hero-button-dark {
-  border-color: black;
-  color: black;
+  border-color: #1c1917;
+  color: #1c1917;
 }
 
 .hero-button-dark:hover {
-  background-color: black;
-  color: white;
+  background-color: #1c1917;
+  color: #f5f0e8;
 }
 
 /* CSS Loader Animation */
@@ -195,17 +216,17 @@ html:not(.dark) {
   animation-delay: -1s;
 }
 
-/* Light mode: white background, black animation */
+/* Light mode: warm bg, amber animation */
 :root {
-  --loader-container-bg: #ffffff;
-  --loader-element-bg: #000000;
+  --loader-container-bg: #faf8f5;
+  --loader-element-bg: #d97706;
   --loader-blend-mode: normal;
 }
 
-/* Dark mode: black background, white animation */
+/* Dark mode: dark slate bg, amber animation */
 .dark {
-  --loader-container-bg: #000000;
-  --loader-element-bg: #ffffff;
+  --loader-container-bg: #0f1219;
+  --loader-element-bg: #f59e0b;
   --loader-blend-mode: normal;
 }
 
@@ -240,14 +261,116 @@ html:not(.dark) {
   color: #dc2626 !important;
 }
 
-/* Hide cursor ONLY in Hero section */
-@media (pointer: fine) {
-  .hero-cursor {
-    cursor: none;
+/* Karma-specific ambient glow for cards */
+.karma-glow {
+  box-shadow: 0 10px 40px -10px rgba(217, 119, 6, 0.15), 0 0 20px -5px rgba(245, 158, 11, 0.1);
+}
+
+.dark .karma-glow {
+  box-shadow: 0 12px 50px -10px rgba(245, 158, 11, 0.12), 0 0 30px -5px rgba(217, 119, 6, 0.08);
+}
+
+.karma-glow-emerald {
+  box-shadow: 0 10px 40px -10px rgba(16, 185, 129, 0.2);
+}
+
+.karma-glow-rose {
+  box-shadow: 0 10px 40px -10px rgba(244, 63, 94, 0.2);
+}
+
+.karma-panel {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(217, 119, 6, 0.18);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.dark .karma-panel {
+  background: rgba(15, 19, 28, 0.85);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.karma-card {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .karma-card {
+  background: rgba(17, 21, 32, 0.75);
+  border: 1px solid rgba(245, 158, 11, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.karma-card:hover {
+  border-color: rgba(245, 158, 11, 0.35);
+  transform: translateY(-2px);
+}
+
+.karma-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.2rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgba(245, 158, 11, 0.12);
+  color: #b45309;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+.dark .karma-badge {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+/* Gradient text helpers */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .text-gradient-gold {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #fcd34d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-emerald {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-rose {
+  background: linear-gradient(135deg, #e11d48 0%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Smooth ambient pulse */
+@keyframes ambientGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.08);
   }
 }
 
-.hero-cursor input,
-.hero-cursor textarea {
-  cursor: text !important;
+.animate-ambient-glow {
+  animation: ambientGlow 8s ease-in-out infinite;
 }

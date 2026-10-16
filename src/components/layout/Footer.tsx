@@ -104,7 +104,7 @@ interface FooterProps {
 export default function Footer({ className = "", onTermsClick }: FooterProps) {
   const year = new Date().getFullYear();
   return (
-    <footer className={`w-full rounded-lg backdrop-blur-md bg-neutral-100 dark:bg-black shadow-lg border border-neutral-200 dark:border-black/10 ${className}`}>
+    <footer className={`w-full rounded-2xl backdrop-blur-md bg-stone-100/90 dark:bg-[#151823]/90 shadow-md border border-stone-200/80 dark:border-amber-900/20 ${className}`}>
       <div className="px-4 sm:px-8 py-6 pb-20 max-[900px]:pb-20 space-y-6">
         {/* Logo and Social Links */}
         <div className="flex flex-col  md:flex-row ">
@@ -117,14 +117,14 @@ export default function Footer({ className = "", onTermsClick }: FooterProps) {
             >
               <Image
                 src="/logo-animated.gif"
-                alt="Fate Protocol"
+                alt="Karma Protocol"
                 width={80}
                 height={80}
                 className="p-2"
                 priority
               />
             </Link>
-            <h5 className="text-md sm:hidden md:hidden flex justify-center items-center text-neutral-900 dark:text-white">
+            <h5 className="text-md sm:hidden md:hidden flex justify-center items-center text-stone-700 dark:text-stone-200">
               A Project by Stability Nexus
             </h5>
           </div>
@@ -135,10 +135,10 @@ export default function Footer({ className = "", onTermsClick }: FooterProps) {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-neutral-200/50 dark:bg-black/10 p-2 hover:bg-neutral-300/50 dark:hover:bg-white/20 transition-colors"
+                className="rounded-full bg-stone-200/50 dark:bg-stone-800/30 p-2 hover:bg-amber-100 dark:hover:bg-amber-900/20 transition-colors"
               >
                 <span className="sr-only">{item.name}</span>
-                <item.icon className="size-6 text-neutral-900 dark:text-white" aria-hidden="true" />
+                <item.icon className="size-6 text-stone-700 dark:text-stone-200" aria-hidden="true" />
               </Link>
             ))}
           </div>
@@ -150,7 +150,7 @@ export default function Footer({ className = "", onTermsClick }: FooterProps) {
             href="https://stability.nexus/software"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-900 dark:text-white hover:text-yellow-600 dark:hover:text-yellow-400 hover:underline hover:decoration-2 transition-colors"
+            className="text-stone-700 dark:text-stone-200 hover:text-amber-700 dark:hover:text-amber-400 hover:underline hover:decoration-2 transition-colors"
           >
             Other Protocols
           </Link>
@@ -158,7 +158,7 @@ export default function Footer({ className = "", onTermsClick }: FooterProps) {
             href="https://stability.nexus/research"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-900 dark:text-white hover:text-yellow-600 dark:hover:text-yellow-400 hover:underline hover:decoration-2 transition-colors"
+            className="text-stone-700 dark:text-stone-200 hover:text-amber-700 dark:hover:text-amber-400 hover:underline hover:decoration-2 transition-colors"
           >
             Research
           </Link>
@@ -166,7 +166,7 @@ export default function Footer({ className = "", onTermsClick }: FooterProps) {
             href="https://news.stability.nexus/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-900 dark:text-white hover:text-yellow-600 dark:hover:text-yellow-400 hover:underline hover:decoration-2 transition-colors"
+            className="text-stone-700 dark:text-stone-200 hover:text-amber-700 dark:hover:text-amber-400 hover:underline hover:decoration-2 transition-colors"
           >
             News
           </Link>
@@ -174,7 +174,7 @@ export default function Footer({ className = "", onTermsClick }: FooterProps) {
             href="https://docs.stability.nexus/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-900 dark:text-white hover:text-yellow-600 dark:hover:text-yellow-400 hover:underline hover:decoration-2 transition-colors"
+            className="text-stone-700 dark:text-stone-200 hover:text-amber-700 dark:hover:text-amber-400 hover:underline hover:decoration-2 transition-colors"
           >
             Docs
           </Link>
@@ -182,7 +182,7 @@ export default function Footer({ className = "", onTermsClick }: FooterProps) {
             <button
               type="button"
               onClick={onTermsClick}
-              className="text-neutral-900 dark:text-white hover:text-yellow-600 dark:hover:text-yellow-400 hover:underline hover:decoration-2 transition-colors"
+              className="text-stone-700 dark:text-stone-200 hover:text-amber-700 dark:hover:text-amber-400 hover:underline hover:decoration-2 transition-colors"
             >
               Terms of Use
             </button>
@@ -190,7 +190,7 @@ export default function Footer({ className = "", onTermsClick }: FooterProps) {
         </div>
 
         {/* Copyright Statement */}
-        <div className="text-center text-sm text-gray-500 dark:text-gray-300 pt-4 border-t border-neutral-200 dark:border-black/10">
+        <div className="text-center text-sm text-stone-500 dark:text-stone-400 pt-4 border-t border-stone-200 dark:border-stone-800/30">
           <p>© {year} The Stable Order</p>
         </div>
       </div>

@@ -36,7 +36,7 @@ export default function WalletButton() {
                     <DropdownMenuTrigger asChild>
                         <button
                             type="button"
-                            className="flex items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:text-gray-100 dark:hover:bg-gray-800"
+                            className="flex items-center gap-1.5 rounded-full border border-stone-300 dark:border-stone-700 px-3.5 py-1.5 text-sm font-medium text-stone-800 transition-colors hover:border-amber-500 hover:text-amber-700 dark:text-stone-200 dark:hover:border-amber-400 dark:hover:text-amber-400 bg-white/80 dark:bg-[#161924]/80 shadow-sm"
                         >
                             <span className="max-w-[120px] truncate">{chain.name}</span>
                             <ChevronDown size={14} strokeWidth={2} className="opacity-70" />

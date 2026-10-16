@@ -12,14 +12,14 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { formatUnits, isAddress, createPublicClient } from "viem";
 import type { Address, PublicClient } from "viem";
-import { FatePoolFactories } from "@/utils/addresses";
+import { KarmaPoolFactories } from "@/utils/addresses";
 import { getOracleVerdict, isPoolDenied } from "@/utils/oracleAllowlist";
 import { getPriceFeedName } from "@/utils/supportedChainFeed";
 import { getChainConfig } from "@/utils/chainConfig";
 import { getTransport, getScanTransport } from "@/utils/rpcTransport";
 import { scanLogsChunked, getAbiEvent } from "@/lib/scanLogs";
 import type { Token, Pool, ChainLoadingState, PoolSortState, PoolSortField } from "@/lib/types";
-import { useFatePoolsStorage } from "@/lib/fatePoolHook";
+import { useKarmaPoolsStorage } from "@/lib/karmaPoolHook";
 import type { SupportedChainId } from "@/lib/indexeddb/config";
 
 // Import the reusable sub-components
@@ -95,18 +95,18 @@ type FactoryAddresses = Record<string, string>;
 
 // Helper function
 const getSupportedChains = (): string => {
-  return Object.keys(FatePoolFactories as FactoryAddresses)
+  return Object.keys(KarmaPoolFactories as FactoryAddresses)
     .map(chainId => getChainConfig(Number(chainId))?.name || `Chain ${chainId}`)
     .join(", ");
 };
 
 // Helper function to get supported chains count
 const getSupportedChainsCount = (): number => {
-  return Object.keys(FatePoolFactories as FactoryAddresses).length;
+  return Object.keys(KarmaPoolFactories as FactoryAddresses).length;
 };
 
 // Client-side wrapper component
-function ExploreFatePoolsClient() {
+function ExploreKarmaPoolsClient() {
   const [pools, setPools] = useState<Pool[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -132,10 +132,10 @@ function ExploreFatePoolsClient() {
     getAllPools,
     getTokensForPool,
     saveChainStatus,
-  } = useFatePoolsStorage();
+  } = useKarmaPoolsStorage();
 
   const supportedChainIds = useMemo((): number[] =>
-    Object.keys(FatePoolFactories as FactoryAddresses).map(Number),
+    Object.keys(KarmaPoolFactories as FactoryAddresses).map(Number),
     []
   );
 
@@ -576,7 +576,7 @@ function ExploreFatePoolsClient() {
       let totalErrors = 0;
 
       for (const chainId of chainsToFetch) {
-        const factoryAddress = (FatePoolFactories as FactoryAddresses)[chainId.toString()];
+        const factoryAddress = (KarmaPoolFactories as FactoryAddresses)[chainId.toString()];
         logger.debug(`Processing chain ${chainId} with factory address: ${factoryAddress}`, {
           chainId,
           factoryAddress
@@ -791,11 +791,7 @@ function ExploreFatePoolsClient() {
   const currentChainName = currentChainId ? getChainConfig(currentChainId)?.name || 'Unknown Chain' : 'Unknown Chain';
 
   return (
-    <div className={`pt-28 min-h-screen transition-colors duration-500 ${
-      loading 
-        ? 'bg-white dark:bg-black' 
-        : 'bg-gradient-to-b from-gray-100 to-gray-200 dark:from-[#1a1b1f] dark:to-[#1a1b1f]'
-    }`}>
+    <div className={`pt-28 min-h-screen transition-colors duration-500 bg-transparent`}>
       <div className="max-w-7xl mx-auto px-4 py-12">
         <ExploreHeader
           isConnected={isConnected}
@@ -854,7 +850,7 @@ function ExploreFatePoolsClient() {
   );
 }
 
-export default function ExploreFatePools() {
+export default function ExploreKarmaPools() {
   // ALL HOOKS MUST BE CALLED FIRST, before any conditional logic
   const [isClient, setIsClient] = useState(false);
 
@@ -866,11 +862,11 @@ export default function ExploreFatePools() {
   // Early return for SSR - AFTER all hooks have been called
   if (!isClient) {
     return (
-      <div className="flex items-center justify-center h-screen bg-white dark:bg-black">
+      <div className="flex items-center justify-center h-screen bg-transparent">
         <Loading size="xl" />
       </div>
     );
   }
 
-  return <ExploreFatePoolsClient />;
+  return <ExploreKarmaPoolsClient />;
 }

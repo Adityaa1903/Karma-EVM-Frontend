@@ -138,13 +138,13 @@ URL: ${window.location.href}
       }
 
       return (
-        <div className="flex flex-col items-center justify-center min-h-[400px] p-8 bg-gray-50 dark:bg-gray-900">
+        <div className="flex flex-col items-center justify-center min-h-[400px] p-8 bg-stone-50 dark:bg-[#0f1219]">
           <div className="max-w-md w-full text-center">
             <AlertTriangle className="h-16 w-16 text-red-500 mb-4 mx-auto" />
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-100 mb-2">
               Oops! Something went wrong
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
+            <p className="text-stone-600 dark:text-stone-300 mb-6">
               We encountered an unexpected error. Don&apos;t worry, your data is safe.
             </p>
             
@@ -188,7 +188,7 @@ URL: ${window.location.href}
                 <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700">
                   Technical Details (Development)
                 </summary>
-                <pre className="mt-2 p-4 bg-gray-100 dark:bg-gray-800 rounded text-xs overflow-auto max-h-40">
+                <pre className="mt-2 p-4 bg-stone-100 dark:bg-[#1a1d28] rounded text-xs overflow-auto max-h-40">
                   {this.state.error.stack}
                 </pre>
               </details>
