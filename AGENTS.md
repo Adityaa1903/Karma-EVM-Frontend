@@ -75,9 +75,12 @@ export artifacts.
 - Do not introduce a server-side data path. The app must remain statically
   exportable.
 - Brand assets exist twice on purpose: `brand/` is the canonical kit and `public/`
-  is what the app serves. Changing one means changing both. Do not delete the
-  `public/` copies; `Navbar.tsx` imports `public/logo.svg` directly, and
-  `manifest.json` and `layout.tsx` reference the icons by path.
+  is what the app serves. Keep active pairs synchronized. The original logo art
+  is `brand/image.png`; the navbar uses `/logo.png`, the manifest uses
+  `/icon-192.png` and `/logo.png`, and `layout.tsx` references the favicon and
+  Apple touch icon by path. The Stability Nexus logo is the separate asset at
+  `public/Animated/logo-animated.gif`, used by the footer and README. Remove
+  only assets confirmed to have no remaining references.
 
 ## Git Workflow
 

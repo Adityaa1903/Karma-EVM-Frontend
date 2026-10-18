@@ -116,8 +116,8 @@ export default function Footer({ className = "", onTermsClick }: FooterProps) {
               className="cursor-pointer"
             >
               <Image
-                src="/logo-animated.gif"
-                alt="Karma Protocol"
+                src="/Animated/logo-animated.gif"
+                alt="Stability Nexus"
                 width={80}
                 height={80}
                 className="p-2"
