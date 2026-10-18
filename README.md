@@ -4,7 +4,7 @@
 <!-- Organization Logo -->
 <div align="center" style="display: flex; align-items: center; justify-content: center; gap: 16px;">
   <img alt="Stability Nexus" src="public/Animated/logo-animated.gif" width="175">
-  <img alt="Karma Protocol" src="public/logo.svg" width="150">
+  <img alt="Karma Protocol bull and bear logo" src="public/logo.png" width="150">
 </div>
 
 &nbsp;

@@ -1,80 +1,63 @@
-# Fate Protocol Brand Kit
+# Karma Protocol Brand Kit
 
-This folder is the canonical source for **Fate Protocol's own** visual identity: logo, favicons and
-icons, colour palette, and typography. Those assets live here, and the copies under `public/` are
-what the deployed application serves; the two are kept identical.
+This folder is the canonical source for Karma Protocol's visual identity: the master logo artwork,
+web logo, favicons, app icons, social preview, colour palette, and typography. The original artwork
+is [`image.png`](./image.png); the generated size variants live here, and byte-identical copies in
+`public/` are served by the application.
 
-The Stability Nexus organisation logo is **not** a Fate asset and is deliberately not duplicated
-here. It is referenced from `public/` where the application uses it, and the organisation owns the
-canonical copy.
+The Stability Nexus organisation logo is separate from the Karma Protocol product mark. The footer
+continues to use the organisation's animated logo from `public/Animated/logo-animated.gif`.
 
 ## Logo
 
 | Asset | File |
 | --- | --- |
-| Fate Protocol mark (SVG) | [`logo.svg`](./logo.svg) |
-| Stability Nexus org logo (animated GIF) | [`../public/Animated/logo-animated.gif`](../public/Animated/logo-animated.gif) |
+| Original master artwork (1254×1254) | [`image.png`](./image.png) |
+| Standard web and PWA logo (512×512 PNG) | [`logo.png`](./logo.png) |
+| Social preview card (1200×630) | [`og-image.png`](./og-image.png) |
 
-The mark is a hexagonal badge containing two animals in profile: a pale bear above and a dark bull
-below, representing the bearCoin and bullCoin sides of every prediction pool. The hexagon is filled
-dark and outlined with a heavy dark stroke.
-
-`logo.svg` is a `0 0 1230 1280` viewBox built from 14 paths in five fixed greys. It carries no
-`currentColor` and no animation, so it renders identically in every context.
+The mark shows a Bull and Bear facing each other around a shared center, framed by a circular orbit
+and antique-gold markers. The detailed pen-and-ink illustration represents balanced opposing market
+views contributing to shared oracle consensus. Keep the source art intact; the icon files are
+proportion-preserving size variants, while the social preview card pairs the scaled mark with text.
 
 ### Using the mark on a background
 
-The mark is **two-tone with a dark silhouette**, which constrains what it can sit on. Measured
-contrast of the mark's own values against candidate grounds:
-
-| Ground | vs `#121212` (hex fill) | vs `#F1F1F1` (bear) |
-| --- | --- | --- |
-| `#0A0A0A` near-black | 1.06 : 1 | 17.53 : 1 |
-| `#6B6B6B` mid grey | 3.52 : 1 | 4.72 : 1 |
-| `#FFFFFF` white | 18.73 : 1 | 1.13 : 1 |
-
-- **Prefer light or mid grounds.** On white the pale bear is low-contrast in isolation but stays
-  legible because it is *contained* by the dark hexagon fill, so the badge reads as a whole.
-- **Avoid near-black grounds.** At 1.06 : 1 the hexagon's silhouette dissolves and only the bear
-  remains visible. The mark still appears in the app's dark navbar, which is an accepted trade-off,
-  but new placements should not repeat it.
-- This is why the social preview card (`public/og-image.png`) uses a light `#F7F8FA` ground rather
-  than matching the app's dark theme.
-
-One asset serves both light and dark themes. A dark-specific variant was evaluated and deliberately
-declined, to keep a single canonical mark.
+The artwork includes a warm-ivory square background. Prefer light surfaces; on dark surfaces, place
+the image on a clearly bounded ivory tile, as the navbar does. Do not remove the background or
+recolour the engraving: the Bull, Bear, and fine gold linework rely on those original tones.
 
 ## Favicons & Icons
 
-Generated from `logo.svg` at the sizes browsers and mobile platforms actually request:
+Generated from the master artwork at the sizes browsers and mobile platforms request:
 
 | File | Size | Use |
 | --- | --- | --- |
 | [`favicon.ico`](./favicon.ico) | 16 / 32 / 48 (multi-res) | Classic browser favicon |
 | [`apple-touch-icon.png`](./apple-touch-icon.png) | 180×180 | iOS home screen |
 | [`icon-192.png`](./icon-192.png) | 192×192 | PWA manifest, Android |
-| [`icon-512.png`](./icon-512.png) | 512×512 | PWA manifest, splash |
+| [`logo.png`](./logo.png) | 512×512 | PWA manifest, splash, navbar |
+| [`og-image.png`](./og-image.png) | 1200×630 | Social sharing preview |
 
-`favicon.ico` is a genuine three-entry ICO container. Chrome requires both a 192 and a 512 PNG for
-installability, so those two are not optional and must not be collapsed into the SVG.
+`favicon.ico` is a three-entry ICO container. The PWA manifest provides 192 and 512 PNG icons for
+installability, with the 512 image shared with the navbar logo.
 
-The ICO frames are cut with **zero padding**. The inked mark is taller than it is wide, so height is
-the binding dimension and any inset costs visible size at 16px.
+The ICO frames use the full square artwork. Fine engraving naturally becomes less distinct at 16px;
+keep the source unchanged rather than inventing a separate symbol.
 
 ## Colour Palette
 
 ### Mark palette
 
-Sourced directly from `logo.svg`. The mark is deliberately achromatic so it never competes with the
-semantic colours below.
+Sourced from the master artwork. The mark uses deep navy ink, warm ivory, and antique gold; muted
+olive appears in the lower orbit accents.
 
 | Swatch | Name | Hex | Usage in mark |
 | --- | --- | --- | --- |
-| ⬛ | Ink | `#121212` | Hexagon fill, bull body |
-| ⬛ | Ink Light | `#242424` | Hexagon stroke |
-| ⬛ | Graphite | `#444444` | Bull shading, interior detail |
-| ⬜ | Silver | `#C0C0C0` | Bear shading |
-| ⬜ | Bone | `#F1F1F1` | Bear body |
+| ⬛ | Deep ink | `#111A20` | Bull and illustration linework |
+| 🟨 | Antique gold | `#A87832` | Orbits, stars, and center accents |
+| ⬜ | Warm ivory | `#FDFCEE` | Artwork background and Bear highlights |
+| 🟩 | Muted olive | `#4B5039` | Lower orbit accents |
 
 ### Application palette
 
@@ -96,8 +79,8 @@ and existing `gray` usage should migrate as files are touched.
 
 ### Organisation accents
 
-Inherited from Stability Nexus and used where Fate appears as part of the wider organisation, such
-as the README badge and the social preview rule.
+Inherited from Stability Nexus and used where Karma appears as part of the wider organisation, such
+as the README badge and other cross-brand materials.
 
 | Swatch | Name | Hex |
 | --- | --- | --- |
@@ -132,6 +115,5 @@ token amounts or prices, so digits align.
 > renders Arial today. Closing this is a two-line change and is tracked separately, so that the
 > visual change is reviewed on its own rather than inside this brand kit.
 
-The wordmark on the social preview card is set in Arial Bold, chosen for guaranteed availability in
-the image-generation step rather than as a brand choice. It should be regenerated in Geist once the
-gap above is closed.
+The social preview card uses Arial Bold for its baked-in wordmark, so it renders consistently when
+shared outside the application.

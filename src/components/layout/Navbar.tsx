@@ -3,7 +3,6 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import logo from "../../../public/logo.svg";
 import { useTheme } from "next-themes";
 import { ModeToggle } from "../darkModeToggle";
 import { SettingsButton } from "./SettingsButton";
@@ -45,11 +44,11 @@ const Navbar: React.FC<NavbarProps> = ({ className = "" }) => {
             <Link href="/">
               <div className="text-center">
                 <Image
-                  src={logo}
-                  alt="Karma Protocol"
-                  width={80}
-                  height={83}
-                  className="p-2"
+                  src="/logo.png"
+                  alt="Karma Protocol bull and bear logo"
+                  width={64}
+                  height={64}
+                  className="rounded-lg bg-[#fdfcee] p-1"
                   priority
                 />
               </div>
