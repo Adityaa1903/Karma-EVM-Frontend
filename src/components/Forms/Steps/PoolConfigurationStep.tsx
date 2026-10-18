@@ -340,7 +340,7 @@ const PoolConfigurationStep: React.FC<PoolConfigurationStepProps> = ({
                 <span className="font-bold text-sm text-stone-900 dark:text-stone-100">
                   ✦ Karma Oracle
                 </span>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-800 dark:text-amber-300">
+                <span className="text-[10px] font-bold text-amber-700 dark:text-amber-300">
                   Native
                 </span>
               </div>
@@ -362,7 +362,7 @@ const PoolConfigurationStep: React.FC<PoolConfigurationStepProps> = ({
                 <span className="font-bold text-sm text-stone-900 dark:text-stone-100">
                   Chainlink Feed
                 </span>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-400">
+                <span className="text-[10px] font-bold text-stone-600 dark:text-stone-400">
                   External
                 </span>
               </div>

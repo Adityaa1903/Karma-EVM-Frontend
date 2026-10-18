@@ -543,9 +543,6 @@ export default function CreateKarmaPool() {
       <div className="max-w-3xl mx-auto">
         <div className="bg-white dark:bg-[#151823] rounded-2xl border border-stone-200/80 dark:border-amber-900/25 shadow-xl overflow-hidden">
           <div className="p-6 sm:p-8">
-            <div className="flex justify-center mb-2">
-              <span className="karma-badge">Karma Oracle Powered</span>
-            </div>
             <h1 className="text-xl md:text-3xl font-black text-stone-900 dark:text-stone-100 text-center mb-2 tracking-tight">
               Create Prediction Pool
             </h1>

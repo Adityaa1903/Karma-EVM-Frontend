@@ -58,7 +58,7 @@ const PoolSearch: React.FC<PoolSearchProps> = ({
   onPriceFeedFilterChange,
   priceFeedOptions,
 }) => {
-  // activeFilterCount reflects APPLIED filters (from props), so the trigger badge
+  // activeFilterCount reflects APPLIED filters (from props), so the trigger count
   // only changes after Apply, not while staging selections.
   const activeFilterCount =
     (baseTokenFilter !== 'all' ? 1 : 0) + (priceFeedFilter !== 'all' ? 1 : 0);
@@ -157,8 +157,8 @@ const PoolSearch: React.FC<PoolSearchProps> = ({
             <SlidersHorizontal size={16} />
             <span className="hidden sm:inline">Filter</span>
             {activeFilterCount > 0 && (
-              <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-600 px-1.5 text-xs font-semibold text-white">
-                {activeFilterCount}
+              <span className="text-xs font-semibold text-amber-700 dark:text-amber-300">
+                ({activeFilterCount})
               </span>
             )}
           </DropdownMenuTrigger>

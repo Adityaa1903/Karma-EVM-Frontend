@@ -27,9 +27,6 @@ const ExploreHeader: React.FC<ExploreHeaderProps> = ({
   return (
     <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="karma-badge">Karma Oracle Network</span>
-        </div>
         <h1 className="text-3xl md:text-5xl font-black text-stone-900 dark:text-stone-100 tracking-tight mb-3">
           Explore Prediction Pools
         </h1>
@@ -37,7 +34,7 @@ const ExploreHeader: React.FC<ExploreHeaderProps> = ({
           Decentralized prediction pools with community-weighted Karma consensus pricing.
         </p>
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-          <p className="text-sm font-semibold text-stone-600 dark:text-stone-300 bg-amber-500/10 border border-amber-500/20 dark:bg-amber-950/30 dark:border-amber-500/30 px-3.5 py-1 rounded-full inline-block">
+          <p className="text-sm font-semibold text-stone-600 dark:text-stone-300">
             {isConnected && currentChainName
               ? `Connected to ${currentChainName}`
               : `Browse pools across ${supportedChainsCount} supported chains`}

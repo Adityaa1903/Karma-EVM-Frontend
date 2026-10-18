@@ -105,7 +105,7 @@ export default function Footer({ className = "", onTermsClick }: FooterProps) {
   const year = new Date().getFullYear();
   return (
     <footer className={`w-full rounded-2xl backdrop-blur-md bg-stone-100/90 dark:bg-[#151823]/90 shadow-md border border-stone-200/80 dark:border-amber-900/20 ${className}`}>
-      <div className="px-4 sm:px-8 py-6 pb-20 max-[900px]:pb-20 space-y-6">
+      <div className="px-4 sm:px-8 py-6 space-y-6">
         {/* Logo and Social Links */}
         <div className="flex flex-col  md:flex-row ">
           <div className="w-full flex mb-4 md:mb-0 justify-between">
@@ -135,7 +135,7 @@ export default function Footer({ className = "", onTermsClick }: FooterProps) {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-stone-200/50 dark:bg-stone-800/30 p-2 hover:bg-amber-100 dark:hover:bg-amber-900/20 transition-colors"
+                className="rounded-lg bg-stone-200/50 dark:bg-stone-800/30 p-2 hover:bg-amber-100 dark:hover:bg-amber-900/20 transition-colors"
               >
                 <span className="sr-only">{item.name}</span>
                 <item.icon className="size-6 text-stone-700 dark:text-stone-200" aria-hidden="true" />

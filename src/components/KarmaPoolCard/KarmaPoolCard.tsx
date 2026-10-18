@@ -65,18 +65,18 @@ export function PredictionCard({
       {/* Header Section */}
       <div className="relative px-6 pt-6 pb-2 z-20">
         <div className="flex justify-between items-start mb-2">
-          <div className="flex gap-2 mb-2">
+          <div className="flex flex-wrap gap-x-2 gap-y-1 mb-2 text-[10px] font-bold uppercase tracking-wider">
             {chainName && (
-              <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-stone-100 dark:bg-stone-800/30 text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-stone-700">
+              <span className="text-stone-600 dark:text-stone-400">
                 {chainName}
               </span>
             )}
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 border border-amber-100 dark:border-amber-500/20">
+            <span className="text-amber-700 dark:text-amber-400">
               {priceFeed || 'Price Feed'}
             </span>
           </div>
           {/* Active Pulse */}
-          <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-500/20">
+          <div className="flex items-center gap-1.5">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>

@@ -162,34 +162,6 @@ html.dark ::-webkit-scrollbar-thumb {
   color: currentColor;
 }
 
-.hero-button {
-  padding: 0.75rem 1.5rem;
-  border-width: 2px;
-  border-radius: 9999px;
-  font-size: 1.125rem;
-  transition: all 0.3s;
-}
-
-.hero-button-light {
-  border-color: white;
-  color: white;
-}
-
-.hero-button-light:hover {
-  background-color: white;
-  color: #1c1917;
-}
-
-.hero-button-dark {
-  border-color: #1c1917;
-  color: #1c1917;
-}
-
-.hero-button-dark:hover {
-  background-color: #1c1917;
-  color: #f5f0e8;
-}
-
 /* CSS Loader Animation */
 .loader {
   width: 100px;
@@ -311,27 +283,6 @@ html.dark ::-webkit-scrollbar-thumb {
 .karma-card:hover {
   border-color: rgba(245, 158, 11, 0.35);
   transform: translateY(-2px);
-}
-
-.karma-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0.2rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  background: rgba(245, 158, 11, 0.12);
-  color: #b45309;
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  backdrop-filter: blur(8px);
-}
-
-.dark .karma-badge {
-  background: rgba(245, 158, 11, 0.15);
-  color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.25);
-  backdrop-filter: blur(8px);
 }
 
 /* Gradient text helpers */
