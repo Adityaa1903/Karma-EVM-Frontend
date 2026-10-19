@@ -1,6 +1,4 @@
-import {
-  sepolia,
-} from "wagmi/chains";
+import { mainnet, sepolia } from "wagmi/chains";
 import { createWalletLinkConfig } from "@stability-nexus/walletlink";
 import { getTransport } from "./rpcTransport";
 
@@ -8,9 +6,11 @@ import { getTransport } from "./rpcTransport";
 // WalletConnect relay and no projectId. Created once at module load.
 export const config = createWalletLinkConfig({
   chains: [
-    sepolia,    // 11155111 - Sepolia Testnet
+    mainnet, // 1 - Ethereum Mainnet
+    sepolia, // 11155111 - Sepolia Testnet
   ],
   transports: {
+    [mainnet.id]: getTransport(mainnet.id),
     [sepolia.id]: getTransport(sepolia.id),
   },
   ssr: true, // Enable SSR for proper hydration

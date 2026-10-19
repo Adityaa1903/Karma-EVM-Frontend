@@ -14,7 +14,7 @@ export const ChainlinkAdapterFactories: Record<number, Address> = {
 // Karma oracle adapter factory addresses
 // Update these with actual deployed contract addresses when available
 export const KarmaAdapterFactories: Record<number, Address> = {
-  // 11155111: "0x...", // Sepolia Testnet — TODO: add after deployment
+  // Add an address only after the factory has been deployed and verified.
 };
 
 // No pool can exist before its factory, so scans start here instead of guessing. Chains

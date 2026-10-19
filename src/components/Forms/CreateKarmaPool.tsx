@@ -18,6 +18,7 @@ import { PredictionPoolFactoryABI } from "@/utils/abi/PredictionPoolFactory";
 import { ChainlinkAdapterFactoryABI } from "@/utils/abi/ChainlinkAdapterFactory";
 import { KarmaPoolFactories, ChainlinkAdapterFactories } from "@/utils/addresses";
 import { SUPPORTED_CHAINS, getPriceFeedOptions } from "@/utils/supportedChainFeed";
+import { getChainConfig } from "@/utils/chainConfig";
 import { parseUnits } from "viem";
 
 const DENOMINATOR = 100_000;
@@ -485,8 +486,11 @@ export default function CreateKarmaPool() {
     }
   }, [isSigning, isSubmitting, isDeployingTx, deployData]);
 
-  const isChainSupported = currentChainId ? SUPPORTED_CHAINS.includes(currentChainId) : false;
+  const chainHasFactory = currentChainId ? Boolean(KarmaPoolFactories[currentChainId]) : false;
+  const hasSupportedFeeds = currentChainId ? SUPPORTED_CHAINS.includes(currentChainId) : false;
+  const isChainSupported = chainHasFactory && hasSupportedFeeds;
   const priceFeedOptions = currentChainId ? getPriceFeedOptions(currentChainId) : [];
+  const currentChainConfig = getChainConfig(currentChainId);
 
   const isProcessing = isSubmitting || isSigning || isDeployingTx;
 
@@ -516,21 +520,22 @@ export default function CreateKarmaPool() {
           <div className="flex flex-col items-center space-y-4">
                             <AlertCircle className="w-12 h-12 text-red-500" />
             <h2 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white">
-              Unsupported Network
+              {currentChainId === 1 ? "Ethereum Mainnet Deployment Unavailable" : "Unsupported Network"}
             </h2>
             <p className="text-sm md:text-base text-gray-600 dark:text-gray-300">
-              Please switch to a supported network to create a prediction pool
+              {currentChainId === 1
+                ? "Mainnet wallet support is configured, but pool creation is disabled until verified deployment addresses and supported price feeds are configured."
+                : "Pool creation is available only on networks with a configured factory and supported price feeds."}
             </p>
             <div className="text-xs md:text-sm text-gray-500 space-y-1">
-              <p className="font-medium">Supported networks:</p>
-              <ul className="text-xs md:text-sm space-y-0.5">
-                <li>• Ethereum Mainnet (1)</li>
-                <li>• Polygon (137)</li>
-                <li>• Scroll Sepolia (534352)</li>
-                <li>• Sepolia Testnet (11155111)</li>
-                <li>• Base Mainnet (8453)</li>
-                <li>• BSC Mainnet (56)</li>
-              </ul>
+              {currentChainId === 1 ? (
+                <p>Use Sepolia for the currently configured pool and price-feed setup.</p>
+              ) : (
+                <p>
+                  Configured deployment network: {SUPPORTED_CHAINS.map((id) => getChainConfig(id)?.name ?? `Chain ${id}`).join(", ")}.
+                  {currentChainConfig ? ` Current chain: ${currentChainConfig.name}.` : ""}
+                </p>
+              )}
             </div>
           </div>
         </div>
