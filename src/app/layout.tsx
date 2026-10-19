@@ -168,7 +168,7 @@ export default function RootLayout({
             </ErrorBoundary>
           </main>
           
-          <FooterWrapper className="pb-20 lg:pb-4" />
+          <FooterWrapper className="pb-4" />
           </ClientProviders>
         </ErrorBoundary>
       </body>

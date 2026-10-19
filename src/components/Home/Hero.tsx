@@ -73,13 +73,6 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center">
-        {/* Top Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-800 dark:text-amber-300 text-xs md:text-sm font-semibold mb-6 shadow-sm backdrop-blur-md transition-all hover:scale-105">
-          <Sparkles className="w-4 h-4 text-amber-500 animate-spin [animation-duration:12s]" />
-          <span>Self-Sovereign Consensus • Neutrality Weighted</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-        </div>
-
         {/* Main Headline */}
         <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-stone-900 dark:text-stone-50 leading-[1.08] mb-6">
           Karma <span className="text-gradient-gold">Protocol</span>
@@ -131,7 +124,7 @@ export default function Hero() {
                 How Neutrality Weighting Works
               </h2>
             </div>
-            <span className="text-xs font-mono font-semibold px-2.5 py-1 rounded-md bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300">
+            <span className="text-xs font-mono font-semibold text-stone-600 dark:text-stone-300">
               Formula: min(Bull, Bear)
             </span>
           </div>
@@ -206,7 +199,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Feature Pills */}
+        {/* Feature Highlights */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6 mt-12 w-full max-w-4xl text-left">
           <div className="p-4 rounded-2xl bg-white/60 dark:bg-[#121622]/60 border border-stone-200/60 dark:border-amber-900/20 backdrop-blur-md">
             <ShieldCheck className="w-5 h-5 text-amber-600 dark:text-amber-400 mb-2" />

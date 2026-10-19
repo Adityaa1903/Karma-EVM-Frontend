@@ -1073,7 +1073,7 @@ const PositionCard = ({ pool }: { pool: PoolData }) => {
             <div className="text-xs text-neutral-500 dark:text-neutral-400">
               {pool.priceFeed} • {chainConfig?.name || `Chain ${pool.chainId}`}
               {pool.isCreator && (
-                <span className="ml-2 px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full text-xs font-medium">
+                <span className="ml-2 text-yellow-800 dark:text-yellow-200 text-xs font-medium">
                   Creator
                 </span>
               )}
@@ -1090,16 +1090,16 @@ const PositionCard = ({ pool }: { pool: PoolData }) => {
           </div>
           {pool.costBasisUnavailable ? (
             <div
-              className="text-xs font-medium px-2 py-1 rounded-full bg-neutral-100 text-neutral-600 dark:bg-neutral-700/40 dark:text-neutral-300"
+              className="text-xs font-medium text-neutral-600 dark:text-neutral-300"
               title="Trade history could not be read from the RPC, so cost basis and P&L are unavailable."
             >
               Cost basis unavailable
             </div>
           ) : (
             <div
-              className={`text-xs font-medium px-2 py-1 rounded-full ${pool.totalPnL >= 0
-                ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+              className={`text-xs font-medium ${pool.totalPnL >= 0
+                ? "text-green-700 dark:text-green-400"
+                : "text-red-700 dark:text-red-400"
                 }`}
             >
               {pool.totalPnL > 0 ? "+" : ""}

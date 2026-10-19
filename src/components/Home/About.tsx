@@ -16,7 +16,7 @@ export default function AboutSection() {
   const features = [
     {
       icon: <Compass className="h-10 w-10 text-amber-600 dark:text-amber-400" />,
-      badge: "Collective Wisdom",
+      eyebrow: "Collective Wisdom",
       title: "Community Consensus",
       description:
         "Price discovery powered by real market participants. Submit observations and let neutrality-weighted consensus determine the oracle price without centralized gatekeepers.",
@@ -25,7 +25,7 @@ export default function AboutSection() {
     },
     {
       icon: <ShieldCheck className="h-10 w-10 text-emerald-600 dark:text-emerald-400" />,
-      badge: "Economic Equilibrium",
+      eyebrow: "Economic Equilibrium",
       title: "Sybil & Whale Resistant",
       description:
         "Influence scales strictly with economic neutrality — balanced Bull and Bear holdings give maximum weight. Biased whales holding one side receive zero influence.",
@@ -34,7 +34,7 @@ export default function AboutSection() {
     },
     {
       icon: <Scale className="h-10 w-10 text-yellow-600 dark:text-yellow-400" />,
-      badge: "Pure Decentralization",
+      eyebrow: "Pure Decentralization",
       title: "100% On-Chain & Immutable",
       description:
         "No off-chain signers, no centralized keeper networks, and no admin keys. Every submission, weight calculation, and decayed price is verified directly on-chain.",
@@ -72,9 +72,6 @@ export default function AboutSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400 text-xs font-semibold mb-3">
-            <span>Core Pillars</span>
-          </div>
           <h2 className="text-3xl sm:text-5xl font-black text-stone-900 dark:text-stone-50 tracking-tight mb-4">
             Redefining Oracle Consensus
           </h2>
@@ -99,7 +96,7 @@ export default function AboutSection() {
                   {feature.icon}
                 </div>
                 <div className="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-1">
-                  {feature.badge}
+                  {feature.eyebrow}
                 </div>
                 <h3 className="text-xl font-bold text-stone-900 dark:text-stone-100 mb-3">
                   {feature.title}

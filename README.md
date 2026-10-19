@@ -49,7 +49,7 @@
 <h1>Karma Protocol</h1>
 </div>
 
-[Karma Protocol](https://evm.karma.stability.nexus/) is a permissionless, decentralized on-chain oracle and perpetual prediction market platform. It introduces neutrality-weighted consensus pricing where participants submit price observations and their voting influence scales strictly with the economic neutrality of their bull/bear holdings—preventing whale manipulation and Sybil attacks.
+[Karma Protocol](https://evm.karma.stability.nexus/) is a permissionless on-chain oracle and perpetual prediction market platform. It weights submitted price observations by participants' opposing Bull and Bear exposure.
 
 Built with cutting-edge Web3 technologies, Karma Protocol delivers high-performance trading experiences with gas-optimized smart contracts and real-time community price discovery.
 
@@ -58,10 +58,13 @@ Built with cutting-edge Web3 technologies, Karma Protocol delivers high-performa
 -  **Neutrality-Weighted Consensus**: Voting power is determined on-chain by `min(Bull, Bear)` holdings—one-sided speculators have zero influence
 -  **Exponential Time Decay**: Price observations decay smoothly over time, keeping the oracle responsive to fresh market conditions
 -  **Perpetual Market**: Continuous trading without expiration dates; enter and exit positions at any time
--  **Sybil & Whale Resistant**: Economically incentivized truth-telling without centralized multi-sigs or off-chain nodes
--  **Multi-Chain Support**: Deployed across Ethereum, Base, BNB Smart Chain, Polygon, and Sepolia Testnet
+-  **Mainnet Wallet Support**: Ethereum Mainnet is available in wallet and explorer configuration
 -  **Chainlink-Compatible Interface**: Seamless drop-in replacement for standard `AggregatorV3Interface` consumers
 -  **Client-Side IndexedDB Caching**: Fast and responsive offline-first portfolio and pool browsing
+
+## Launch Configuration
+
+Ethereum Mainnet has no verified Karma oracle factory or pool factory configured in this repository. Pool creation is disabled when a required factory or supported price feed is missing. Add verified deployment addresses and feed configuration before enabling customer transactions on Mainnet.
 
 ---
 

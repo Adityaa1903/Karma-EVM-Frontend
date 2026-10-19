@@ -1803,7 +1803,7 @@ export default function InteractionClient() {
                         <span className="text-xs font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300">
                           Karma Consensus Power
                         </span>
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-500/20 text-amber-900 dark:text-amber-200 border border-amber-500/30">
+                        <span className="text-[10px] font-semibold text-amber-800 dark:text-amber-200">
                           {calculations.neutralityRatio > 75 
                             ? "Optimal Neutrality" 
                             : calculations.karmaWeight > 0 

@@ -480,15 +480,11 @@ export default function SubmitPriceClient() {
   }, [bullBalance, bearBalance]);
 
   return (
-    <div className="min-h-screen pt-24 pb-32 px-4 sm:px-6 lg:px-8 bg-transparent transition-colors">
+    <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-transparent transition-colors">
       <div className="max-w-4xl mx-auto space-y-8">
 
         {/* ── Page Header ── */}
         <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 dark:bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/25">
-            <Scale size={14} className="text-amber-600 dark:text-amber-400" />
-            <span>Self-Sovereign Decentralized Consensus</span>
-          </div>
           <h1 className="text-3xl md:text-5xl font-black tracking-tight text-stone-900 dark:text-stone-100 font-sans">
             Karma Oracle
           </h1>
