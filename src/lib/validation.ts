@@ -264,7 +264,7 @@ export const validatePoolCreation = (input: {
   mintFee: string;
   burnFee: string;
   creatorFee: string;
-  treasuryFee: string;
+  devFee: string;
 }): {
   name: string;
   baseTokenAddress: string;
@@ -273,14 +273,14 @@ export const validatePoolCreation = (input: {
   mintFee: number;
   burnFee: number;
   creatorFee: number;
-  treasuryFee: number;
+  devFee: number;
 } => {
   const mintFee = validateFee(input.mintFee);
   const burnFee = validateFee(input.burnFee);
   const creatorFee = validateFee(input.creatorFee);
-  const treasuryFee = validateFee(input.treasuryFee);
+  const devFee = validateFee(input.devFee);
   
-  const totalFee = mintFee + burnFee + creatorFee + treasuryFee;
+  const totalFee = mintFee + burnFee + creatorFee + devFee;
   if (totalFee >= 100) {
     throw new ValidationError('Total fees must be less than 100%', 'fees');
   }
@@ -293,6 +293,6 @@ export const validatePoolCreation = (input: {
     mintFee,
     burnFee,
     creatorFee,
-    treasuryFee
+    devFee
   };
 };

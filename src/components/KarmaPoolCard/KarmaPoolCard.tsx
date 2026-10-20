@@ -24,7 +24,7 @@ interface PredictionCardProps {
     mint: number;
     burn: number;
     creator: number;
-    treasury: number;
+    devFee: number;
   };
   tvl?: bigint;
   volumeRecent?: number;
@@ -50,7 +50,7 @@ export function PredictionCard({
   onUse,
 }: PredictionCardProps) {
   const totalFee = fees
-    ? (fees.mint + fees.burn + fees.creator + fees.treasury).toFixed(2)
+    ? (fees.mint + fees.burn + fees.creator + fees.devFee).toFixed(2)
     : "0.00";
 
   const isBullDominant = bullPercentage >= bearPercentage;
@@ -202,7 +202,7 @@ export function PredictionCard({
                       <div className="flex justify-between text-xs"><span className="text-gray-500">Mint</span> <span>{fees.mint}%</span></div>
                       <div className="flex justify-between text-xs"><span className="text-gray-500">Burn</span> <span>{fees.burn}%</span></div>
                       <div className="flex justify-between text-xs"><span className="text-gray-500">Creator</span> <span>{fees.creator}%</span></div>
-                      <div className="flex justify-between text-xs"><span className="text-gray-500">Treasury</span> <span>{fees.treasury}%</span></div>
+                      <div className="flex justify-between text-xs"><span className="text-gray-500">Dev fee</span> <span>{fees.devFee}%</span></div>
                     </>
                   ) : (
                     <span className="text-xs text-gray-500">No fee data available</span>

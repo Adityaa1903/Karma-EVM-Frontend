@@ -178,7 +178,7 @@ function ExploreKarmaPoolsClient() {
       const coinAddress = coinAddr as Address;
       const hasBaseToken = isAddress(baseTokenAddr) && baseTokenAddr !== "0x0000000000000000000000000000000000000000";
       const [
-        cname, csymbol, ccreator, cmintFee, cburnFee, ccreatorFee, ctreasuryFee, csupply, cpriceBuy, cpriceSell, casset, creserve
+        cname, csymbol, ccreator, cmintFee, cburnFee, ccreatorFee, cdevFee, csupply, cpriceBuy, cpriceSell, casset, creserve
       ] = await Promise.all([
         publicClient.readContract({ address: coinAddress, abi: CoinABI, functionName: "name" }).catch((): string => "Unknown"),
         publicClient.readContract({ address: coinAddress, abi: CoinABI, functionName: "symbol" }).catch((): string => "N/A"),
@@ -186,7 +186,7 @@ function ExploreKarmaPoolsClient() {
         publicClient.readContract({ address: coinAddress, abi: CoinABI, functionName: "mintFee" }).catch((): bigint => BigInt(0)),
         publicClient.readContract({ address: coinAddress, abi: CoinABI, functionName: "burnFee" }).catch((): bigint => BigInt(0)),
         publicClient.readContract({ address: coinAddress, abi: CoinABI, functionName: "creatorFee" }).catch((): bigint => BigInt(0)),
-        publicClient.readContract({ address: coinAddress, abi: CoinABI, functionName: "treasuryFee" }).catch((): bigint => BigInt(0)),
+        publicClient.readContract({ address: coinAddress, abi: CoinABI, functionName: "devFee" }).catch((): bigint => BigInt(0)),
         publicClient.readContract({ address: coinAddress, abi: CoinABI, functionName: "totalSupply" }).catch((): bigint => BigInt(0)),
         publicClient.readContract({ address: coinAddress, abi: CoinABI, functionName: "priceBuy" }).catch((): bigint => BigInt(0)),
         publicClient.readContract({ address: coinAddress, abi: CoinABI, functionName: "priceSell" }).catch((): bigint => BigInt(0)),
@@ -199,7 +199,7 @@ function ExploreKarmaPoolsClient() {
       const token: Token = {
         id: coinAddress, prediction_pool: poolAddr as Address, other_token: other as Address, asset: casset as Address,
         name: cname as string, symbol: csymbol as string, vault_creator: ccreator as Address, mint_fee: cmintFee as bigint,
-        burn_fee: cburnFee as bigint, creator_fee: ccreatorFee as bigint, treasury_fee: ctreasuryFee as bigint, asset_balance: creserve as bigint, supply: csupply as bigint,
+        burn_fee: cburnFee as bigint, creator_fee: ccreatorFee as bigint, dev_fee: cdevFee as bigint, asset_balance: creserve as bigint, supply: csupply as bigint,
         priceBuy: Number(formatUnits(cpriceBuy as bigint, 5)), priceSell: Number(formatUnits(cpriceSell as bigint, 5)),
       };
       if (isInitialized) {
@@ -283,7 +283,7 @@ function ExploreKarmaPoolsClient() {
           const batchPromises = batch.map(async (addr: Address): Promise<Pool | null> => {
             if (!isAddress(addr)) { logger.warn(`Invalid pool address: ${addr}`); return null; }
             if (isPoolDenied(chainId, addr)) { logger.debug(`Pool ${addr} hidden: pool is denied`, { chainId }); return null; }
-            const [name, baseToken, oracleAddress, bullAddr, bearAddr, vaultCreator, mintFee, burnFee, creatorFee, treasuryFee] = await Promise.all([
+            const [name, baseToken, oracleAddress, bullAddr, bearAddr, vaultCreator, mintFee, burnFee, creatorFee, devFee] = await Promise.all([
               publicClient.readContract({ address: addr, abi: PredictionPoolABI, functionName: "poolName" }).catch((): string => "Unknown Pool"),
               publicClient.readContract({ address: addr, abi: PredictionPoolABI, functionName: "baseToken" }).catch((): Address => "0x0000000000000000000000000000000000000000"),
               publicClient.readContract({ address: addr, abi: PredictionPoolABI, functionName: "oracle" }).catch((): Address => "0x0000000000000000000000000000000000000000"),
@@ -293,7 +293,7 @@ function ExploreKarmaPoolsClient() {
               publicClient.readContract({ address: addr, abi: PredictionPoolABI, functionName: "mintFee" }).catch((): bigint => BigInt(0)),
               publicClient.readContract({ address: addr, abi: PredictionPoolABI, functionName: "burnFee" }).catch((): bigint => BigInt(0)),
               publicClient.readContract({ address: addr, abi: PredictionPoolABI, functionName: "creatorFee" }).catch((): bigint => BigInt(0)),
-              publicClient.readContract({ address: addr, abi: PredictionPoolABI, functionName: "treasuryFee" }).catch((): bigint => BigInt(0)),
+              publicClient.readContract({ address: addr, abi: PredictionPoolABI, functionName: "devFee" }).catch((): bigint => BigInt(0)),
             ]);
 
             const verdict = await getOracleVerdict(publicClient as PublicClient, chainId, oracleAddress as Address);
@@ -367,7 +367,7 @@ function ExploreKarmaPoolsClient() {
               baseDecimals,
               headBlock
             ).catch(() => undefined);
-            const pool: Pool = { id: addr, name: name as string, volumeRecent, baseToken: baseToken as Address, priceFeedAddress: underlyingPriceFeedAddress, oracleAddress: oracleAddress as Address, creator: vaultCreator as Address, bullPercentage: bullPercentage, bearPercentage: bearPercentage, bullToken: bull, bearToken: bear, chainId, chainName: chainConfig.name, vaultFee: Number(mintFee) / DENOMINATOR * 100, vaultCreatorFee: Number(creatorFee) / DENOMINATOR * 100, treasuryFee: Number(treasuryFee) / DENOMINATOR * 100, mintFee: Number(mintFee) / DENOMINATOR * 100, burnFee: Number(burnFee) / DENOMINATOR * 100, previous_price: BigInt(0), baseDecimals, baseSymbol, tvl };
+            const pool: Pool = { id: addr, name: name as string, volumeRecent, baseToken: baseToken as Address, priceFeedAddress: underlyingPriceFeedAddress, oracleAddress: oracleAddress as Address, creator: vaultCreator as Address, bullPercentage: bullPercentage, bearPercentage: bearPercentage, bullToken: bull, bearToken: bear, chainId, chainName: chainConfig.name, vaultFee: Number(mintFee) / DENOMINATOR * 100, vaultCreatorFee: Number(creatorFee) / DENOMINATOR * 100, devFee: Number(devFee) / DENOMINATOR * 100, mintFee: Number(mintFee) / DENOMINATOR * 100, burnFee: Number(burnFee) / DENOMINATOR * 100, previous_price: BigInt(0), baseDecimals, baseSymbol, tvl };
             return pool;
           });
           const successfulPools = (await Promise.all(batchPromises)).filter((pool): pool is Pool => pool !== null);
@@ -405,7 +405,7 @@ function ExploreKarmaPoolsClient() {
             creatorFee: pool.vaultCreatorFee,
             mintFee: pool.mintFee ?? 0,
             burnFee: pool.burnFee ?? 0,
-            treasuryFee: pool.treasuryFee,
+            devFee: pool.devFee,
             bullPercentage: pool.bullPercentage,
             bearPercentage: pool.bearPercentage,
             chainId: pool.chainId as SupportedChainId
@@ -459,7 +459,7 @@ function ExploreKarmaPoolsClient() {
                   mint_fee: bullDetails.mint_fee as bigint,
                   burn_fee: bullDetails.burn_fee as bigint,
                   creator_fee: bullDetails.creator_fee as bigint,
-                  treasury_fee: bullDetails.treasury_fee as bigint,
+                  dev_fee: bullDetails.dev_fee as bigint,
                   asset_balance: BigInt(bullDetails.reserve || '0'),
                   supply: BigInt(bullDetails.totalSupply || '0'),
                 };
@@ -473,7 +473,7 @@ function ExploreKarmaPoolsClient() {
                   mint_fee: bearDetails.mint_fee as bigint,
                   burn_fee: bearDetails.burn_fee as bigint,
                   creator_fee: bearDetails.creator_fee as bigint,
-                  treasury_fee: bearDetails.treasury_fee as bigint,
+                  dev_fee: bearDetails.dev_fee as bigint,
                   asset_balance: BigInt(bearDetails.reserve || '0'),
                   supply: BigInt(bearDetails.totalSupply || '0'),
                 };
@@ -489,7 +489,7 @@ function ExploreKarmaPoolsClient() {
                   chainName: poolDetails.chainName || 'Unknown',
                   vaultFee: poolDetails.mintFee ?? 0,
                   vaultCreatorFee: poolDetails.creatorFee ?? 0,
-                  treasuryFee: poolDetails.treasuryFee ?? 0,
+                  devFee: poolDetails.devFee ?? 0,
                   mintFee: poolDetails.mintFee ?? 0,
                   burnFee: poolDetails.burnFee ?? 0, // Use saved burnFee or default to 0
                   bullPercentage: poolDetails.bullPercentage,
@@ -739,8 +739,8 @@ function ExploreKarmaPoolsClient() {
       case 'name':
         return a.name.localeCompare(b.name) * dir;
       case 'fees': {
-        const feeA = (a.mintFee ?? 0) + (a.burnFee ?? 0) + a.vaultCreatorFee + a.treasuryFee;
-        const feeB = (b.mintFee ?? 0) + (b.burnFee ?? 0) + b.vaultCreatorFee + b.treasuryFee;
+        const feeA = (a.mintFee ?? 0) + (a.burnFee ?? 0) + a.vaultCreatorFee + a.devFee;
+        const feeB = (b.mintFee ?? 0) + (b.burnFee ?? 0) + b.vaultCreatorFee + b.devFee;
         return (feeA - feeB) * dir;
       }
       case 'bullBias':

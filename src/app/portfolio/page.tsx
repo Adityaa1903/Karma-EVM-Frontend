@@ -805,7 +805,7 @@ interface PoolData {
     mintFee: number;
     burnFee: number;
     creatorFee: number;
-    treasuryFee: number;
+    devFee: number;
   };
   baseTokenBalance: number;
   isCreator: boolean;
@@ -1475,7 +1475,7 @@ const EnhancedPoolDataLoader = ({
       { address: poolAddress as Address, abi: PredictionPoolABI, functionName: 'mintFee' },
       { address: poolAddress as Address, abi: PredictionPoolABI, functionName: 'burnFee' },
       { address: poolAddress as Address, abi: PredictionPoolABI, functionName: 'creatorFee' },
-      { address: poolAddress as Address, abi: PredictionPoolABI, functionName: 'treasuryFee' },
+      { address: poolAddress as Address, abi: PredictionPoolABI, functionName: 'devFee' },
     ] : [],
     query: {
       enabled: !!poolAddress,
@@ -1631,7 +1631,7 @@ const EnhancedPoolDataLoader = ({
         mintFee: Number(formatUnits(poolStaticData?.[7]?.result as bigint || BigInt(0), 4)),
         burnFee: Number(formatUnits(poolStaticData?.[8]?.result as bigint || BigInt(0), 4)),
         creatorFee: Number(formatUnits(poolStaticData?.[9]?.result as bigint || BigInt(0), 4)),
-        treasuryFee: Number(formatUnits(poolStaticData?.[10]?.result as bigint || BigInt(0), 4)),
+        devFee: Number(formatUnits(poolStaticData?.[10]?.result as bigint || BigInt(0), 4)),
       };
 
       const poolData: PoolData = {
@@ -2013,7 +2013,7 @@ export default function PortfolioPage() {
               mintFee: poolDetails?.mintFee || 0,
               burnFee: poolDetails?.burnFee || 0,
               creatorFee: poolDetails?.creatorFee || 0,
-              treasuryFee: poolDetails?.treasuryFee || 0
+              devFee: poolDetails?.devFee || 0
             },
             baseTokenBalance: 0, isCreator: false
           } as PoolData;
@@ -2212,7 +2212,7 @@ export default function PortfolioPage() {
               creatorFee: pool.fees.creatorFee,
               mintFee: pool.fees.mintFee,
               burnFee: pool.fees.burnFee,
-              treasuryFee: pool.fees.treasuryFee,
+              devFee: pool.fees.devFee,
               bullPercentage: pool.bullReserve > 0 ? (pool.bullReserve / (pool.bullReserve + pool.bearReserve)) * 100 : 0,
               bearPercentage: pool.bearReserve > 0 ? (pool.bearReserve / (pool.bullReserve + pool.bearReserve)) * 100 : 0,
               chainId: pool.chainId as SupportedChainId,

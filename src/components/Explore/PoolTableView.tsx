@@ -157,9 +157,9 @@ const PoolTableView: React.FC<PoolTableViewProps> = ({ pools, onUsePool, isConne
                       </span>
                     </div>
                     <div className="flex justify-between gap-2">
-                      <span>Treasury:</span>
+                      <span>Dev fee:</span>
                       <span className="font-medium text-stone-900 dark:text-stone-200">
-                        {formatFee(pool.treasuryFee)}
+                        {formatFee(pool.devFee)}
                       </span>
                     </div>
                   </div>

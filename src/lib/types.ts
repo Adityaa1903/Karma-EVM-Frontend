@@ -27,7 +27,7 @@ export interface Token extends BaseToken {
   vault_creator: Address;
   vault_fee?: bigint;
   vault_creator_fee?: bigint;
-  treasury_fee: bigint;
+  dev_fee: bigint;
   // Additional fee properties for compatibility
   mint_fee?: bigint;
   burn_fee?: bigint;
@@ -62,7 +62,7 @@ export interface PredictionPool {
   chainName: string;
   vaultFee: number;
   vaultCreatorFee: number;
-  treasuryFee: number;
+  devFee: number;
   isInitialized?: boolean;
   oracleType?: 'chainlink';
 }
