@@ -61,11 +61,11 @@ const usePool = (poolId: Address | undefined, isConnected: boolean) => {
     creator_fee: number;
     mint_fee: number;
     burn_fee: number;
-    treasury_fee: number;
+    dev_fee: number;
     mint_fee_rate?: bigint;
     burn_fee_rate?: bigint;
     creator_fee_rate?: bigint;
-    treasury_fee_rate?: bigint;
+    dev_fee_rate?: bigint;
     previous_price?: bigint;
     oracle_price?: bigint;
     bull_percentage: number;
@@ -154,7 +154,7 @@ const usePool = (poolId: Address | undefined, isConnected: boolean) => {
       { address: poolId, abi: PredictionPoolABI, functionName: 'mintFee' },
       { address: poolId, abi: PredictionPoolABI, functionName: 'burnFee' },
       { address: poolId, abi: PredictionPoolABI, functionName: 'creatorFee' },
-      { address: poolId, abi: PredictionPoolABI, functionName: 'treasuryFee' },
+      { address: poolId, abi: PredictionPoolABI, functionName: 'devFee' },
     ] : [],
     query: {
       enabled: !!poolId,
@@ -239,12 +239,12 @@ const usePool = (poolId: Address | undefined, isConnected: boolean) => {
         creator_fee: poolFeeData?.[2]?.result ? Number(poolFeeData[2].result) / 1000 : 0,
         mint_fee: poolFeeData?.[0]?.result ? Number(poolFeeData[0].result) / 1000 : 0,
         burn_fee: poolFeeData?.[1]?.result ? Number(poolFeeData[1].result) / 1000 : 0,
-        treasury_fee: poolFeeData?.[3]?.result ? Number(poolFeeData[3].result) / 1000 : 0,
+        dev_fee: poolFeeData?.[3]?.result ? Number(poolFeeData[3].result) / 1000 : 0,
         // The *_fee fields above are lossy display percentages; the estimate needs raw rates.
         mint_fee_rate: poolFeeData?.[0]?.result as bigint | undefined,
         burn_fee_rate: poolFeeData?.[1]?.result as bigint | undefined,
         creator_fee_rate: poolFeeData?.[2]?.result as bigint | undefined,
-        treasury_fee_rate: poolFeeData?.[3]?.result as bigint | undefined,
+        dev_fee_rate: poolFeeData?.[3]?.result as bigint | undefined,
         previous_price: previousPrice,
         oracle_price: oraclePrice,
         bull_percentage: bullPercentage,
@@ -326,11 +326,11 @@ function VaultSection({ isBull, poolData, userTokens, price, value, symbol, conn
     creator_fee: number;
     mint_fee: number;
     burn_fee: number;
-    treasury_fee: number;
+    dev_fee: number;
     mint_fee_rate?: bigint;
     burn_fee_rate?: bigint;
     creator_fee_rate?: bigint;
-    treasury_fee_rate?: bigint;
+    dev_fee_rate?: bigint;
     previous_price?: bigint;
     oracle_price?: bigint;
     bull_percentage: number;
@@ -434,10 +434,10 @@ function VaultSection({ isBull, poolData, userTokens, price, value, symbol, conn
   // Post-rebalance price is independent of the amount, so re-quote locally per keystroke, no RPC.
   const buyQuote = useMemo(() => {
     const {
-      mint_fee_rate, treasury_fee_rate, creator_fee_rate, previous_price, oracle_price,
+      mint_fee_rate, dev_fee_rate, creator_fee_rate, previous_price, oracle_price,
     } = poolData;
     if (
-      mint_fee_rate === undefined || treasury_fee_rate === undefined ||
+      mint_fee_rate === undefined || dev_fee_rate === undefined ||
       creator_fee_rate === undefined || previous_price === undefined || oracle_price === undefined
     ) {
       return null;
@@ -462,7 +462,7 @@ function VaultSection({ isBull, poolData, userTokens, price, value, symbol, conn
       previousPrice: previous_price,
       oraclePrice: oracle_price,
       mintFee: mint_fee_rate,
-      treasuryFee: treasury_fee_rate,
+      devFee: dev_fee_rate,
       creatorFee: creator_fee_rate,
       baseDecimals,
     });
@@ -471,10 +471,10 @@ function VaultSection({ isBull, poolData, userTokens, price, value, symbol, conn
   // Same shape as buyQuote, but coins go in and base tokens come out, so fees are taken off the output.
   const sellQuote = useMemo(() => {
     const {
-      burn_fee_rate, treasury_fee_rate, creator_fee_rate, previous_price, oracle_price,
+      burn_fee_rate, dev_fee_rate, creator_fee_rate, previous_price, oracle_price,
     } = poolData;
     if (
-      burn_fee_rate === undefined || treasury_fee_rate === undefined ||
+      burn_fee_rate === undefined || dev_fee_rate === undefined ||
       creator_fee_rate === undefined || previous_price === undefined || oracle_price === undefined
     ) {
       return null;
@@ -499,7 +499,7 @@ function VaultSection({ isBull, poolData, userTokens, price, value, symbol, conn
       previousPrice: previous_price,
       oraclePrice: oracle_price,
       burnFee: burn_fee_rate,
-      treasuryFee: treasury_fee_rate,
+      devFee: dev_fee_rate,
       creatorFee: creator_fee_rate,
       baseDecimals,
     });
@@ -883,8 +883,8 @@ function VaultSection({ isBull, poolData, userTokens, price, value, symbol, conn
                           <span>{formatBase(buyQuote.quote.vaultAmount, baseDecimals)}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span>Treasury</span>
-                          <span>{formatBase(buyQuote.quote.treasuryAmount, baseDecimals)}</span>
+                          <span>Dev fee</span>
+                          <span>{formatBase(buyQuote.quote.devFeeAmount, baseDecimals)}</span>
                         </div>
                         <div className="flex justify-between">
                           <span>Creator</span>
@@ -984,8 +984,8 @@ function VaultSection({ isBull, poolData, userTokens, price, value, symbol, conn
                           <span>{formatBase(sellQuote.quote.vaultAmount, baseDecimals)}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span>Treasury</span>
-                          <span>{formatBase(sellQuote.quote.treasuryAmount, baseDecimals)}</span>
+                          <span>Dev fee</span>
+                          <span>{formatBase(sellQuote.quote.devFeeAmount, baseDecimals)}</span>
                         </div>
                         <div className="flex justify-between">
                           <span>Creator</span>
@@ -1507,11 +1507,11 @@ export default function InteractionClient() {
       creator_fee: pool.creator_fee || 0,
       mint_fee: pool.mint_fee || 0,
       burn_fee: pool.burn_fee || 0,
-      treasury_fee: pool.treasury_fee || 0,
+      dev_fee: pool.dev_fee || 0,
       mint_fee_rate: pool.mint_fee_rate,
       burn_fee_rate: pool.burn_fee_rate,
       creator_fee_rate: pool.creator_fee_rate,
-      treasury_fee_rate: pool.treasury_fee_rate,
+      dev_fee_rate: pool.dev_fee_rate,
       previous_price: pool.previous_price,
       oracle_price: pool.oracle_price,
       bull_percentage: pool.bull_percentage || 50,
@@ -1534,11 +1534,11 @@ export default function InteractionClient() {
       creator_fee: 0,
       mint_fee: 0,
       burn_fee: 0,
-      treasury_fee: 0,
+      dev_fee: 0,
       mint_fee_rate: undefined as bigint | undefined,
       burn_fee_rate: undefined as bigint | undefined,
       creator_fee_rate: undefined as bigint | undefined,
-      treasury_fee_rate: undefined as bigint | undefined,
+      dev_fee_rate: undefined as bigint | undefined,
       previous_price: undefined as bigint | undefined,
       oracle_price: undefined as bigint | undefined,
       bull_percentage: 50,
@@ -1751,8 +1751,8 @@ export default function InteractionClient() {
                             <span>{poolData.creator_fee}%</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="font-medium">Treasury Fee:</span>
-                            <span>{poolData.treasury_fee}%</span>
+                            <span className="font-medium">Dev Fee:</span>
+                            <span>{poolData.dev_fee}%</span>
                           </div>
                           <div className="flex justify-between">
                             <span className="font-medium">Mint Fee:</span>
@@ -2092,9 +2092,9 @@ export default function InteractionClient() {
                   <div className="text-xs text-stone-500 dark:text-stone-400">Paid to pool creator</div>
                 </div>
                 <div className="bg-stone-50 dark:bg-[#1a1d28] p-4 rounded-xl border border-stone-200/80 dark:border-amber-900/20">
-                  <div className="font-medium text-stone-600 dark:text-stone-400 mb-1">Treasury Fee</div>
-                  <div className="font-bold text-sm md:text-lg text-stone-900 dark:text-stone-100">{poolData.treasury_fee}%</div>
-                  <div className="text-xs text-stone-500 dark:text-stone-400">Paid to treasury</div>
+                  <div className="font-medium text-stone-600 dark:text-stone-400 mb-1">Dev Fee</div>
+                  <div className="font-bold text-sm md:text-lg text-stone-900 dark:text-stone-100">{poolData.dev_fee}%</div>
+                  <div className="text-xs text-stone-500 dark:text-stone-400">Forwarded to dev fee receiver</div>
                 </div>
               </div>
               <div className="text-sm text-stone-500 dark:text-stone-400 bg-stone-100/80 dark:bg-[#1a1d28]/60 p-4 rounded-xl border border-stone-200/50 dark:border-amber-900/15">

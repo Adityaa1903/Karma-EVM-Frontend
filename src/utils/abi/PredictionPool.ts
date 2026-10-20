@@ -1,81 +1,5 @@
 export const PredictionPoolABI = [
   {
-    "type": "constructor",
-    "inputs": [
-      {
-        "name": "_poolName",
-        "type": "string",
-        "internalType": "string"
-      },
-      {
-        "name": "_baseToken",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "_vaultCreator",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "_oracle",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "_accumulatorVault",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "bullName",
-        "type": "string",
-        "internalType": "string"
-      },
-      {
-        "name": "bullSymbol",
-        "type": "string",
-        "internalType": "string"
-      },
-      {
-        "name": "bearName",
-        "type": "string",
-        "internalType": "string"
-      },
-      {
-        "name": "bearSymbol",
-        "type": "string",
-        "internalType": "string"
-      },
-      {
-        "name": "_mintFee",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
-      {
-        "name": "_burnFee",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
-      {
-        "name": "_creatorFee",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
-      {
-        "name": "_treasuryFee",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable"
-  },
-  {
     "type": "function",
     "name": "DENOMINATOR",
     "inputs": [],
@@ -87,6 +11,13 @@ export const PredictionPoolABI = [
       }
     ],
     "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "acceptOwnership",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
   },
   {
     "type": "function",
@@ -168,13 +99,39 @@ export const PredictionPoolABI = [
   },
   {
     "type": "function",
-    "name": "fateOracle",
+    "name": "devFee",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "expectedInitialDeposit",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "factory",
     "inputs": [],
     "outputs": [
       {
         "name": "",
         "type": "address",
-        "internalType": "contract IFateOracle"
+        "internalType": "address"
       }
     ],
     "stateMutability": "view"
@@ -208,7 +165,7 @@ export const PredictionPoolABI = [
         "internalType": "uint256"
       },
       {
-        "name": "tradeCount",
+        "name": "tradeCount_",
         "type": "uint256",
         "internalType": "uint256"
       }
@@ -253,7 +210,7 @@ export const PredictionPoolABI = [
     "name": "initialize",
     "inputs": [
       {
-        "name": "initialDeposit",
+        "name": "initialDeposit_",
         "type": "uint256",
         "internalType": "uint256"
       }
@@ -315,6 +272,19 @@ export const PredictionPoolABI = [
   },
   {
     "type": "function",
+    "name": "pendingOwner",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "poolName",
     "inputs": [],
     "outputs": [
@@ -355,19 +325,6 @@ export const PredictionPoolABI = [
   },
   {
     "type": "function",
-    "name": "setFateOracle",
-    "inputs": [
-      {
-        "name": "newFateOracle",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
     "name": "transferOwnership",
     "inputs": [
       {
@@ -378,19 +335,6 @@ export const PredictionPoolABI = [
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "treasuryFee",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
   },
   {
     "type": "function",
@@ -420,38 +364,6 @@ export const PredictionPoolABI = [
   },
   {
     "type": "event",
-    "name": "FateOracleSet",
-    "inputs": [
-      {
-        "name": "previousFateOracle",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "newFateOracle",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "type": "event",
-    "name": "FateOracleUpdateFailed",
-    "inputs": [
-      {
-        "name": "fateOracleAddress",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "type": "event",
     "name": "OracleUpdated",
     "inputs": [
       {
@@ -462,6 +374,25 @@ export const PredictionPoolABI = [
       },
       {
         "name": "newOracle",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OwnershipTransferStarted",
+    "inputs": [
+      {
+        "name": "previousOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "newOwner",
         "type": "address",
         "indexed": true,
         "internalType": "address"
@@ -606,6 +537,11 @@ export const PredictionPoolABI = [
   },
   {
     "type": "error",
+    "name": "InitialDepositMismatch",
+    "inputs": []
+  },
+  {
+    "type": "error",
     "name": "InvalidAddress",
     "inputs": []
   },
@@ -616,7 +552,12 @@ export const PredictionPoolABI = [
   },
   {
     "type": "error",
-    "name": "NotIFateOracle",
+    "name": "InvalidOracle",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "OnlyFactory",
     "inputs": []
   },
   {
@@ -648,11 +589,6 @@ export const PredictionPoolABI = [
   },
   {
     "type": "error",
-    "name": "ReentrancyGuardReentrantCall",
-    "inputs": []
-  },
-  {
-    "type": "error",
     "name": "SafeERC20FailedOperation",
     "inputs": [
       {
@@ -662,4 +598,4 @@ export const PredictionPoolABI = [
       }
     ]
   }
-]
+];

@@ -15,7 +15,7 @@ const balanced: SellQuoteInput = {
   previousPrice: E18,
   oraclePrice: E18,
   burnFee: BigInt(400),      // 0.4%
-  treasuryFee: BigInt(300),  // 0.3%
+  devFee: BigInt(300),  // 0.3%
   creatorFee: BigInt(200),   // 0.2%
   baseDecimals: 18,
 };
@@ -32,7 +32,7 @@ describe("estimateSell", () => {
     expect(q.price).toBe(DENOMINATOR);
     expect(q.amountBeforeFees).toBe(BigInt(10) * E18);
     expect(q.vaultAmount).toBe(BigInt(4) * E18 / BigInt(100));      // 0.4% of 10
-    expect(q.treasuryAmount).toBe(BigInt(3) * E18 / BigInt(100));
+    expect(q.devFeeAmount).toBe(BigInt(3) * E18 / BigInt(100));
     expect(q.creatorAmount).toBe(BigInt(2) * E18 / BigInt(100));
     expect(q.totalFees).toBe(BigInt(9) * E18 / BigInt(100));
     expect(q.amountOut).toBe(BigInt(991) * E18 / BigInt(100));       // 9.91
@@ -93,7 +93,7 @@ describe("estimateSell", () => {
   });
 
   it("passes the value through untouched on a fee-free pool", () => {
-    const q = ok({ ...balanced, burnFee: BigInt(0), treasuryFee: BigInt(0), creatorFee: BigInt(0) });
+    const q = ok({ ...balanced, burnFee: BigInt(0), devFee: BigInt(0), creatorFee: BigInt(0) });
     expect(q.totalFees).toBe(BigInt(0));
     expect(q.amountOut).toBe(q.amountBeforeFees);
     expect(q.effectiveFeeRate).toBe(BigInt(0));

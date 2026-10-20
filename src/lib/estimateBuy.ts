@@ -69,7 +69,7 @@ export type BuyQuoteInput = {
   previousPrice: bigint;     // oracle price at the last rebalance
   oraclePrice: bigint;       // oracle price now
   mintFee: bigint;
-  treasuryFee: bigint;
+  devFee: bigint;
   creatorFee: bigint;
   baseDecimals: number;
 };
@@ -77,7 +77,7 @@ export type BuyQuoteInput = {
 export type BuyQuote = {
   amountIn: bigint;
   vaultAmount: bigint;
-  treasuryAmount: bigint;
+  devFeeAmount: bigint;
   creatorAmount: bigint;
   totalFees: bigint;
   amountAfterFees: bigint;
@@ -99,7 +99,7 @@ export type BuyQuoteResult =
 export function estimateBuy(input: BuyQuoteInput): BuyQuoteResult {
   const {
     amountIn, isBull, bullReserve, bearReserve, totalSupply,
-    previousPrice, oraclePrice, mintFee, treasuryFee, creatorFee, baseDecimals,
+    previousPrice, oraclePrice, mintFee, devFee, creatorFee, baseDecimals,
   } = input;
 
   if (baseDecimals < 0 || baseDecimals > 18) return { ok: false, reason: 'cannot-quote' };
@@ -111,15 +111,15 @@ export function estimateBuy(input: BuyQuoteInput): BuyQuoteResult {
 
   // Each fee rounds up on its own, so a tiny amount can owe more than it is worth.
   const vaultAmount = divUp(amountIn * mintFee, DENOMINATOR);
-  const treasuryAmount = divUp(amountIn * treasuryFee, DENOMINATOR);
+  const devFeeAmount = divUp(amountIn * devFee, DENOMINATOR);
   const creatorAmount = divUp(amountIn * creatorFee, DENOMINATOR);
-  const totalFees = vaultAmount + treasuryAmount + creatorAmount;
+  const totalFees = vaultAmount + devFeeAmount + creatorAmount;
   if (totalFees > amountIn) return { ok: false, reason: 'amount-below-fees' };
 
   const amountAfterFees = amountIn - totalFees;
 
   // Compared cross-multiplied so nothing is lost to division.
-  const nominalFeeRate = mintFee + treasuryFee + creatorFee;
+  const nominalFeeRate = mintFee + devFee + creatorFee;
   const effectiveFeeRate =
     amountIn === ZERO ? ZERO : (totalFees * DENOMINATOR) / amountIn;
   const roundingInflated = feeRoundingInflated(totalFees, amountIn, nominalFeeRate);
@@ -137,7 +137,7 @@ export function estimateBuy(input: BuyQuoteInput): BuyQuoteResult {
   return {
     ok: true,
     quote: {
-      amountIn, vaultAmount, treasuryAmount, creatorAmount,
+      amountIn, vaultAmount, devFeeAmount, creatorAmount,
       totalFees, amountAfterFees, coinsOut, effectivePrice,
       nominalFeeRate, effectiveFeeRate, feeRoundingInflated: roundingInflated,
     },

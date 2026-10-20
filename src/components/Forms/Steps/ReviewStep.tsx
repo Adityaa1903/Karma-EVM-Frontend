@@ -25,7 +25,7 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
     parseFloat(formData.mintFee || "0") +
     parseFloat(formData.burnFee || "0") +
     parseFloat(formData.creatorFee || "0") +
-    parseFloat(formData.treasuryFee || "0")
+    parseFloat(formData.devFee || "0")
   ).toFixed(2);
 
   return (
@@ -162,9 +162,9 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600 dark:text-gray-400">Treasury Fee:</span>
+              <span className="text-gray-600 dark:text-gray-400">Dev Fee:</span>
               <span className="font-medium text-black dark:text-white">
-                {formData.treasuryFee || "0"}%
+                {formData.devFee || "0"}%
               </span>
             </div>
             <div className="flex justify-between border-t pt-2 mt-2">

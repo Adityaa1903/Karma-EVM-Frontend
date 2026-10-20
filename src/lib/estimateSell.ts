@@ -16,7 +16,7 @@ export type SellQuoteInput = {
   previousPrice: bigint;     // oracle price at the last rebalance
   oraclePrice: bigint;       // oracle price now
   burnFee: bigint;
-  treasuryFee: bigint;
+  devFee: bigint;
   creatorFee: bigint;
   baseDecimals: number;
 };
@@ -26,7 +26,7 @@ export type SellQuote = {
   price: bigint;             // DENOMINATOR terms
   amountBeforeFees: bigint;  // base decimals
   vaultAmount: bigint;       // goes to the other coin's reserve
-  treasuryAmount: bigint;
+  devFeeAmount: bigint;
   creatorAmount: bigint;
   totalFees: bigint;
   amountOut: bigint;         // base decimals
@@ -51,7 +51,7 @@ export type SellQuoteResult =
 export function estimateSell(input: SellQuoteInput): SellQuoteResult {
   const {
     amountIn, isBull, bullReserve, bearReserve, totalSupply,
-    previousPrice, oraclePrice, burnFee, treasuryFee, creatorFee, baseDecimals,
+    previousPrice, oraclePrice, burnFee, devFee, creatorFee, baseDecimals,
   } = input;
 
   if (baseDecimals < 0 || baseDecimals > 18) return { ok: false, reason: 'cannot-quote' };
@@ -73,20 +73,20 @@ export function estimateSell(input: SellQuoteInput): SellQuoteResult {
   if (amountBeforeFees === ZERO) return { ok: false, reason: 'rounds-to-zero' };
 
   const vaultAmount = divUp(amountBeforeFees * burnFee, DENOMINATOR);
-  const treasuryAmount = divUp(amountBeforeFees * treasuryFee, DENOMINATOR);
+  const devFeeAmount = divUp(amountBeforeFees * devFee, DENOMINATOR);
   const creatorAmount = divUp(amountBeforeFees * creatorFee, DENOMINATOR);
-  const totalFees = vaultAmount + treasuryAmount + creatorAmount;
+  const totalFees = vaultAmount + devFeeAmount + creatorAmount;
   if (totalFees > amountBeforeFees) return { ok: false, reason: 'amount-below-fees' };
 
   const amountOut = amountBeforeFees - totalFees;
-  const nominalFeeRate = burnFee + treasuryFee + creatorFee;
+  const nominalFeeRate = burnFee + devFee + creatorFee;
   const effectiveFeeRate = (totalFees * DENOMINATOR) / amountBeforeFees;
   const effectivePrice = (scaleUp(amountOut, decimals) * DENOMINATOR) / amountIn;
 
   return {
     ok: true,
     quote: {
-      amountIn, price, amountBeforeFees, vaultAmount, treasuryAmount, creatorAmount,
+      amountIn, price, amountBeforeFees, vaultAmount, devFeeAmount, creatorAmount,
       totalFees, amountOut, effectivePrice, nominalFeeRate, effectiveFeeRate,
       feeRoundingInflated: feeRoundingInflated(totalFees, amountBeforeFees, nominalFeeRate),
     },

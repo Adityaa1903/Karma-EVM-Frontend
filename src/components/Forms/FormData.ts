@@ -12,7 +12,7 @@ export interface FormData {
   mintFee: string;
   burnFee: string;
   creatorFee: string;
-  treasuryFee: string;
+  devFee: string;
   initialDeposit: string;
   quoteTokenAddress?: string; 
   oracleDescription?: string; 

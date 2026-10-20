@@ -94,7 +94,7 @@ export default function CreateKarmaPool() {
     mintFee: "3.0",
     burnFee: "3.0",
     creatorFee: "2.0",
-    treasuryFee: "0.5",
+    devFee: "0.5",
     initialDeposit: "0"
   });
 
@@ -175,14 +175,14 @@ export default function CreateKarmaPool() {
        const mintFee = parseFloat(formData.mintFee);
        const burnFee = parseFloat(formData.burnFee);
        const creatorFee = parseFloat(formData.creatorFee);
-       const treasuryFee = parseFloat(formData.treasuryFee);
+       const devFee = parseFloat(formData.devFee);
 
        if (isNaN(mintFee) || mintFee < 0) newErrors.mintFee = "Invalid fee value";
        if (isNaN(burnFee) || burnFee < 0) newErrors.burnFee = "Invalid fee value";
        if (isNaN(creatorFee) || creatorFee < 0) newErrors.creatorFee = "Invalid fee value";
-       if (isNaN(treasuryFee) || treasuryFee < 0) newErrors.treasuryFee = "Invalid fee value";
+       if (isNaN(devFee) || devFee < 0) newErrors.devFee = "Invalid fee value";
 
-       const totalFee = mintFee + burnFee + creatorFee + treasuryFee;
+       const totalFee = mintFee + burnFee + creatorFee + devFee;
        if (totalFee >= 100) {
          newErrors.mintFee = "Total fees must be less than 100%";
        }
@@ -236,7 +236,7 @@ export default function CreateKarmaPool() {
        const mintFeeUnits = Math.floor((parseFloat(formData.mintFee) / 100) * DENOMINATOR);
        const burnFeeUnits = Math.floor((parseFloat(formData.burnFee) / 100) * DENOMINATOR);
        const creatorFeeUnits = Math.floor((parseFloat(formData.creatorFee) / 100) * DENOMINATOR);
-       const treasuryFeeUnits = Math.floor((parseFloat(formData.treasuryFee) / 100) * DENOMINATOR);
+       const devFeeUnits = Math.floor((parseFloat(formData.devFee) / 100) * DENOMINATOR);
 
       const baseTokenAddress = formData.baseTokenAddress.trim();
       let oracleAddress: `0x${string}`;
@@ -430,7 +430,7 @@ export default function CreateKarmaPool() {
           BigInt(mintFeeUnits),
           BigInt(burnFeeUnits),
           BigInt(creatorFeeUnits),
-          BigInt(treasuryFeeUnits),
+          BigInt(devFeeUnits),
           initialDepositAmount,
         ],
       });

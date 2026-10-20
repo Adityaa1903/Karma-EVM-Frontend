@@ -147,7 +147,7 @@ export interface PoolDetails {
   creatorFee: number;
   mintFee: number;
   burnFee: number;
-  treasuryFee: number;
+  devFee: number;
   bullPercentage: number;
   bearPercentage: number;
   chainId: SupportedChainId;
@@ -172,7 +172,7 @@ export interface TokenDetails {
   mint_fee?: bigint;
   burn_fee?: bigint;
   creator_fee?: bigint;
-  treasury_fee?: bigint;
+  dev_fee?: bigint;
   prediction_pool?: string;
   other_token?: string;
   asset?: string;

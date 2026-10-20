@@ -1,61 +1,5 @@
 export const CoinABI = [
   {
-    "type": "constructor",
-    "inputs": [
-      {
-        "name": "name",
-        "type": "string",
-        "internalType": "string"
-      },
-      {
-        "name": "symbol",
-        "type": "string",
-        "internalType": "string"
-      },
-      {
-        "name": "_asset",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "_vaultCreator",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "_predictionPool",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "_accumulatorVault",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "_mintFee",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
-      {
-        "name": "_burnFee",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
-      {
-        "name": "_creatorFee",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
-      {
-        "name": "_treasuryFee",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable"
-  },
-  {
     "type": "function",
     "name": "DENOMINATOR",
     "inputs": [],
@@ -144,6 +88,19 @@ export const CoinABI = [
   },
   {
     "type": "function",
+    "name": "assetDecimals",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint8",
+        "internalType": "uint8"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "balanceOf",
     "inputs": [
       {
@@ -157,19 +114,6 @@ export const CoinABI = [
         "name": "",
         "type": "uint256",
         "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
-  },
-  {
-    "type": "function",
-    "name": "baseDecimals",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint8",
-        "internalType": "uint8"
       }
     ],
     "stateMutability": "view"
@@ -226,12 +170,12 @@ export const CoinABI = [
         "internalType": "uint256"
       },
       {
-        "name": "_treasuryFee",
+        "name": "_devFee",
         "type": "uint256",
         "internalType": "uint256"
       },
       {
-        "name": "_vaultCreatorFee",
+        "name": "_creatorFee",
         "type": "uint256",
         "internalType": "uint256"
       }
@@ -243,12 +187,12 @@ export const CoinABI = [
         "internalType": "uint256"
       },
       {
-        "name": "treasuryAmount",
+        "name": "devFeeAmount",
         "type": "uint256",
         "internalType": "uint256"
       },
       {
-        "name": "vaultCreatorAmount",
+        "name": "creatorAmount",
         "type": "uint256",
         "internalType": "uint256"
       }
@@ -309,6 +253,19 @@ export const CoinABI = [
   },
   {
     "type": "function",
+    "name": "devFee",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "mintFee",
     "inputs": [],
     "outputs": [
@@ -349,6 +306,19 @@ export const CoinABI = [
   {
     "type": "function",
     "name": "otherCoin",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "owner",
     "inputs": [],
     "outputs": [
       {
@@ -422,7 +392,7 @@ export const CoinABI = [
     "name": "setOtherCoin",
     "inputs": [
       {
-        "name": "_otherCoin",
+        "name": "otherCoin_",
         "type": "address",
         "internalType": "address"
       }
@@ -534,19 +504,6 @@ export const CoinABI = [
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "treasuryFee",
-    "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256",
-        "internalType": "uint256"
-      }
-    ],
-    "stateMutability": "view"
   },
   {
     "type": "function",
@@ -701,7 +658,7 @@ export const CoinABI = [
         "internalType": "uint256"
       },
       {
-        "name": "treasuryFeeAmount",
+        "name": "devFeeAmount",
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
@@ -901,17 +858,32 @@ export const CoinABI = [
   },
   {
     "type": "error",
+    "name": "InsufficientReserve",
+    "inputs": []
+  },
+  {
+    "type": "error",
     "name": "InvalidFeeConfiguration",
     "inputs": []
   },
   {
     "type": "error",
-    "name": "MissingDecimals",
+    "name": "MissingOtherCoin",
     "inputs": []
   },
   {
     "type": "error",
     "name": "OnlyPredictionPool",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "OtherCoinAlreadySet",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ReentrancyGuardReentrantCall",
     "inputs": []
   },
   {
@@ -939,5 +911,10 @@ export const CoinABI = [
     "type": "error",
     "name": "ZeroAddress",
     "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ZeroAmount",
+    "inputs": []
   }
-]
+];

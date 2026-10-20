@@ -32,12 +32,12 @@ const FeeConfigurationStep: React.FC<FeeConfigurationStepProps> = ({
         mintFee: formData.mintFee || "3.0",
         burnFee: formData.burnFee || "3.0",
         creatorFee: formData.creatorFee || "2.0",
-        treasuryFee: formData.treasuryFee || "0.5"
+        devFee: formData.devFee || "0.5"
       };
       updateFormData(defaults);
       hasSetDefaults.current = true;
     }
-  }, [formData.mintFee, formData.burnFee, formData.creatorFee, formData.treasuryFee, updateFormData]);
+  }, [formData.mintFee, formData.burnFee, formData.creatorFee, formData.devFee, updateFormData]);
 
   const handleFeeChange = (e: React.ChangeEvent<HTMLInputElement>, field: keyof FormData) => {
     const value = e.target.value.trim();
@@ -175,7 +175,7 @@ const FeeConfigurationStep: React.FC<FeeConfigurationStepProps> = ({
           <div className="flex items-center gap-2">
             <Percent className="h-4 w-4 text-gray-600 dark:text-gray-400" />
             <Label className="text-sm font-medium text-gray-600 dark:text-gray-400">
-              Treasury Fee *
+              Dev Fee *
             </Label>
             <TooltipProvider>
               <Tooltip>
@@ -184,7 +184,7 @@ const FeeConfigurationStep: React.FC<FeeConfigurationStepProps> = ({
                 </TooltipTrigger>
                 <TooltipContent className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400">
                   <p className="w-64 text-sm">
-                    Percentage fee that goes to the protocol treasury (0-100%)
+                    Percentage fee that goes to the dev fee receiver (0-100%)
                   </p>
                 </TooltipContent>
               </Tooltip>
@@ -196,14 +196,14 @@ const FeeConfigurationStep: React.FC<FeeConfigurationStepProps> = ({
             step="0.01"
             min="0"
             max="100"
-            value={formData.treasuryFee}
-            onChange={(e) => handleFeeChange(e, 'treasuryFee')}
+            value={formData.devFee}
+            onChange={(e) => handleFeeChange(e, 'devFee')}
             className={`transition-all focus:ring-2 focus:ring-black dark:focus:ring-white border-gray-200 dark:border-gray-700 text-black dark:text-white ${
-              errors.treasuryFee ? "border-red-500" : ""
+              errors.devFee ? "border-red-500" : ""
             }`}
           />
-          {errors.treasuryFee && (
-            <p className="text-red-500 text-sm">{errors.treasuryFee}</p>
+          {errors.devFee && (
+            <p className="text-red-500 text-sm">{errors.devFee}</p>
           )}
         </div>
       </div>
